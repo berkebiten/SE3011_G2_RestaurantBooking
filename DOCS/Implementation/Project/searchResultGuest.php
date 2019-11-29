@@ -36,6 +36,9 @@ $query = mysqli_query($conn, "select * from restaurant_owner where rest_name='$r
                     ?>
                 </table>
             </div>
+            <div class="panky" style="margin-left:50%;">
+                <iframe src="https://giphy.com/embed/WopNGhTAbEw6zXHxVD" width="427" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+            </div>
         </div>
 
     </body>
