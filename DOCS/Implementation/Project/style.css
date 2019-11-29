@@ -1,0 +1,333 @@
+
+body{
+
+    background-image: url("img/918404.jpg");
+
+}
+.top{
+    background-color:#a09d9d;
+}
+.top button{
+    float : right ;
+    margin-top : 20px;
+    margin-right : 20px;
+    box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+    background:linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
+    background-color: #a09d9d;
+    border-radius:6px;
+    border:1px solid #84bbf3;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:15px;
+    font-weight:bold;
+    padding:6px 24px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #528ecc;  
+}
+
+.searchpart{
+    background-image:url("img/homepage-bg.jpeg");
+    margin-top : 40px;
+    background-size : cover ;
+    padding: 100px;
+}
+
+#searchButton {
+    box-shadow:inset 0px 1px 0px 0px #f5978e;
+    background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+    background-color:#f24537;
+    border-radius:6px;
+    border:1px solid #d02718;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:15px;
+    font-weight:bold;
+    padding:6px 24px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #810e05;
+}
+#searchButton:hover {
+    background-color:#eb675e;
+}
+
+
+.searchinputs{
+    width:250px;
+    padding: 12px 20px;
+    margin: 8px 0;
+
+}
+
+.container{
+    width:100%;
+    height:100%;
+}
+.container h1{
+    text-align:center ;
+    font-size:40px;
+    color:red;
+    font-family:Trattatello, fantasy;
+    margin-top : 50px;
+}
+.container h2{
+    margin-top : 100px;
+    text-align : center ;
+}
+
+.mostpopular{
+    margin-top : 70px;
+    margin-left : 200px ;
+
+}
+.form-popup {
+    display: none;
+    position: fixed;
+    top : 0;
+    left : 0 ;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    width: 100%; 
+    height: 100%;
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+.form-container {
+    overflow-y:scroll;
+    max-width: 300px;
+    max-height: 500px;
+    padding: 30px;
+    margin: 5% auto 5% auto;
+    background-color : white ;
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s;
+}
+.form-container input[type=text], input[type=password],input[type=number],input[type=email]{
+    width: 100%;
+    padding: 16px 0px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+}
+#email{
+    width: 100%;
+    padding: 16px 0px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+}
+
+.form-container .btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+}
+.form-container .cancel {
+    background-color: red;
+}
+.form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+}
+
+.form-container h3{
+    text-align: center;
+    color : red;
+    font-style: italic;
+    font-weight: 900;
+    font-size : 30px ;
+}
+
+
+
+#ca{
+    float:right;
+    width:120px;
+    text-align: center ;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 0px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;   
+}
+#ca:hover {
+    opacity:1;
+}
+
+#cancel{
+    float:right;
+    width: 120px;
+    text-align: center ;
+    background-color: red;
+    color: white;
+    padding: 14px 20px;
+    margin: 0px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#cancel:hover {
+    opacity:1;
+}
+
+.form-popup label {
+    color : black ;
+}
+
+#combobox{
+    width:200px;
+}
+
+#profile {
+    top: 25px;
+    right: 130px;
+}
+
+#signout {
+    top: 25px;
+    right: 10px;
+}
+
+
+//START OF ADMIN
+.wholepanel{
+    width:100%;
+    height:100%;
+    background-color:red;
+
+}
+.adminpanel{
+
+
+    position:absolute;
+    float:left;
+
+    box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+    background:linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
+    background-color:#79bbff;
+
+    border-radius:6px;
+    border:1px solid #84bbf3;
+    display:inline-block;
+
+    color:#ffffff;
+    font-size:15px;
+    height:90%;
+    width:15%;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #528ecc;  
+}
+
+.adminpanel ul {
+    list-style-type: none;
+    padding: 0;
+    height: 90%;
+
+    background-color:gray;
+}
+
+.adminpanel ul h1{
+    color:black;
+    font-family: Arial;
+    text-decoration: underline;
+}
+
+.adminpanel li a {
+    display: block;
+    color: lightblue;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-family:Arial;
+    border:1px solid #555;
+    cursor:pointer;
+}
+
+.adminpanel li a:hover {
+    background-color: #555;
+    color: white;
+}
+
+#adminsearch{
+    display: none;
+    margin-top : auto;
+    margin-left : auto;
+    position : absolute ;
+    top: 35%;
+    left : 30% ;
+    width:500px;
+    height:100px;
+    background-image:url("img/adminsearchbg.jpg");
+    background-size: cover;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s;
+    padding-left:  100px;
+    padding-top:  100px;
+    padding-bottom:100px;
+    padding-right: 100px;
+}
+
+//END OF ADMIN
+
+
+#searchResults {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 40%;
+}
+
+#searchResults td, #searchResults th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#searchResults tr:nth-child(even){background-color: #f2f2f2;}
+#searchResults tr:nth-child(odd){background-color: #C7C3C3;}
+
+#searchResults tr:hover {background-color: #ddd;}
+
+#searchResults th {
+    width:max-content;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #f24537;
+    color: white;
+}
+
+#searchResults button{
+    margin-top:10%;
+    box-shadow:inset 0px 1px 0px 0px #f5978e;
+    background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+    background-color:#f24537;
+    border-radius:6px;
+    border:1px solid #d02718;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:15px;
+    font-weight:bold;
+    padding:6px 24px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #810e05; 
+}
