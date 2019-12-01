@@ -114,7 +114,7 @@ body{
     -webkit-animation: animatezoom 0.6s;
     animation: animatezoom 0.6s;
 }
-.form-container input[type=text], input[type=password],input[type=number],input[type=email]{
+.form-container input[type=text], input[type=password],input[type=number],input[type=email], #bookingDate, #bookingTime {
     width: 100%;
     padding: 16px 0px;
     margin: 5px 0 22px 0;
@@ -330,4 +330,34 @@ body{
     padding:6px 24px;
     text-decoration:none;
     text-shadow:0px 1px 0px #810e05; 
+}
+/*filter start*/
+
+.filters {
+    background-color: white;
+    height: 100%;
+    float: left;
+    width: 9%;
+    margin-right: 3%;
+}
+.filters p{
+    text-align: center;
+    font-weight: bold;
+}
+.filters input[type="submit"]{
+    box-shadow:inset 0px 1px 0px 0px #f5978e;
+    background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+    background-color:#f24537;
+    border-radius:6px;
+    border:1px solid #d02718;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:15px;
+    font-weight:bold;
+    padding:6px 24px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #810e05;
+    width:100%;
 }

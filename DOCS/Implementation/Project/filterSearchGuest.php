@@ -1,9 +1,92 @@
 <?php
 include('session.php');
 include("dbconnect.php");
-$rName = filter_input(INPUT_POST, 'rName');
-$query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIKE '%$rName%' OR address LIKE '%$rName%'");
+$sql = "SELECT * FROM restaurant_owner ";
 
+//cuisine filters
+$cuisinearray = array();
+if (isset($_POST['filterSubmit'])) {
+
+    if (isset($_POST['filter'])) { // filter isimli checkboxlardan hiçbiri dolu değil mi diye kontrol ediyor 
+
+        $sql .= 'WHERE cuisines LIKE '; 
+        $cuisines = $_POST['filter'];
+        foreach ($_POST['filter'] as $cuisines) {
+            $cuisinearray[] = "'%" . $cuisines . "%'";
+        }
+        $states = implode(" OR cuisines LIKE ", $cuisinearray);
+        $sql .= $states;
+    }
+}
+
+
+//seating filters
+$seatingarray = array();
+if (isset($_POST['filterSubmit'])) {
+
+    if (isset($_POST['filter1'])) { // filter1 isimli checkboxlardan hiçbiri dolu değil mi diye kontrol ediyor 
+
+        if (!isset($_POST['filter'])) {  // filter isimli checkboxlardan hiçbiri dolu değil mi diye kontrol ediyor oan göre query düzenliyor. dolu değilse WHERE doluysa AND 
+            $sql .= 'WHERE seating_option LIKE ';
+        } else {
+            $sql .= ' AND seating_option LIKE ';
+        }
+
+        $seating = $_POST['filter1'];
+        foreach ($_POST['filter1'] as $seating) {
+            $seatingarray[] = "'%" . $seating . "%'";
+        }
+        $states1 = implode(" OR seating_option LIKE ", $seatingarray);
+        $sql .= $states1;
+    }
+}
+
+//price filters
+$pricearray = array();
+if (isset($_POST['filterSubmit'])) {
+
+    if (isset($_POST['filter2'])) { // filter2 isimli checkboxlardan hiçbiri dolu değil mi diye kontrol ediyor 
+
+        if (!isset($_POST['filter']) && !isset($_POST['filter1'])) {  // filter, filter1 isimli checkboxlardan hiçbiri dolu değil mi diye kontrol ediyor oan göre query düzenliyor. dolu değilse WHERE doluysa AND
+            $sql .= 'WHERE price = ';
+        } else {
+            $sql .= ' AND price = ';
+        }
+
+        $price = $_POST['filter2'];
+        foreach ($_POST['filter2'] as $price) {
+            $pricearray[] = "'" . $price . "'";
+        }
+        $states2 = implode(" OR seating_option LIKE ", $pricearray);
+        $sql .= $states2;
+    }
+}
+
+
+//stars filter
+$starsarray = array();
+if (isset($_POST['filterSubmit'])) {
+
+    if (isset($_POST['filter3'])) { // filter3 isimli checkboxlardan hiçbiri dolu değil mi diye kontrol ediyor 
+
+        if (!isset($_POST['filter']) && !isset($_POST['filter1'])&& !isset($_POST['filter2'])) { // filter, filter1 ve filter2 isimli checkboxlardan hiçbiri dolu değil mi diye kontrol ediyor oan göre query düzenliyor. dolu değilse WHERE doluysa AND
+            $sql .= 'WHERE stars = ';
+        } else {
+            $sql .= ' AND stars = ';
+        }
+
+        $stars = $_POST['filter3'];
+        foreach ($_POST['filter3'] as $stars) {
+            $starsarray[] = "'" . $stars . "'";
+        }
+        $states3 = implode(" OR seating_option LIKE ", $starsarray);
+        $sql .= $states3;
+    }
+}
+
+
+$result = mysqli_query($conn, $sql);
+//post methodunadan çekiyor query ye koyuyo implode bir arrayın her elemanı arasına OR cuisines LIKE koyuyor
 ?>
 
 <html>
@@ -11,6 +94,7 @@ $query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIK
     <link rel="stylesheet" type="text/css" href="style.css"></link>
     <script src="scripts.js"></script>
     <body>
+        <?php echo $sql ?> <!-- to see the written query in the first php block !-->
     <div class="container" id="fullC">
 
         <div class="top">
@@ -20,7 +104,7 @@ $query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIK
             <a href="returnHP.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
         </div> 
 
-        <div class="filters">            
+        <div class="filters"> 
             <form action="filterSearchGuest.php" method="post">
                 <div class="cuisineOptions">
                     <table>
@@ -75,13 +159,14 @@ $query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIK
                 <?php
                 echo "<tr><th style=width:30%;> Restaurant Name </th><th style=width:40%;> Adress </th><th style=width:20%;> Phone Number </th><th style=width:10%;>  </th></tr> <br>";
 
-                while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
-                    echo "<tr> <td> " . $row["rest_name"] . " </td>"
+                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+
+                    echo "<tr> "
+                    . "<td> " . $row["rest_name"] . " </td>"
                     . "<td> " . $row["address"] . " </td>"
                     . "<td> " . $row["phoneNo"] . " </td>
-                               <td> 
-                                    <button onclick='openForm()'>Sign In</button>
-                                     </td></tr> <br>";
+                       <td> <button onclick='openForm()'>Sign In</button></td>
+                       </tr> <br>";
                 }
                 echo "</table>";
                 ?>
@@ -104,3 +189,4 @@ $query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIK
         </form>
     </div>
 </html>
+

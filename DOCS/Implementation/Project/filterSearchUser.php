@@ -1,9 +1,87 @@
 <?php
 include('session.php');
 include("dbconnect.php");
-$rName = filter_input(INPUT_POST, 'rName');
-$query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIKE '%$rName%' OR address LIKE '%$rName%'");
+//$query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIKE '%$rName%' OR address LIKE '%$rName%'");
 
+$sql = "SELECT * FROM restaurant_owner ";
+$cuisinearray = array();
+if (isset($_POST['filterSubmit'])) {
+
+    if (isset($_POST['filter'])) {
+
+        $sql .= 'WHERE cuisines LIKE ';
+        $cuisines = $_POST['filter'];
+        foreach ($_POST['filter'] as $cuisines) {
+            $cuisinearray[] = "'%" . $cuisines . "%'";
+        }
+        $states = implode(" OR cuisines LIKE ", $cuisinearray);
+        $sql .= $states;
+    }
+}
+
+$seatingarray = array();
+if (isset($_POST['filterSubmit'])) {
+
+    if (isset($_POST['filter1'])) {
+
+        if (!isset($_POST['filter'])) {
+            $sql .= 'WHERE seating_option LIKE ';
+        } else {
+            $sql .= ' AND seating_option LIKE ';
+        }
+
+        $seating = $_POST['filter1'];
+        foreach ($_POST['filter1'] as $seating) {
+            $seatingarray[] = "'%" . $seating . "%'";
+        }
+        $states1 = implode(" OR seating_option LIKE ", $seatingarray);
+        $sql .= $states1;
+    }
+}
+
+$pricearray = array();
+if (isset($_POST['filterSubmit'])) {
+
+    if (isset($_POST['filter2'])) {
+
+        if (!isset($_POST['filter']) && !isset($_POST['filter1'])) {
+            $sql .= 'WHERE price = ';
+        } else {
+            $sql .= ' AND price = ';
+        }
+
+        $price = $_POST['filter2'];
+        foreach ($_POST['filter2'] as $price) {
+            $pricearray[] = "'" . $price . "'";
+        }
+        $states2 = implode(" OR seating_option LIKE ", $pricearray);
+        $sql .= $states2;
+    }
+}
+
+$starsarray = array();
+if (isset($_POST['filterSubmit'])) {
+
+    if (isset($_POST['filter3'])) {
+
+        if (!isset($_POST['filter']) && !isset($_POST['filter1'])&& !isset($_POST['filter2'])) {
+            $sql .= 'WHERE stars = ';
+        } else {
+            $sql .= ' AND stars = ';
+        }
+
+        $stars = $_POST['filter3'];
+        foreach ($_POST['filter3'] as $stars) {
+            $starsarray[] = "'" . $stars . "'";
+        }
+        $states3 = implode(" OR seating_option LIKE ", $starsarray);
+        $sql .= $states3;
+    }
+}
+
+
+$result = mysqli_query($conn, $sql);
+//post methodunadan çekiyor query ye koyuyo implode bir arrayın her elemanı arasına OR cuisines LIKE koyuyor
 ?>
 
 <html>
@@ -14,14 +92,12 @@ $query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIK
     <div class="container" id="fullC">
 
         <div class="top">
-            <button onclick="openForm2()"  id="rsignup">Restaurant Sign Up</button>
-            <button onclick="openForm3()"  id="signup" >Sign Up</button>
-            <button onclick="openForm()"   id="signin" >Sign In</button>         
+            <a href = "index.php"><button action = "SignOut.php" id="signout">Sign Out </button></a>
+            <button id="profile" ><?php echo $_SESSION['username'] ?></button>
             <a href="returnHP.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
         </div> 
-
-        <div class="filters">            
-            <form action="filterSearchGuest.php" method="post">
+        <div class="filters">  
+            <form action="filterSearchUser.php" method="post">
                 <div class="cuisineOptions">
                     <table>
                         <tr><p>Cuisines</p></tr>
@@ -75,12 +151,13 @@ $query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIK
                 <?php
                 echo "<tr><th style=width:30%;> Restaurant Name </th><th style=width:40%;> Adress </th><th style=width:20%;> Phone Number </th><th style=width:10%;>  </th></tr> <br>";
 
-                while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+
                     echo "<tr> <td> " . $row["rest_name"] . " </td>"
                     . "<td> " . $row["address"] . " </td>"
                     . "<td> " . $row["phoneNo"] . " </td>
                                <td> 
-                                    <button onclick='openForm()'>Sign In</button>
+                                    <button onclick='openBookingForm()'>Book</button>
                                      </td></tr> <br>";
                 }
                 echo "</table>";
@@ -89,18 +166,40 @@ $query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIK
         </div>
 
     </body>
-    <div class="form-popup" id="signIn">
-        <form method="post" class="form-container" action="signIn.php">
-            <h3>Sign In</h3>
-            <label for="username"><b>Username</b></label>
-            <input type="text" placeholder="  Enter Username" name="username" required/>
-            <br><br>
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="  Enter Password" name="psw" required/>
-            <span class="forgotpsw"> <a href="#" onclick="openForm4()">Forgot password?</a></span>
-            <br><br>
-            <button type="submit" class="btn">Login</button>
-            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-        </form>
+    <div class="form-popup" id="bookingForm">
+        <form method="post" class="form-container" action="book.php">  
+            <h3>Booking Form</h3>
+            <label for="rName">Restaurant Name</label>
+            <input class="input" type="text" value="<?php echo $rName ?>" placeholder="<?php echo $rName ?>" name="rName" readonly></input> <!-- bu şekilde book.php ye gidiyo book.php filter inputla alıyor !-->
+            <br>
+            <label for="date">Date</label>
+            <input onclick="dateConstraint()" class="input" id="bookingDate" type="date" name="date" reqired></input>
+            <br>
+            <label for="time">Time</label>
+            <input class="input" id="bookingTime" type="time" name="time" required></input>
+            <br>
+            <label for="phoneNo">Phone</label>
+            <input class="input" type="text" placeholder="  Enter Phone Number" name="phoneNo" required></input>
+            <br>
+            <label for="fname">First Name</label>
+            <input class="input" type="text" placeholder="  Enter First Name"name="fname" required></input>
+            <br>
+            <label for="lname">Last Name</label>
+            <input class="input" type="text"  placeholder="  Enter Last Name"name="lname" required></input>
+            <br>
+            <label for="email">Email</label>
+            <input class="input" type="text" placeholder="  Enter E-mail" name="email" required></input>
+            <br>
+            <label for="lname">Party Size</label>
+            <input class="input" type="text" placeholder="  Enter Party Size" name="party" required></input>
+            <br>
+            <input type="submit" onclick="bookingComplete()" id="ca" value="BOOK">
+                <button type="button" id="cancel" onclick="closeBookingForm()" >CANCEL</button> <!-- alert box !-->
+
+        </form>  
     </div>
 </html>
+
+
+
+
