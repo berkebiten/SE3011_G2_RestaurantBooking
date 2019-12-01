@@ -207,7 +207,8 @@ body{
 }
 
 
-//START OF ADMIN
+/*START OF ADMIN*/
+
 .wholepanel{
     width:100%;
     height:100%;
@@ -286,7 +287,7 @@ body{
     padding-right: 100px;
 }
 
-//END OF ADMIN
+/*END OF ADMIN*/
 
 
 #searchResults {
@@ -331,6 +332,7 @@ body{
     text-decoration:none;
     text-shadow:0px 1px 0px #810e05; 
 }
+
 /*filter start*/
 
 .filters {
