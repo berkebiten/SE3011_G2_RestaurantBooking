@@ -94,13 +94,14 @@
         <input placeholder="Enter last name" type="text" name="lname" required/>
         <br><br>
         <label for="uname">Username</label>
-        <input placeholder="Enter username" type="text" name="uname" required/>
+        <input placeholder="Enter username" type="text" name="uname" pattern=".{6,30}" title="between 6 and 30 characters" required/>
         <br><br>
         <label for="email">E-Mail</label>
         <input placeholder="Enter email" type="email" name="email"  required/>
         <br><br>
         <label for="psw">Password</label>
-        <input placeholder="Enter password" type="password" name="psw" required/>
+        <input placeholder="Enter password" type="password" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+               title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required/>
         <button type="button" id="cancel" onclick="closeForm()">Cancel</button>
         <input type="submit" id = "ca" value="Create Account">
     </form>
@@ -115,7 +116,7 @@
         <input placeholder="Enter last name" class="rSign" type="text" name="lname" required/>
         <br><br>
         <label for="uname">Username</label>
-        <input placeholder="Enter username" class="rSign" type="text" name="uname" required/>
+        <input placeholder="Enter username" type="text" name="uname" pattern=".{6,30}" title="between 6 and 30 characters" required/>
         <br><br>
         <label for="uname">Restaurant Name</label>
         <input placeholder="Enter restaurant name" class="rSign" type="text" name="rname" required/>
@@ -124,7 +125,8 @@
         <input placeholder="Enter email" class="rSign" type="email" name="email" required/>
         <br><br>
         <label for="psw">Password</label>
-        <input placeholder="Enter password" class="rSign" type="password" name="psw" required/>
+        <input placeholder="Enter password" class="rSign" type="password" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+               title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required/>
         <label for="uname">Phone No</label>
         <input placeholder="Enter phone no" class="rSign" type="text" name="phone" required/>
         <br><br>

@@ -16,6 +16,7 @@ $count = mysqli_num_rows($query);
 if ($count != 0) {
     echo "<font size='3'>The user has already registered </font> ";
 } else {
+    $password = md5($password); 
     $ekle = mysqli_query($conn, "insert into user values ('$username','$fname' , '$lname' ,'$email', '$password')");
     header("location:returnHP.php");
 }
