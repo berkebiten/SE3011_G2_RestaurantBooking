@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <link href="style.css" rel="stylesheet" ></link>
-
 <script src="scripts.js" type="text/javascript"></script>
 <?php
 include('session.php');
+include("dbconnect.php");
 ?>
 
 <html>
     <head>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>ADMIN PANEL</title>
 
 
 </head>
 <body>
-
 
 <div class=container>
     <div class="top">
@@ -23,6 +22,8 @@ include('session.php');
         <a href="returnHP.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
     </div>
     <div class="wholepanel">
+
+
         <div class="adminpanel">
 
             <ul>
@@ -35,18 +36,47 @@ include('session.php');
             </ul>
         </div>
         <div class="functions">
-            <div  class="adminsearchpart" id="adminsearch">
-                <input type="text" class="searchinputs" placeholder="Restaurant or User Name.."></input>
-                <input type="button" id="searchButton" value="SEARCH">
+            <div class="searchfunction">
 
-            </div> 
+                <!--<div  class="adminsearchpart" id="adminsearch">
+                        <p>SEARCH</p>
+                                    
+                        <input type="text" class="searchinputs" name="entry" placeholder="Restaurant or User Name.."></input>
+                        <input type="button" id="searchButton" value="SEARCH">
+                                    
+                </div>-->
+
+                <div class="adminsearchpart" id="adminsearch">
+                    <input type="text" id="adminsearchinput" onkeyup="searchFilterFunction()" placeholder="Search for usernames.." title="Type in a username">
+                        <div class="old_ie_wrapper">
+                            <table id="adminSearchTable">
+                                <thead>
+                                    <tr class="head">
+                                        <th style="width:60%;">Username</th>
+                                        <th style="width:40%;">Acc_Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php                                    
+                                    $query = mysqli_query($conn, "select uname from restaurant_owner ");
+                                    $query2 = mysqli_query($conn, "select uname from user ");
+                                    while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+                                        echo "<tr> <td> " . $row["uname"] . " </td>"
+                                        . "<td> " . "Restaurant Owner" . " </td> </tr>";
+                                    }
+                                    while ($row2 = mysqli_fetch_array($query2, MYSQLI_ASSOC)) {
+                                        echo "<tr> <td> " . $row2["uname"] . " </td>"
+                                        . "<td> " . "User" . " </td> </tr>";
+                                    }
+                                    ?>
+
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>
-
-
-
-
 </body>
 </html>
