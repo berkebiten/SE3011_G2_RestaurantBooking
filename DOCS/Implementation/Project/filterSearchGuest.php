@@ -86,7 +86,7 @@ if (isset($_POST['filterSubmit'])) {
 
 
 $result = mysqli_query($conn, $sql);
-//post methodunadan çekiyor query ye koyuyo implode bir arrayın her elemanı arasına OR cuisines LIKE koyuyor
+//post methodunadan çekiyor query ye koyuyor implode bir arrayın her elemanı arasına OR cuisines LIKE koyuyor
 ?>
 
 <html>
@@ -101,7 +101,7 @@ $result = mysqli_query($conn, $sql);
             <button onclick="openForm2()"  id="rsignup">Restaurant Sign Up</button>
             <button onclick="openForm3()"  id="signup" >Sign Up</button>
             <button onclick="openForm()"   id="signin" >Sign In</button>         
-            <a href="returnHP.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
+            <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
         </div> 
 
         <div class="filters"> 

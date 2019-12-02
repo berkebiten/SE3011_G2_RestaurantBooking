@@ -10,7 +10,7 @@
     <button onclick="openForm2()"  id="rsignup">Restaurant Sign Up</button>
     <button onclick="openForm3()"  id="signup" >Sign Up</button>
     <button onclick="openForm()"   id="signin" >Sign In</button>         
-    <a href="returnHP.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
+    <a href="RestaurantOwner.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
 </div>
 <h1 style="text-align : center">RESTAURANT NAME</h1>
 <div id="full">

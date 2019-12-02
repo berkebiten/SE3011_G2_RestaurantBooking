@@ -14,10 +14,10 @@ $recCode = generateRandomString();
 $query = mysqli_query($conn, "select * from user where uname='$username' or email='$email'");
 $count = mysqli_num_rows($query);
 if ($count != 0) {
-    echo "<font size='3'>The user has already registered </font> ";
+    echo "<script> alert('Registration Completed.'); </script> ";
 } else {
     $password = md5($password); 
-    $ekle = mysqli_query($conn, "insert into user values ('$username','$fname' , '$lname' ,'$email', '$password')");
+    $ekle = mysqli_query($conn, "insert into user values ('$username','$fname' , '$lname' ,'$email', '$password', '$recCode')");
     header("location:returnHP.php");
 }
 ?>

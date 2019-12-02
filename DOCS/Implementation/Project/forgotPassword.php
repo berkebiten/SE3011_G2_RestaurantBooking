@@ -4,6 +4,7 @@ $recoveryCode = filter_input(INPUT_POST, 'recCode');
 $email = filter_input(INPUT_POST, 'email');
 $password = filter_input(INPUT_POST, 'password');
 $rpassword = filter_input(INPUT_POST, 'rpassword');
+$passwrd= md5($passwrd);
 
 $sql =mysqli_query($conn,"select * from user where email='$email' and recCode = '$recoveryCode' ");
 $count = mysqli_num_rows($sql);

@@ -1,5 +1,7 @@
 <?php
-
+function generateRandomString($length = 8) {
+    return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
+}
 include("dbconnect.php");
 include ("guestHP.php");
 $fname = filter_input(INPUT_POST, 'fname');
@@ -11,6 +13,7 @@ $phoneNo = filter_input(INPUT_POST, 'phone');
 $adress = filter_input(INPUT_POST, 'adress');
 $rname = filter_input(INPUT_POST, 'rname');
 $cap = filter_input(INPUT_POST, 'cap');
+$recCode = generateRandomString();
 
 
 $query = mysqli_query($conn, "select * from restaurant_owner where uname='$username'");
@@ -23,7 +26,8 @@ if (($username == "") or ( $fname == "") or ( $lname == "") or ( $password == ""
 } else if ($count != 0) {
     echo "<font size='3'>The user has already registered </font> ";
 } else {
-    $ekle = mysqli_query($conn, "insert into restaurant_owner values ('$username','$fname' , '$lname' ,'$rname', '$email', '$password', '$adress','$phoneNo' , '$cap')");
+    $password = md5($password); 
+    $ekle = mysqli_query($conn, "insert into restaurant_owner values ('$username','$fname' , '$lname' ,'$rname', '$email', '$password', '$adress','$phoneNo' , '$cap', '$recCode')");
 
     if ($ekle) {
         echo "<br>Registration completed.";

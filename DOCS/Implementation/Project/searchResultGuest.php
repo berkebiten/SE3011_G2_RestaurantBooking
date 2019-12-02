@@ -17,7 +17,7 @@ $query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIK
             <button onclick="openForm2()"  id="rsignup">Restaurant Sign Up</button>
             <button onclick="openForm3()"  id="signup" >Sign Up</button>
             <button onclick="openForm()"   id="signin" >Sign In</button>         
-            <a href="returnHP.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
+            <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
         </div> 
 
         <div class="filters">            

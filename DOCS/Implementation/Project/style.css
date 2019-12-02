@@ -1,7 +1,8 @@
 
 body{
 
-    background-image: url("img/918404.jpg");
+    /*background-image: url("img/918404.jpg");*/
+    background-color:pink;
 
 }
 .top{
@@ -29,9 +30,10 @@ body{
 
 .searchpart{
     background-image:url("img/homepage-bg.jpeg");
-    margin-top : 40px;
+    margin-top : 4%;
     background-size : cover ;
     padding: 100px;
+    width: 100%;
 }
 
 #searchButton {
@@ -54,6 +56,9 @@ body{
     background-color:#eb675e;
 }
 
+.searchForm {
+    margin-left:25%;
+}
 
 .searchinputs{
     width:250px;
@@ -79,8 +84,8 @@ body{
 }
 
 .mostpopular{
-    margin-top : 70px;
-    margin-left : 200px ;
+    margin-top : 2%;
+    margin-left : 27%;
 
 }
 .form-popup {
@@ -215,7 +220,7 @@ body{
     width:99%;
     height:100%;
     background-color:red;
-    
+
 }
 
 .functions{
@@ -281,38 +286,38 @@ body{
 }
 
 #adminsearchinput {
-  background-image: url('/css/searchicon.png');
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
-  width: 900px;
-  font-size: 16px;
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
+    background-image: url('/css/searchicon.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    width: 900px;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
 }
 
 #adminSearchTable {
-  border-collapse: collapse;
-  width:900px;
-  table-layout:fixed;
-  
-  border: 1px solid #ddd;
-  font-size: 18px;
+    border-collapse: collapse;
+    width:900px;
+    table-layout:fixed;
+
+    border: 1px solid #ddd;
+    font-size: 18px;
 }
 
 #adminSearchTable th, #adminSearchTable td {
-  text-align: left;
-  padding: 12px;
+    text-align: left;
+    padding: 12px;
 }
 
 #adminSearchTable tr {
-  background-color: darkgray;  
-  border-bottom: 1px solid #ddd;
-  
+    background-color: darkgray;  
+    border-bottom: 1px solid #ddd;
+
 }
 
 #adminSearchTable tr.head, #adminSearchTable tr:hover {
-  background-color: #f1f1f1;
+    background-color: #f1f1f1;
 }
 
 #adminSearchTable tbody{
@@ -320,17 +325,17 @@ body{
 }
 
 .old_ie_wrapper {
-  height: 500px;
-  width: 900px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  tbody { height: auto; }
+    height: 500px;
+    width: 900px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    tbody { height: auto; }
 }
 
 
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 /*END OF ADMIN*/

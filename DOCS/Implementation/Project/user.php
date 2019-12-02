@@ -15,13 +15,13 @@ include('session.php');
         <div class="top">
             <a href = "index.php"><button action = "SignOut.php" id="signout">Sign Out </button></a>
             <button id="profile" ><?php echo $_SESSION['username'] ?></button>
-            <a href="returnHP.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
+            <a href="user.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
         </div>
 
         <h1>FIND YOUR RESTAURANT</h1>
 
         <div  class="searchpart">
-            <form action="searchResultUser.php" method="post">
+            <form class="searchForm" action="searchResultUser.php" method="post">
                 <select class="searchinputs" required>
                     <option value="0"> Party Size </option>
                     <option value="1">1</option>

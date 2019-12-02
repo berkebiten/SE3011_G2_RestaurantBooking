@@ -14,13 +14,13 @@
         <button onclick="openForm2()"  id="rsignup">Restaurant Sign Up</button>
         <button onclick="openForm3()"  id="signup" >Sign Up</button>
         <button onclick="openForm()"   id="signin" >Sign In</button>         
-        <a href="returnHP.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
+        <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
     </div>
 
     <h1>FIND YOUR RESTAURANT</h1>
 
     <div  class="searchpart">
-        <form action="searchResultGuest.php" method="post">
+        <form class="searchForm" action="searchResultGuest.php" method="post">
             <select class="searchinputs" required>
                 <option value="0"> Party Size </option>
                 <option value="1">1</option>
@@ -76,7 +76,7 @@
         <br><br>
         <label for="psw"><b>Password</b></label>
         <input type="password" placeholder="  Enter Password" name="psw" required/>
-        <span class="forgotpsw"> <a href="#" onclick="openForm4()">Forgot password?</a></span>
+        <span class="forgotpsw"> <a href="forgotPsw.php" onclick="openForm4()">Forgot password?</a></span>
         <br><br>
         <button type="submit" class="btn">Login</button>
         <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
@@ -115,6 +115,7 @@
         <label for="lname">Last Name</label>
         <input placeholder="Enter last name" class="rSign" type="text" name="lname" required/>
         <br><br>
+        <span></span>
         <label for="uname">Username</label>
         <input placeholder="Enter username" type="text" name="uname" pattern=".{6,30}" title="between 6 and 30 characters" required/>
         <br><br>
@@ -140,7 +141,7 @@
         <input type="submit" id = "ca" value="Create Account">
     </form>
 </div>
-
+<!--
 <div class = "form-popup" id="forgotpsw">
     <form method="post" class="form-container">
         <label for="cap">Enter your recovery code and your password will reset.</label>
@@ -148,26 +149,7 @@
         <button type="button" id="cancel" onclick="closeForm()">Cancel</button>
         <button type="button" id="ca">Send</button>
     </form>
-</div>
-
-
-
-<?php
-include("dbconnect.php");
-$username = filter_input(INPUT_POST, 'username');
-$password = filter_input(INPUT_POST, 'psw');
-if (($username == "admin") and ( $password == "password")) {
-    $_SESSION['username'] = $username;
-    echo "<script>location.href='Admin.php';</script>";
-} else if (($username == "restowner") and ( $password == "password")) {
-    $_SESSION['username'] = $username;
-    echo "<script>location.href='RestaurantOwner.php';</script>";
-} else if (($username == "registereduser") and ( $password == "password")) {
-    $_SESSION['username'] = $username;
-    echo "<script>location.href='RegisteredUser.php';</script>";
-}
-?>
-
+</div>-->
 </body>
 </html>
 

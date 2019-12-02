@@ -2,7 +2,7 @@
 <script src="scripts.js"></script>
 <?php
 session_start();
-unset($_SESSION['username']); 
+$_SESSION['username'] = null; 
 header("Location: index.php");
 
 ?>
