@@ -5,7 +5,7 @@ function openForm2() {
     document.getElementById("restSignUp").style.display = "block";
 }
 function openForm3() {
-    document.getElementById("signUp").style.display = "block";
+    document.getElementById("signxp").style.display = "block";
 }
 function openForm4() {
     document.getElementById("forgotpsw").style.display = "block";
@@ -36,7 +36,7 @@ function searchFilterFunction() {
 function closeForm() {
     document.getElementById("signIn").style.display = "none";
     document.getElementById("restSignUp").style.display = "none";
-    document.getElementById("signUp").style.display = "none";
+    document.getElementById("signxp").style.display = "none";
     document.getElementById("forgotpsw").style.display = "none";
     document.getElementById("adminsearch").style.display = "none";
 }

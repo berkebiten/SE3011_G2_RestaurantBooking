@@ -12,8 +12,8 @@
 
     <div class="top">
         <button onclick="openForm2()"  id="rsignup">Restaurant Sign Up</button>
-        <button onclick="openForm3()"  id="signup" >Sign Up</button>
-        <button onclick="openForm()"   id="signin" >Sign In</button>         
+        <a href="signUp.php"><button id="signup" >Sign Up</button></a>
+        <a href="signIn.php"><button    id="signin" >Sign In</button>   </a>      
         <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
     </div>
 
@@ -68,7 +68,7 @@
 
 </div>
 
-<div class="form-popup" id="signIn">
+<!--<div class="form-popup" id="signIn">
     <form method="post" class="form-container" action="signIn.php">
         <h3>Sign In</h3>
         <label for="username"><b>Username</b></label>
@@ -84,8 +84,8 @@
 </div>
 
 
-<div class = "form-popup" id="signUp">
-    <form method="post" class="form-container" action="signUp.php">
+<div class = "form-popup" id="signxp">
+    <form method="post" class="form-container" >
         <h3>Sign Up</h3>
         <label for="fname">First Name</label>
         <input placeholder="Enter first name" type="text" name="fname" required/>
@@ -140,6 +140,7 @@
         <button type="button" id="cancel" onclick="closeForm()">Cancel</button>
         <input type="submit" id = "ca" value="Create Account">
     </form>
+!-->
 </div>
 <!--
 <div class = "form-popup" id="forgotpsw">
