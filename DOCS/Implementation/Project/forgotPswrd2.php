@@ -15,19 +15,27 @@
             <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
         </div>
         <div class="formArea">
-            <form class="formX" method="post" action="forgotPswrd.php">
+            <form class="formX" method="post" action="forgotPswrd2.php">
                 <h1>Forgot Password</h1>
+                <?php echo $email ?>
                 <?php include('errors.php'); ?>
-
                 <div class="input-group">
-                    <label>Email</label>
-                    <input placeholder="Your Account's email address" type="email" name="email" value="<?php echo $email; ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+                    <label>Enter your recovery code</label>
+                    <input placeholder="Your Recovery Code" type="text" placeholder="Recovery Code" name="recIn" required/>
+                    <br><br>
                 </div>
+                <div class="input-group">    
+                    <label><b>Password</b></label>
+                    <input placeholder="Your new password" type="password"  name="password_1" required/>
 
+                </div>
+                <div class="input-group">    
+                    <label><b>Confirm Password</b></label>
+                    <input placeholder="Re-enter your new password" type="password"  name="password_2" required/>
+                </div>
                 <div class="input-group">
-                    <button type="submit" class="btn" name="forgotSend">Send</button>
+                    <button type="submit" class="btn" name="forgot2Send">Confirm</button>
                 </div>
-
             </form>
         </div>
     </div>

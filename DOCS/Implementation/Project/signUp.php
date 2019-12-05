@@ -26,7 +26,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <title>Registration system PHP and MySQL</title>
+    <title>Sign Up</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     </head>
 
@@ -34,10 +34,10 @@
     <body>
     <div class="container" id="fullC">
         <div class="top">
-            <button onclick="openForm2()"  id="rsignup">Restaurant Sign Up</button>
-            <a href="signUp.php"><button  id="signup" >Sign Up</button>
-                <a href="signIn.php"><button    id="signin" >Sign In</button>   </a>      
-                <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
+            <a href="restSignUp.php"><button  id="rsignup">Restaurant Sign Up</button></a>
+            <a href="signUp.php"><button id="signup" >Sign Up</button></a>
+            <a href="signIn.php"><button    id="signin" >Sign In</button>   </a>      
+            <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
         </div>
         <div class="formArea">
             <form class="formX" method="post" action="signUp.php">
@@ -45,29 +45,29 @@
                 <?php include('errors.php'); ?>
                 <div class="input-group">
                     <label>First Name</label>
-                    <input type="text" name="fname" value="<?php echo $fname; ?>" required/>
+                    <input placeholder="Your First Name" type="text" name="fname" value="<?php echo $fname; ?>" required/>
                 </div>
                 <div class="input-group">
                     <label>Last Name</label>
-                    <input type="text" name="lname" value="<?php echo $lname; ?>" required/>
+                    <input placeholder="Your Last Name" type="text" name="lname" value="<?php echo $lname; ?>" required/>
                 </div>
                 <div class="input-group">
                     <label>Username</label>
-                    <input type="text" name="username" value="<?php echo $username; ?>" pattern= ".{6,30}" title="between 6 and 30 characters" required/>
+                    <input placeholder="Pick a username" type="text" name="username" value="<?php echo $username; ?>" pattern= ".{6,30}" title="between 6 and 30 characters" required/>
                 </div>
                 <div class="input-group">
                     <label>Email</label>
-                    <input type="email" name="email" value="<?php echo $email; ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+                    <input placeholder="Your Email Address" type="email" name="email" value="<?php echo $email; ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
                 </div>
                 <div class="input-group">
                     <label>Password</label>
-                    <input type="password" name="password_1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-                           title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
-                           maxlength="50" required/>
+                    <input placeholder="Enter Your Password" type="password" name="password_1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}" 
+                           title="Must contain at least one number and one uppercase and lowercase letter, and between 8-50 characters" 
+                           required/>
                 </div>
                 <div class="input-group">
                     <label>Confirm password</label>
-                    <input type="password" name="password_2" required/>
+                    <input placeholder="Re-Enter Your Password" type="password" name="password_2" required/>
                 </div>
                 <div class="input-group">
                     <button type="submit" class="btn" name="reg_user">Register</button>

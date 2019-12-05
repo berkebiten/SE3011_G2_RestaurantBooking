@@ -35,16 +35,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <title>Registration system PHP and MySQL</title>
+    <title>Sign In</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
     <div class="container" id="fullC">
         <div class="top">
-            <button onclick="openForm2()"  id="rsignup">Restaurant Sign Up</button>
-            <a href="signUp.php"><button  id="signup" >Sign Up</button>
-                <a href="signIn.php"><button    id="signin" >Sign In</button>   </a>      
-                <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
+            <a href="restSignUp.php"><button  id="rsignup">Restaurant Sign Up</button></a>
+            <a href="signUp.php"><button id="signup" >Sign Up</button></a>
+            <a href="signIn.php"><button    id="signin" >Sign In</button>   </a>      
+            <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
         </div>
         <div class="formArea">
             <form class="formX" method="post" action="signIn.php">
@@ -52,20 +52,20 @@
                 <?php include('errors.php'); ?>
                 <div class="input-group">
                     <label>Username</label>
-                    <input type="text" name="username" >
+                    <input placeholder="Username" type="text" name="username" >
                 </div>
                 <div class="input-group">
                     <label>Password</label>
-                    <input type="password" name="password">
+                    <input placeholder="Password" type="password" name="password">
                 </div>
                 <div class="input-group">
-                    <button type="submit" class="btn" name="login_user">Login</button>
+                    <button type="submit" class="btn" name="login_user">Sign In</button>
                 </div>
                 <p>
                     Not a member yet? <a href="signUp.php">Sign up</a>
                 </p>
                 <p>
-                     <a href="forgotPswrd.php">Forgot password?</a>
+                    <a href="forgotPswrd.php">Forgot password?</a>
                 </p>
             </form>
         </div>

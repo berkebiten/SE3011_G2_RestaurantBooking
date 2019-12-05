@@ -11,7 +11,7 @@
 <div class="container" id="fullC">
 
     <div class="top">
-        <button onclick="openForm2()"  id="rsignup">Restaurant Sign Up</button>
+        <a href="restSignUp.php"><button  id="rsignup">Restaurant Sign Up</button></a>
         <a href="signUp.php"><button id="signup" >Sign Up</button></a>
         <a href="signIn.php"><button    id="signin" >Sign In</button>   </a>      
         <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
@@ -140,9 +140,9 @@
         <button type="button" id="cancel" onclick="closeForm()">Cancel</button>
         <input type="submit" id = "ca" value="Create Account">
     </form>
-!-->
+
 </div>
-<!--
+
 <div class = "form-popup" id="forgotpsw">
     <form method="post" class="form-container">
         <label for="cap">Enter your recovery code and your password will reset.</label>
