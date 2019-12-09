@@ -97,12 +97,12 @@ $result = mysqli_query($conn, $sql);
         <?php echo $sql ?> <!-- to see the written query in the first php block !-->
     <div class="container" id="fullC">
 
-        <div class="top">
-            <button onclick="openForm2()"  id="rsignup">Restaurant Sign Up</button>
-            <button onclick="openForm3()"  id="signup" >Sign Up</button>
-            <button onclick="openForm()"   id="signin" >Sign In</button>         
-            <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
-        </div> 
+    <div class="top">
+        <a href="restSignUp.php"><button  id="rsignup">Restaurant Sign Up</button></a>
+        <a href="signUp.php"><button id="signup" >Sign Up</button></a>
+        <a href="signIn.php"><button    id="signin" >Sign In</button>   </a>      
+        <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
+    </div>
 
         <div class="filters"> 
             <form action="filterSearchGuest.php" method="post">
@@ -127,7 +127,7 @@ $result = mysqli_query($conn, $sql);
                         <tr><input type="checkbox" id="selectAll" onclick="checkAll('chk1')" name="filter1" value="All">All</input><br></tr>
                         <tr><input type="checkbox" id="chk1" name="filter1[]" value="Bar">Bar</input><br></tr>
                         <tr><input type="checkbox" id="chk1" name="filter1[]" value="High Top">High Top</input><br>  </tr>
-                        <tr><input type="checkbox" id="chk1" name="filter1[]" value="Standart">Standart</input><br></tr>
+                        <tr><input type="checkbox" id="chk1" name="filter1[]" value="Standart">Standard</input><br></tr>
                         <tr><input type="checkbox" id="chk1" name="filter1[]" value="Outdoor">Outdoor</input><br></tr>
                     </table>
                 </div>
@@ -174,19 +174,5 @@ $result = mysqli_query($conn, $sql);
         </div>
 
     </body>
-    <div class="form-popup" id="signIn">
-        <form method="post" class="form-container" action="signIn.php">
-            <h3>Sign In</h3>
-            <label for="username"><b>Username</b></label>
-            <input type="text" placeholder="  Enter Username" name="username" required/>
-            <br><br>
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="  Enter Password" name="psw" required/>
-            <span class="forgotpsw"> <a href="#" onclick="openForm4()">Forgot password?</a></span>
-            <br><br>
-            <button type="submit" class="btn">Login</button>
-            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-        </form>
-    </div>
 </html>
 

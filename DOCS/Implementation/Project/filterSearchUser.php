@@ -82,7 +82,7 @@ if (isset($_POST['filterSubmit'])) {
 
 
 $result = mysqli_query($conn, $sql);
-//post methodunadan çekiyor query ye koyuyo implode bir arrayın her elemanı arasına OR cuisines LIKE koyuyor
+
 ?>
 
 <html>
@@ -120,7 +120,7 @@ $result = mysqli_query($conn, $sql);
                         <tr><input type="checkbox" id="selectAll" onclick="checkAll('chk1')" name="filter1" value="All">All</input><br></tr>
                         <tr><input type="checkbox" id="chk1" name="filter1[]" value="Bar">Bar</input><br></tr>
                         <tr><input type="checkbox" id="chk1" name="filter1[]" value="High Top">High Top</input><br>  </tr>
-                        <tr><input type="checkbox" id="chk1" name="filter1[]" value="Standart">Standart</input><br></tr>
+                        <tr><input type="checkbox" id="chk1" name="filter1[]" value="Standart">Standard</input><br></tr>
                         <tr><input type="checkbox" id="chk1" name="filter1[]" value="Outdoor">Outdoor</input><br></tr>
                     </table>
                 </div>
@@ -158,7 +158,7 @@ $result = mysqli_query($conn, $sql);
                     . "<td> " . $row["address"] . " </td>"
                     . "<td> " . $row["phoneNo"] . " </td>
                                <td> 
-                                    <button onclick='openBookingForm()'>Book</button>
+                                    <a href='bookingForm.php'><button>Book</button></a>
                                      </td></tr> <br>";
                 }
                 echo "</table>";
@@ -167,11 +167,11 @@ $result = mysqli_query($conn, $sql);
         </div>
 
     </body>
-    <div class="form-popup" id="bookingForm">
+<!--    <div class="form-popup" id="bookingForm">
         <form method="post" class="form-container" action="book.php">  
             <h3>Booking Form</h3>
             <label for="rName">Restaurant Name</label>
-            <input class="input" type="text" value="<?php echo $rName ?>" placeholder="<?php echo $rName ?>" name="rName" readonly></input> <!-- bu şekilde book.php ye gidiyo book.php filter inputla alıyor !-->
+            <input class="input" type="text" value="<?php echo $rName ?>" placeholder="<?php echo $rName ?>" name="rName" readonly></input> 
             <br>
             <label for="date">Date</label>
             <input onclick="dateConstraint()" class="input" id="bookingDate" type="date" name="date" reqired></input>
@@ -195,10 +195,10 @@ $result = mysqli_query($conn, $sql);
             <input class="input" type="text" placeholder="  Enter Party Size" name="party" required></input>
             <br>
             <input type="submit" onclick="bookingComplete()" id="ca" value="BOOK">
-                <button type="button" id="cancel" onclick="closeBookingForm()" >CANCEL</button> <!-- alert box !-->
+                <button type="button" id="cancel" onclick="closeBookingForm()" >CANCEL</button>  alert box !
 
         </form>  
-    </div>
+    </div>-->
 </html>
 
 

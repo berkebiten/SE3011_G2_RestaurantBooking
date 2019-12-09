@@ -3,6 +3,8 @@ include('session.php');
 include("dbconnect.php");
 $rName = filter_input(INPUT_POST, 'rName');
 $query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIKE '%$rName%' OR address LIKE '%$rName%'");
+$query2 = mysqli_query($conn, "SELECT rest_name FROM restaurant_owner WHERE rest_name LIKE '%$rName%' OR address LIKE '%$rName%'");
+$_SESSION['rest_name'] = $query2;
 ?>
 
 
@@ -42,7 +44,7 @@ $query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIK
                         <tr><input type="checkbox" id="selectAll" onclick="checkAll('chk1')" name="filter1" value="All">All</input><br></tr>
                         <tr><input type="checkbox" id="chk1" name="filter1[]" value="Bar">Bar</input><br></tr>
                         <tr><input type="checkbox" id="chk1" name="filter1[]" value="High Top">High Top</input><br>  </tr>
-                        <tr><input type="checkbox" id="chk1" name="filter1[]" value="Standart">Standart</input><br></tr>
+                        <tr><input type="checkbox" id="chk1" name="filter1[]" value="Standart">Standard</input><br></tr>
                         <tr><input type="checkbox" id="chk1" name="filter1[]" value="Outdoor">Outdoor</input><br></tr>
                     </table>
                 </div>
@@ -78,7 +80,7 @@ $query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIK
                     . "<td> " . $row["rest_name"] . " </td>"
                     . "<td> " . $row["address"] . " </td>"
                     . "<td> " . $row["phoneNo"] . " </td>"
-                    . "<td> <button onclick='openBookingForm()'>Book</button></td>"
+                    . "<a href='bookingForm.php'><button>Book</button></a>"
                     . "</tr><br>";
                 }
                 echo "</table>";
@@ -86,11 +88,11 @@ $query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIK
             </table>
         </div>
 
-        <div class="form-popup" id="bookingForm">
+<!--        <div class="form-popup" id="bookingForm">
             <form method="post" class="form-container" action="book.php">  
                 <h3>Booking Form</h3>
                 <label for="rName">Restaurant Name</label>
-                <input class="input" type="text" value="<?php echo $rName ?>" placeholder="<?php echo $rName ?>" name="rName" readonly></input> <!-- bu şekilde book.php ye gidiyo book.php filter inputla alıyor !-->
+                <input class="input" type="text" value="<?php echo $rName ?>" placeholder="<?php echo $rName ?>" name="rName" readonly></input>  bu şekilde book.php ye gidiyo book.php filter inputla alıyor !
                 <br>
                 <label for="date">Date</label>
                 <input onclick="dateConstraint()" class="input" id="bookingDate" type="date" name="date" reqired></input>
@@ -113,11 +115,11 @@ $query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIK
                 <label for="lname">Party Size</label>
                 <input class="input" type="text" placeholder="  Enter Party Size" name="party" required></input>
                 <br>
-                <input type="submit" onclick="bookingComplete()" id="ca" value="BOOK"> <!-- alert box !-->
+                <input type="submit" onclick="bookingComplete()" id="ca" value="BOOK">  alert box !
                     <button type="button" id="cancel" onclick="closeBookingForm()" >CANCEL</button> 
 
             </form>  
-        </div>
+        </div>-->
     </div>
 
 </body>

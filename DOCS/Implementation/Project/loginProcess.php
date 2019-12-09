@@ -139,7 +139,7 @@ if (isset($_POST['reg_rest'])) {
     if (count($errors) == 0) {
         $password = md5($password_1); //encrypt the password before saving in the database
 
-        $query = "INSERT INTO restaurant_owner VALUES('$username','$fname','$lname','$rest_name', '$email', '$password','$rest_loc','$rest_phone','$rest_cap', '$recCode')";
+        $query = "INSERT INTO restaurant_owner VALUES('$username','$fname','$lname','$rest_name', '$email', '$password','$rest_loc','$rest_phone','$rest_cap', '$recCode', 'NULL', 'NULL', 'NULL', 'NULL')";
         mysqli_query($conn, $query);
         $_SESSION['username'] = $username;
         $_SESSION['success'] = "You are now registered";
