@@ -13,7 +13,8 @@
     <div class="top">
         <a href="restSignUp.php"><button  id="rsignup">Restaurant Sign Up</button></a>
         <a href="signUp.php"><button id="signup" >Sign Up</button></a>
-        <a href="signIn.php"><button    id="signin" >Sign In</button>   </a>      
+        <a href="signIn.php"><button    id="signin" >Sign In</button>   </a>
+        <a href ="support.php"><button class ="support"> Support</button> </a>
         <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
     </div>
 

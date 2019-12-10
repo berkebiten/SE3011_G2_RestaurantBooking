@@ -19,6 +19,7 @@ $_SESSION['rest_name'] = $query2;
         <div class="top">
             <a href = "index.php"><button action = "SignOut.php" id="signout">Sign Out </button></a>
             <button id="profile" ><?php echo $_SESSION['username'] ?></button>
+              <a href ="supportUser.php"><button id ="support"> Support</button> </a>
             <a href="user.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
         </div>      
         <div class="filters">            
