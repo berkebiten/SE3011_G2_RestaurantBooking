@@ -1,74 +1,85 @@
 <link rel="stylesheet" href="style.css"></link>
 <script src="scripts.js"></script>
+<?php
+    include('dbconnect.php');
+    $resta_name=$_GET['varname'];
+    $sql = "SELECT * FROM restaurant_owner WHERE rest_name='$resta_name'";
+    $query = mysqli_query($conn, $sql);
+    $count = mysqli_num_rows($query);
+    if($count==0){
+        header('location:errorPage.php');
+    }
+    ?>
 <html>
-<head>
-    <meta charset="UTF-8">
-<title>RESTAURANT</title>
+    <head>
+        <meta charset="UTF-8">
+    <title>RESTAURANT</title>
 </head>
 <body>
+    
+    
 <div class="top">
     <button onclick="openForm2()"  id="rsignup">Restaurant Sign Up</button>
     <button onclick="openForm3()"  id="signup" >Sign Up</button>
-    <button onclick="openForm()"   id="signin" >Sign In</button>  
-      <a href ="support.php"><button id ="support"> Support</button> </a>
+    <button onclick="openForm()"   id="signin" >Sign In</button>         
     <a href="RestaurantOwner.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
 </div>
-<h1 style="text-align : center">RESTAURANT NAME</h1>
+<h1 id="rest_name_top" style="text-align: center"><?php echo $resta_name?></h1>
 <div id="full">
-<div id="firstPart">
-    <div id="description">
+    <div id="firstPart">
+        <div id="description">
+            <br>
+            <p>20% discount on the total bill between 2 pm – 6 pm!
+                With Istanbul at your feet, the City Lights Bar is the perfect spot to unwind while 
+                enjoying the finest wines, personalised cocktails, delicious appetisers and the most delectable 
+                of desserts. Immerse yourself in the energising nightlife of City Lights and be captivated 
+                by the rhythm of the music.</p>
+        </div>
+
+        <div id="menu">
+            MENU
+        </div>
+    </div>
+    <div id="secondPart">
+        <div class="slideshow-container">
+
+            <div class="mySlides fade">
+                <div class="numbertext">1 / 3</div>
+                <img class="restPics" src="img/1.jpg">
+                    <div class="text">Caption Text</div>
+            </div>
+
+            <div class="mySlides fade">
+                <div class="numbertext">2 / 3</div>
+                <img class="restPics" src="img/2.jpg">
+                    <div class="text">Caption Two</div>
+            </div>
+
+            <div class="mySlides fade">
+                <div class="numbertext">3 / 3</div>
+                <img class="restPics" src="img/3.jpg">
+                    <div class="text">Caption Three</div>
+            </div>
+
+            <!-- Next and previous buttons -->
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
         <br>
-        <p>20% discount on the total bill between 2 pm – 6 pm!
-With Istanbul at your feet, the City Lights Bar is the perfect spot to unwind while 
-enjoying the finest wines, personalised cocktails, delicious appetisers and the most delectable 
-of desserts. Immerse yourself in the energising nightlife of City Lights and be captivated 
-by the rhythm of the music.</p>
-    </div>
- 
-    <div id="menu">
-        MENU
-    </div>
-</div>
-<div id="secondPart">
-   <div class="slideshow-container">
-
-        <div class="mySlides fade">
-            <div class="numbertext">1 / 3</div>
-            <img class="restPics" src="img/1.jpg">
-                <div class="text">Caption Text</div>
+        <div style="text-align:center">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
         </div>
-
-        <div class="mySlides fade">
-            <div class="numbertext">2 / 3</div>
-            <img class="restPics" src="img/2.jpg">
-                <div class="text">Caption Two</div>
-        </div>
-
-        <div class="mySlides fade">
-            <div class="numbertext">3 / 3</div>
-            <img class="restPics" src="img/3.jpg">
-                <div class="text">Caption Three</div>
-        </div>
-
-        <!-- Next and previous buttons -->
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
-    </div>
-    <br>
-<div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1)"></span>
-  <span class="dot" onclick="currentSlide(2)"></span>
-  <span class="dot" onclick="currentSlide(3)"></span>
-</div>
-    <div id="infos">
-        <p class="infos"><h3>Address</h3> Seyrantepe mah. Çalışkan sok. no:24/11</p>
-    <p class="infos"><h3>Hours of operation</h3> Daily 2:00 pm–2:00 am</p>
-        <p class="infos"><h3>Payment Options </h3> AMEX, Diners Club, MasterCard, Visa</p>
-        <p class="infos"><h3>Additional </h3> Bar/Lounge, Beer, Cocktails, Corkage Fee, Dancing, 
+        <div id="infos">
+            <p class="infos"><h3>Address</h3> Seyrantepe mah. Çalışkan sok. no:24/11</p>
+            <p class="infos"><h3>Hours of operation</h3> Daily 2:00 pm–2:00 am</p>
+            <p class="infos"><h3>Payment Options </h3> AMEX, Diners Club, MasterCard, Visa</p>
+            <p class="infos"><h3>Additional </h3> Bar/Lounge, Beer, Cocktails, Corkage Fee, Dancing, 
             Entertainment, Full Bar, Outdoor Smoking Area, View, Wheelchair Access, Wine</p>
-        <p class="infos"><h3>Phone number </h3> 0537 923 59 86 </p>
+            <p class="infos"><h3>Phone number </h3> 0537 923 59 86 </p>
+        </div>
     </div>
-</div>
 </div>
 <div id="reviews">
     <h2>REVIEWS</h2>
