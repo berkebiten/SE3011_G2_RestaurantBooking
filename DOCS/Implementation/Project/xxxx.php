@@ -1,4 +1,4 @@
 <?php
 $asd = " selamınaleyküm";
-$asds = "aleykümselam";
+$powewew = "uhjkk";
 ?>
