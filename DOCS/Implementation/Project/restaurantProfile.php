@@ -12,6 +12,8 @@
     $additional = $restArray['additional'];
     $phoneNo = $restArray['phoneNo'];
     $address = $restArray['address'];
+    $start = $restArray['startTime'];
+    $end = $restArray['endTime'];
     $count = mysqli_num_rows($query);
     if($count==0){
         header('location:errorPage.php');
@@ -31,12 +33,12 @@
     <button onclick="openForm()"   id="signin" >Sign In</button>         
     <a href="RestaurantOwner.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
 </div>
-<h1 id="rest_name_top" style="text-align: center"><?php echo $rest_name?></h1>
+<font  face="Century Gothic" size="8"><?php echo $rest_name?></font>
 <div id="full">
     <div id="firstPart">
         <div id="description">
             <br>
-            <p><?php echo $description ?></p>
+            <font face="Century Gothic" size="4"><?php echo $description ?></font>
         </div>
 
         <div id="menu">
@@ -75,11 +77,11 @@
             <span class="dot" onclick="currentSlide(3)"></span>
         </div>
         <div id="infos">
-            <p class="infos"><h3>Address</h3> <?php echo $address ?></p>
-            <p class="infos"><h3>Hours of operation</h3> Daily 2:00 pm–2:00 am</p>
-            <p class="infos"><h3>Payment Options </h3> <?php echo $payment ?></p>
-            <p class="infos"><h3>Additional </h3> <?php echo $additional ?></p>
-            <p class="infos"><h3>Phone number </h3> <?php echo $phoneNo ?> </p>
+            <font face="Century Gothic" size="4"><h3>Address</h3> <?php echo $address ?></font>
+            <font face="Century Gothic" size="4"><h3>Hours of operation</h3> <?php echo date('g:i A',strtotime($start)),'-',date('g:i A',strtotime($end))?></font>>
+            <font face="Century Gothic" size="4"><h3>Payment Options </h3> <?php echo $payment ?></font>
+            <font face="Century Gothic" size="4"><h3>Additional </h3> <?php echo $additional ?></font>
+            <font face="Century Gothic" size="4"><h3>Phone number </h3> <?php echo $phoneNo ?> </font>
         </div>
     </div>
 </div>
