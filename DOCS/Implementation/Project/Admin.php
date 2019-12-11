@@ -62,7 +62,7 @@ include("dbconnect.php");
                                     $query2 = mysqli_query($conn, "select uname from user ");
                                     while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
                                         $rest_uname = $row['uname'];
-                                        echo "<tr> <td> " . $row["uname"] . " </td>"
+                                        echo "<tr> <td><a href='restaurantProfile.php?varname=$rest_uname'> " . $row["uname"] . "</a></td>"
                                         . "<td> " . "Restaurant Owner" . " </td> </tr>";
                                     }
                                     while ($row2 = mysqli_fetch_array($query2, MYSQLI_ASSOC)) {
