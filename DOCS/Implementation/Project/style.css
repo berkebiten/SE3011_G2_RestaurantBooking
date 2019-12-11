@@ -354,14 +354,12 @@ body{
 }
 
 
-/*START OF ADMIN*/
-
 .wholepanel{
     position:absolute;
     float:left;
     width:99%;
     height:100%;
-    background-color:red;
+   
 
 }
 
@@ -369,7 +367,7 @@ body{
     margin-left:17%;
     width:80%;
     height:90%;
-    background-color:#79bbff;
+    
 }
 
 
@@ -418,29 +416,39 @@ body{
     background-color: #555;
     color: white;
 }
-
-.adminsearchresult{
+.adminsearchpart{
+    margin-left:5px;
+    margin-top:55px;
+}
+.functions header{
+    
+    font-family: Lato, Arial;
+    font-weight: normal;
+    font-size: 40px;
+    font-weight: normal;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+#adminsearch{
     display:none;
 }
 
-.searchfunction p{
-    text-decoration: underline;
-}
+
 
 #adminsearchinput {
     background-image: url('/css/searchicon.png');
     background-position: 10px 10px;
     background-repeat: no-repeat;
-    width: 900px;
+    max-width: 900px;
     font-size: 16px;
     padding: 12px 20px 12px 40px;
     border: 1px solid #ddd;
-    margin-bottom: 12px;
+    margin-top:5px;
 }
 
 #adminSearchTable {
     border-collapse: collapse;
-    width:900px;
+    max-width:900px;
     table-layout:fixed;
 
     border: 1px solid #ddd;
@@ -467,20 +475,19 @@ body{
 }
 
 .old_ie_wrapper {
-    height: 500px;
-    width: 900px;
+    max-height: 500px;
+    max-width: 900px;
     overflow-x: hidden;
     overflow-y: auto;
     tbody { height: auto; }
 }
 
 
-
 * {
     box-sizing: border-box;
 }
 
-/*END OF ADMIN*/
+
 
 
 #searchResults {

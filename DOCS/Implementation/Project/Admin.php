@@ -61,6 +61,7 @@ include("dbconnect.php");
                                     $query = mysqli_query($conn, "select uname from restaurant_owner ");
                                     $query2 = mysqli_query($conn, "select uname from user ");
                                     while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+                                        $rest_uname = $row['uname'];
                                         echo "<tr> <td> " . $row["uname"] . " </td>"
                                         . "<td> " . "Restaurant Owner" . " </td> </tr>";
                                     }
