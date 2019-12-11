@@ -2,7 +2,7 @@
 include('session.php');
 include("dbconnect.php");
 $rName = filter_input(INPUT_POST, 'rName');
-$query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIKE '%$rName%' OR address LIKE '%$rName%'");
+$query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIKE '%$rName%' OR location LIKE '%$rName%'");
 ?>
 
 <html>
@@ -75,11 +75,11 @@ $query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIK
                 echo "<tr><th style=width:30%;> Restaurant Name </th><th style=width:40%;> Adress </th><th style=width:20%;> Phone Number </th><th style=width:10%;>  </th></tr> <br>";
 
                 while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
-                    $resta_name = $row['rest_name'];
+                    $resta_name = $row['uname'];
                     echo "<tr>
 
                     <td > <a href='restaurantProfile.php?varname=$resta_name'>" . $row['rest_name'] . " </a> </td>"
-                    . "<td> " . $row["address"] . " </td>"
+                    . "<td> " . $row["location"] . " </td>"
                     . "<td> " . $row["phoneNo"] . " </td>"
                     . "<td> <button name='restButton'>Sign In</button>
                                      </td>

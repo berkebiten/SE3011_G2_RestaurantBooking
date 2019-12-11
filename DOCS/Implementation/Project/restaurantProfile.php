@@ -2,9 +2,16 @@
 <script src="scripts.js"></script>
 <?php
     include('dbconnect.php');
-    $resta_name=$_GET['varname'];
-    $sql = "SELECT * FROM restaurant_owner WHERE rest_name='$resta_name'";
+    $uname=$_GET['varname'];
+    $sql = "SELECT * FROM restaurant_owner WHERE uname='$uname'";
     $query = mysqli_query($conn, $sql);
+    $restArray = mysqli_fetch_assoc($query);
+    $rest_name = $restArray['rest_name'];
+    $description = $restArray['description'];
+    $payment = $restArray['payment'];
+    $additional = $restArray['additional'];
+    $phoneNo = $restArray['phoneNo'];
+    $address = $restArray['address'];
     $count = mysqli_num_rows($query);
     if($count==0){
         header('location:errorPage.php');
@@ -24,16 +31,12 @@
     <button onclick="openForm()"   id="signin" >Sign In</button>         
     <a href="RestaurantOwner.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
 </div>
-<h1 id="rest_name_top" style="text-align: center"><?php echo $resta_name?></h1>
+<h1 id="rest_name_top" style="text-align: center"><?php echo $rest_name?></h1>
 <div id="full">
     <div id="firstPart">
         <div id="description">
             <br>
-            <p>20% discount on the total bill between 2 pm – 6 pm!
-                With Istanbul at your feet, the City Lights Bar is the perfect spot to unwind while 
-                enjoying the finest wines, personalised cocktails, delicious appetisers and the most delectable 
-                of desserts. Immerse yourself in the energising nightlife of City Lights and be captivated 
-                by the rhythm of the music.</p>
+            <p><?php echo $description ?></p>
         </div>
 
         <div id="menu">
@@ -72,12 +75,11 @@
             <span class="dot" onclick="currentSlide(3)"></span>
         </div>
         <div id="infos">
-            <p class="infos"><h3>Address</h3> Seyrantepe mah. Çalışkan sok. no:24/11</p>
+            <p class="infos"><h3>Address</h3> <?php echo $address ?></p>
             <p class="infos"><h3>Hours of operation</h3> Daily 2:00 pm–2:00 am</p>
-            <p class="infos"><h3>Payment Options </h3> AMEX, Diners Club, MasterCard, Visa</p>
-            <p class="infos"><h3>Additional </h3> Bar/Lounge, Beer, Cocktails, Corkage Fee, Dancing, 
-            Entertainment, Full Bar, Outdoor Smoking Area, View, Wheelchair Access, Wine</p>
-            <p class="infos"><h3>Phone number </h3> 0537 923 59 86 </p>
+            <p class="infos"><h3>Payment Options </h3> <?php echo $payment ?></p>
+            <p class="infos"><h3>Additional </h3> <?php echo $additional ?></p>
+            <p class="infos"><h3>Phone number </h3> <?php echo $phoneNo ?> </p>
         </div>
     </div>
 </div>
