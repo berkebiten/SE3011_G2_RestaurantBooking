@@ -12,12 +12,12 @@ include('session.php');
     <body>
     <div class="container" id="fullC">
 
-        <div class="top">
-            <a href = "index.php"><button action = "SignOut.php" id="signout">Sign Out </button></a>
-            <button id="profile" ><?php echo $_SESSION['username'] ?></button>
-             <a href ="supportUser.php"><button id ="support"> Support</button> </a>
-            <a href="user.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
-        </div>
+            <div class="top">
+                <a href = "index.php"><button action = "SignOut.php" id="signout">Sign Out </button></a>
+                <a href = "userProfile.php"><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+                <a href ="supportUser.php"><button id ="support"> Support</button> </a>
+                <a href="user.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
+            </div> 
 
         <h1>FIND YOUR RESTAURANT</h1>
 

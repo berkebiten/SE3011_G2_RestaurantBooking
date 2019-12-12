@@ -4,44 +4,73 @@
 <?php
 include('session.php');
 include("dbconnect.php");
-$party = filter_input(INPUT_POST, 'party');
-$c_username = $_SESSION['username'];
-$r_username = $_SESSION['restaurant_name'];
-$date = filter_input(INPUT_POST, 'date');
-$startTime = filter_input(INPUT_POST, 'startTime');
-$endTime = filter_input(INPUT_POST, 'endTime');
-$phone =filter_input(INPUT_POST, 'phoneNo');
-$fname =filter_input(INPUT_POST, 'fname');
-$lname =filter_input(INPUT_POST, 'lname');
-$email =filter_input(INPUT_POST, 'email');
 
-$query1 = mysqli_query($conn, "SELECT restaurant_uname, start_time, end_time, date, party FROM bookings WHERE restaurant_uname = '$r_username' AND date = '$date'");
-$array = array();
-$array[] = mysqli_fetch_array($query1, MYSQLI_ASSOC);
-$count = 0;
+if($_SESSION['username'])
 
-for($i = 0; $i < sizeof($array); $i++){
-    echo $array[$i];
-    if($array['end_time'] <= $startTime && $array['start_time'] >= $endTime){
-        unset($array[$i]);
-    }
+$c_username = "";
+$r_username = "";
+$date = "";
+$startTime = "";
+$endTime = "";
+$phone = "";
+$fname = "";
+$lname = "";
+$email = "";
+$party = "";
+
+if (isset($_POST['booking'])) {
+    $c_username = $_SESSION['username'];
+    $r_username = filter_input(INPUT_POST, 'rName');
+    $date = filter_input(INPUT_POST, 'date');
+    $startTime = filter_input(INPUT_POST, 'startTime');
+    $endTime = filter_input(INPUT_POST, 'endTime');
+    $phone = filter_input(INPUT_POST, 'phoneNo');
+    $fname = filter_input(INPUT_POST, 'fname');
+    $lname = filter_input(INPUT_POST, 'lname');
+    $email = filter_input(INPUT_POST, 'email');
+    $party = filter_input(INPUT_POST, 'party');
 }
 
-//while($array){
-//    if($array['end_time'] <= $startTime && $array['start_time'] >= $endTime){
-//        
-//    }
+$uname = $_GET['varname'];
+$sql = "SELECT * FROM restaurant_owner WHERE uname='$uname'";
+$query = mysqli_query($conn, $sql);
+$restArray = mysqli_fetch_assoc($query);
+$rest_name = $restArray['rest_name'];
+$description = $restArray['description'];
+$payment = $restArray['payment'];
+$additional = $restArray['additional'];
+$phoneNo = $restArray['phoneNo'];
+$address = $restArray['address'];
+$start = $restArray['startTime'];
+$end = $restArray['endTime'];
+$cap = $restArray['cap'];
+
+//$count = mysqli_num_rows($query);
+//if($count == 0) {
+//    header('location:errorPage.php');
 //}
 
+$query1 = mysqli_query($conn, "SELECT * FROM bookings WHERE restaurant_uname = '$r_username' AND date = '$date'");
+$array = mysqli_fetch_array($query1, MYSQLI_ASSOC);
 
-$query2 = mysqli_query($conn, "SELECT * FROM bookings WHERE end_time <= $startTime OR start_time >= $endTime");
+$partySize = 0;
+$i = 0;
+while ($array = mysqli_fetch_array($query1, MYSQLI_ASSOC)) {
+    if (strtotime($startTime) - strtotime($array['end_time']) >= 0 || strtotime($array['start_time']) - strtotime($endTime) >= 0 ) {
+        unset($array['party']);
+    }
+    $partySize = $partySize + $array['party'];
+    $i++;
+}
+$currentCap = $cap - $partySize;
+
 
 //$query = mysqli_query($conn, "insert into bookings VALUES('$c_username', '$r_username','$party','$startTime','$endTime','$fname','$lname','$email','$phone','$date')" );
-  ?>
-
-
+?>
 <html>
     <body>
-        REZERVASYONUNUZ BASARIYLA TAMAMLANMISTIR. AFIYET OLSUN :)
+<?php
+echo $partySize ." ". $currentCap;
+?>
     </body>
 </html>
