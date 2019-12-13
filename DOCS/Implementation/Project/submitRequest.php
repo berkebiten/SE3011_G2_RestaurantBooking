@@ -1,9 +1,13 @@
 <link rel="stylesheet" href="style.css"></link>
-<script src="scripts.js"></script>
+<?php
+
+include("dbconnect.php");
+include('loginProcess.php') 
+?>
 <html>
     <head>
         <meta charset="UTF-8">
-    <title>SUPPORT PAGE</title>
+    <title>Submit Page</title>
 
 </head>
 <body>
@@ -15,25 +19,45 @@
         <a href ="supportUser.php"><button id ="support"> Support</button> </a>
         <a href="user.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
     </div>
-    <h1 id ="supportHeader">Submit a Request Ticket</h1>
-    <div class ="submitReq">
-        <br>
-        <select class="select-css">
+        <div class="formArea">
+            <form class="formX" method="post" action="submitRequest.php">
+                <h1>Submit a Request</h1>
+                <?php include('errors.php'); ?>
+                   <select class="select-css" name ="category">
             <option>Category</option>
             <option>Apples</option>
             <option>Bananas</option>
             <option>Grapes</option>
             <option>Oranges</option>
         </select>
-        <textarea class ="tArea" rows="8" cols="50">
-Description Here.
-        </textarea>
+                 <textarea rows="8" cols="50" class="tArea" name="description" ></textarea>
         <br><br>
-         <a href ="x.php"><button id ="subsub">Submit</button> </a>
+   
+         <button type="submit" id="subsub" name="sub_request">Submit</button>
+            </form>
+        </div>
+
+    
+    <!--    <h1 id ="supportHeader">Submit a Request Ticket</h1>
+     
+    <div class ="submitReq">
+        <br>
+        <select class="select-css" name ="category">
+            <option>Category</option>
+            <option>Apples</option>
+            <option>Bananas</option>
+            <option>Grapes</option>
+            <option>Oranges</option>
+        </select>
+        <textarea class ="tArea" rows="8" cols="50" name="tArea"  required/>
+Description Here.
+        </textarea> 
+        <br><br>
+         <a href ="supportUser.php"><button id ="subsub" name="sub_request">Submit</button> </a>
         
 
 
-    </div>
+    </div>-->
 </div>
 </body>
 </html>

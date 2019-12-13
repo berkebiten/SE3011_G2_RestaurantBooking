@@ -75,9 +75,46 @@ include("dbconnect.php");
                             </table>
                         </div>
                 </div>
+  <div class="adminsearchpart" id="viewTickets">
+                    <input type="text" id="adminsearchinput" onkeyup="searchFilterFunction()" placeholder="Search for usernames.." title="Type in a username">
+                        <div class="old_ie_wrapper">
+                            <table id="adminSearchTable">
+                                <thead>
+                                    <tr class="head">
+                                        <th style="width:60%;">Username</th>
+                                    
+                                        <th style="width:40%">Category</th>
+                                        <th style="width:20%">Date</th>
+                                        <th style="width:20%">Is Responded</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php                                    
+                                    $query = mysqli_query($conn, "select uname, category,date, isResponded from ticket  ");         
+                                    while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+                                        $isResponded= $row["isResponded"];
+                                        if($isResponded ==0){
+                                            $isResponded = "No";
+                                        } else if ($isResponded ==1){
+                                            $isResponded =="Yes";
+                                        }
+                                        
+                                        echo "<tr> <td> " . $row["uname"] . " </td>"
+                                        . "<td> " . $row["category"] . " </td>"
+                                     . "<td> " . $row["date"] . " </td>"
+                                           . "<td> " . $isResponded . " </td> </tr>"; 
+                                    }
+                                   
+                                    ?>
+
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 </body>
 </html>
+

@@ -256,3 +256,37 @@ if (isset($_POST['forgot2Send'])) {
         }
     }
 }
+if (isset($_POST['sub_request'])) {
+    // receive all input values from the form
+    $textArea = mysqli_real_escape_string($conn, $_POST['description']);
+    $category = mysqli_real_escape_string($conn, $_POST['category']);
+    $username = $_SESSION['username'];
+    $date =  date('Y/m/d');  
+    
+    // form validation: ensure that the form is correctly filled ...
+    // by adding (array_push()) corresponding error unto $errors array
+    if (empty($textArea)) {
+        array_push($errors, "Description is required");
+    }
+        if ($category == "Category") {
+        array_push($errors, "You must choose a category.");
+    }
+    // first check the database to make sure 
+    // that a user has less than 5requests not responded.
+
+    $ticket_check_query = "SELECT * FROM ticket WHERE uname='$username' AND isResponded= '0'";
+    $result = mysqli_query($conn, $ticket_check_query);
+$count = mysqli_num_rows($result);
+    if ($count>=5) { // if user exists
+              array_push($errors, "You must wait until one of your requests is responded.");
+      
+    }
+
+    // Finally, submit request if there are no errors in the form
+    if (count($errors) == 0) {
+        $query = "INSERT INTO ticket VALUES('$ticketId','$username','$category','$description','$date',0)";
+        mysqli_query($conn, $query);
+
+        header('location: supportUser.php');
+    }
+}
