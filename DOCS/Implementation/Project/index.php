@@ -22,20 +22,6 @@
 
     <div  class="searchpart">
         <form class="searchForm" action="searchResultGuest.php" method="post">
-            <select class="searchinputs" required>
-                <option value="0"> Party Size </option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
-            <input onclick="dateConstraint()" type="date" name="date" class="searchinputs" required/>
             <input type="text" class="searchinputs" name="rName" placeholder="Restaurant Name or Location.." required/>
             <input type="submit" id="searchButton" value="SEARCH">
         </form>  
