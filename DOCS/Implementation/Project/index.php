@@ -1,33 +1,76 @@
 <!DOCTYPE html>
 <link rel="stylesheet" href="style.css"></link>
 <script src="scripts.js"></script>
+<?php
+session_start();
+include('dbconnect.php');
+if (isset($_SESSION['username'])) {
+    $usercheck = $_SESSION['username'];
+    $sql = "select * from restaurant_owner where uname = '$usercheck'";
+    $query = mysqli_query($conn, $sql);
+    $sql2 = "select * from admin where uname = '$usercheck'";
+    $query2 = mysqli_query($conn, $sql2);
+
+    if (mysqli_num_rows($query2) > 0) {
+        header('location:Admin.php');
+    }
+    if (mysqli_num_rows($query) > 0) {
+        header('location:RestaurantOwner.php');
+    }
+}
+?>
+
+
 <html>
     <head>
         <meta charset="UTF-8">
     <title>HOMEPAGE</title>
-
 </head>
 <body>
 <div class="container" id="fullC">
 
     <div class="top">
-        <a href="restSignUp.php"><button  id="rsignup">Restaurant Sign Up</button></a>
-        <a href="signUp.php"><button id="signup" >Sign Up</button></a>
-        <a href="signIn.php"><button    id="signin" >Sign In</button>   </a>
-        <a href ="support.php"><button class ="support"> Support</button> </a>
-        <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
-    </div>
+        <?php if (isset($_SESSION['success'])): ?>
 
+            <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
+            <a href="#"><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+            <a href ="support.php"><button id ="support"> Support</button> </a>
+            <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
+
+        <?php endif ?>
+        <?php if (!isset($_SESSION['success'])): ?>
+
+            <a href="restSignUp.php"><button  id="rsignup">Restaurant Sign Up</button></a>
+            <a href="signUp.php"><button id="signup" >Sign Up</button></a>
+            <a href="signIn.php"><button    id="signin" >Sign In</button>   </a>
+            <a href ="support.php"><button class ="support"> Support</button> </a>
+            <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
+
+        <?php endif ?>
+    </div>
     <h1>FIND YOUR RESTAURANT</h1>
 
     <div  class="searchpart">
         <form class="searchForm" action="searchResultGuest.php" method="post">
+            <select class="searchinputs" required>
+                <option value="0"> Party Size </option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <input onclick="dateConstraint()" type="date" name="date" class="searchinputs" required/>
             <input type="text" class="searchinputs" name="rName" placeholder="Restaurant Name or Location.." required/>
             <input type="submit" id="searchButton" value="SEARCH">
         </form>  
     </div>
 
-    
 
     <h2>MOST POPULAR LOCATIONS</h2>
 

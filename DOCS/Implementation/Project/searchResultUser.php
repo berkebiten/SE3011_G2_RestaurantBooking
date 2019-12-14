@@ -1,5 +1,5 @@
 <?php
-include('session.php');
+session_start(); 
 include("dbconnect.php");
 $rName = filter_input(INPUT_POST, 'rName');
 $query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIKE '%$rName%' OR address LIKE '%$rName%'");

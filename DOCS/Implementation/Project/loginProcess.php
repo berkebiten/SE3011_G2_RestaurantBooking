@@ -1,6 +1,6 @@
 <?php
 
-include("session.php");
+session_start(); 
 
 function generateRandomString($length = 8) {
     return substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
@@ -76,8 +76,6 @@ if (isset($_POST['reg_user'])) {
 
         $query = "INSERT INTO user VALUES('$username','$fname','$lname', '$email', '$password', '$recCode')";
         mysqli_query($conn, $query);
-        $_SESSION['username'] = $username;
-        $_SESSION['success'] = "You are now registered";
         header('location: signIn.php');
     }
 }
@@ -138,11 +136,8 @@ if (isset($_POST['reg_rest'])) {
     // Finally, register user if there are no errors in the form
     if (count($errors) == 0) {
         $password = md5($password_1); //encrypt the password before saving in the database
-
-        $query = "INSERT INTO restaurant_owner VALUES('$username','$fname','$lname','$rest_name', '$email', '$password','$rest_loc','$rest_phone','$rest_cap', '$recCode', 'NULL', 'NULL', 'NULL', 'NULL')";
+        $query = "INSERT INTO restaurant_owner(uname, fname, lname, rest_name, email, psw, location, phoneNo, cap, recCode) VALUES('$username','$fname','$lname','$rest_name', '$email', '$password','$rest_loc','$rest_phone','$rest_cap', '$recCode')";
         mysqli_query($conn, $query);
-        $_SESSION['username'] = $username;
-        $_SESSION['success'] = "You are now registered";
         header('location: signIn.php');
     }
 }
@@ -170,7 +165,7 @@ if (isset($_POST['login_user'])) {
         if (mysqli_num_rows($results1) == 1) {
             $_SESSION['username'] = $username;
             $_SESSION['success'] = "You are now logged in";
-            header('location: user.php');
+            header('location: index.php');
         } else if (mysqli_num_rows($results2) == 1) {
             $_SESSION['username'] = $username;
             $_SESSION['success'] = "You are now logged in";
@@ -287,6 +282,6 @@ $count = mysqli_num_rows($result);
         $query = "INSERT INTO ticket VALUES('$ticketId','$username','$category','$description','$date',0)";
         mysqli_query($conn, $query);
 
-        header('location: supportUser.php');
+        header('location: support.php');
     }
 }

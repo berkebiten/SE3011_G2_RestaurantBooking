@@ -1,5 +1,5 @@
 <?php
-//include("session.php");
+session_start();
 include("dbconnect.php");
 $username = $_SESSION['username'];
 $query = mysqli_query($conn, "select * from admin where uname = '$username'");
@@ -13,7 +13,7 @@ $countr = mysqli_num_rows($query3);
 if ($counta == 1) {
     header("location:Admin.php");
 } else if ($countu == 1) {
-    header("location:user.php");
+    header("location:index.php");
 } else if ($countr == 1) {
     header("location:RestaurantOwner.php");
 } else {

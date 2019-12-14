@@ -12,7 +12,14 @@ function openForm4() {
     document.getElementById("signIn").style.display = "none";
 }
 function openAdminSearch() {
-    document.getElementById("adminsearch").style.display = "block";
+    closeForm();
+    document.getElementByClass("functions").style.display = "block";
+    document.getElementByClass("searchfunction").style.display = "block";
+}
+function openViewTickets() {
+    closeForm();
+    document.getElementByClass("functions").style.display = "block";
+    document.getElementByClass("ticketsfunction").style.display = "block";
 }
 
 function searchFilterFunction() {
@@ -34,11 +41,9 @@ function searchFilterFunction() {
     }
 }
 function closeForm() {
-    document.getElementById("signIn").style.display = "none";
-    document.getElementById("restSignUp").style.display = "none";
-    document.getElementById("signxp").style.display = "none";
-    document.getElementById("forgotpsw").style.display = "none";
-    document.getElementById("adminsearch").style.display = "none";
+    document.getElementByClass("functions").style.display = "none";
+    document.getElementByClass("adminsearch").style.display = "none";
+    document.getElementByClass("ticketsfunction").style.display = "none";
 }
 function closeBookingForm() { // close booking form pop up
     document.getElementById("bookingForm").style.display = "none";

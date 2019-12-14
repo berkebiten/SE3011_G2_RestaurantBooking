@@ -5,6 +5,25 @@
 <html>
     <body>
         <div class="container" id="fullC">
+            <div class="top">
+        <?php if (isset($_SESSION['success'])): ?>
+
+            <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
+            <a href="#"><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+            <a href ="support.php"><button id ="support"> Support</button> </a>
+            <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
+
+        <?php endif ?>
+        <?php if (!isset($_SESSION['success'])): ?>
+
+            <a href="restSignUp.php"><button  id="rsignup">Restaurant Sign Up</button></a>
+            <a href="signUp.php"><button id="signup" >Sign Up</button></a>
+            <a href="signIn.php"><button    id="signin" >Sign In</button>   </a>
+            <a href ="support.php"><button class ="support"> Support</button> </a>
+            <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
+
+        <?php endif ?>
+    </div>
             <div class="formArea">
                 <?php echo "<form class='formX' method='post' action='bookingForm.php?varname=$uname'>" ?>
                 <h1>Booking</h1>

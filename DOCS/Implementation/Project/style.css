@@ -367,6 +367,7 @@ body{
     margin-left:17%;
     width:80%;
     height:90%;
+    display:none;
     
 }
 
@@ -429,7 +430,10 @@ body{
     text-transform: uppercase;
     text-decoration: underline;
 }
-#adminsearch{
+.searchfunction{
+    display:none;
+}
+.ticketsfunction{
     display:none;
 }
 
@@ -455,7 +459,21 @@ body{
     font-size: 18px;
 }
 
+#viewTicketsTable{
+    border-collapse: collapse;
+    max-width:900px;
+    table-layout:fixed;
+
+    border: 1px solid #ddd;
+    font-size: 18px;
+}
+
 #adminSearchTable th, #adminSearchTable td {
+    text-align: left;
+    padding: 12px;
+}
+
+#viewTicketsTable th, #viewTicketsTable td {
     text-align: left;
     padding: 12px;
 }
@@ -466,13 +484,27 @@ body{
 
 }
 
+#viewTicketsTable tr {
+    background-color: darkgray;  
+    border-bottom: 1px solid #ddd;
+
+}
+
 #adminSearchTable tr.head, #adminSearchTable tr:hover {
+    background-color: #f1f1f1;
+}
+#viewTicketsTable tr.head, #viewTicketsTable tr:hover {
     background-color: #f1f1f1;
 }
 
 #adminSearchTable tbody{
     overflow:auto;
 }
+
+#viewTicketsTable tbody{
+    overflow:auto;
+}
+
 
 .old_ie_wrapper {
     max-height: 500px;

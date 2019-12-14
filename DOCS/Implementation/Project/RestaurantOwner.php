@@ -3,8 +3,19 @@
 
 <script src="scripts.js" type="text/javascript"></script>
 <?php
-include('session.php');
-?> 
+session_start(); 
+if (!isset($_SESSION['success'])) {
+    header('location: index.php');
+} else {
+    $username = $_SESSION['username'];
+    $query = mysqli_query($conn, "select * from restaurant_owner where uname = '$username'");
+    $counta = mysqli_num_rows($query);
+    if ($counta != 1) {
+        header("location:index.php");
+    }
+}
+?>
+
 
 <html>
     <head>
@@ -15,10 +26,11 @@ include('session.php');
 
 <div class=container>
             <div class="top">
-                <a href = "index.php"><button action = "SignOut.php" id="signout">Sign Out </button></a>
-                <a href = "restaurantProfile.php"><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
-                <a href ="supportUser.php"><button id ="support"> Support</button> </a>
-                <a href="user.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
+                <?php $resta_name = $_SESSION['username']; ?>
+                <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
+                <a href = "restaurantProfile.php?varname=<?php echo $resta_name ?>"><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+                <a href ="support.php"><button id ="support"> Support</button> </a>
+                <a href="RestaurantOwner.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
             </div>  
     <div class="wholepanel">
         <div class="adminpanel">

@@ -1,4 +1,9 @@
 <?php include('loginProcess.php') ?>
+<?php
+if (isset($_SESSION['success'])) {
+    header('location:index.php');
+}
+?>
 <html>
     <head>
     <title>Forgot Password</title>
