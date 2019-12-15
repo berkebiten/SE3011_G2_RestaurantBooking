@@ -2,7 +2,7 @@
 <?php
 
 include("dbconnect.php");
-include('loginProcess.php') 
+include('loginProcess.php')
 ?>
 <html>
     <head>
@@ -14,30 +14,31 @@ include('loginProcess.php')
 <div class="container" id="fullC">
 
     <div class="top">
-          <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
+        <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
         <button id="profile" ><?php echo $_SESSION['username'] ?></button>
         <a href ="support.php"><button id ="support"> Support</button> </a>
-        <a href="user.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
+        <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
     </div>
-        <div class="formArea">
-            <form class="formX" method="post" action="submitRequest.php">
-                <h1>Submit a Request</h1>
-                <?php include('errors.php'); ?>
-                   <select class="select-css" name ="category">
-            <option>Category</option>
-            <option>Apples</option>
-            <option>Bananas</option>
-            <option>Grapes</option>
-            <option>Oranges</option>
-        </select>
-                 <textarea rows="8" cols="50" class="tArea" name="description" ></textarea>
-        <br><br>
-   
-         <button type="submit" id="subsub" name="sub_request">Submit</button>
-            </form>
-        </div>
+    <div class="formArea">
+        <form class="formX" method="post" action="submitRequest.php">
+            <h1>Submit a Request</h1>
+            <?php include('errors.php'); ?>
+            <select class="select-css" name ="category">
+                <option>Category</option>
+                <option>Apples</option>
+                <option>Bananas</option>
+                <option>Grapes</option>
+                <option>Oranges</option>
+            </select>
+            <h3>Description</h3>
+            <textarea rows="8" cols="50" class="tArea" name="description" ></textarea>
+            <br><br>
 
-    
+            <button type="submit" id="subsub" name="sub_request">Submit</button>
+        </form>
+    </div>
+
+
     <!--    <h1 id ="supportHeader">Submit a Request Ticket</h1>
      
     <div class ="submitReq">

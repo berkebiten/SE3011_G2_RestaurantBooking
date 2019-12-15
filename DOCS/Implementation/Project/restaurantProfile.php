@@ -37,7 +37,7 @@ $count = mysqli_num_rows($query);
 if ($count == 0) {
     header('location:errorPage.php');
 }
-$restImg = mysqli_query($conn, "SELECT * FROM images WHERE uname='$uname'");
+$restImg = mysqli_query($conn, "SELECT * FROM image WHERE rest_uname='$uname'");
 $imgArr = mysqli_fetch_assoc($restImg);
 $count2 = mysqli_num_rows($restImg);
 ?>

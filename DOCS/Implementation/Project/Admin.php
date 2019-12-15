@@ -91,9 +91,11 @@ if (!isset($_SESSION['success'])) {
                         </thead>
                         <tbody>
                             <?php
-                            $query = mysqli_query($conn, "select user_uname,category,date,isResponded from ticket where isResponded=0 ");
-                            $query2 = mysqli_query($conn, "select rest_uname,category,date,isResponded from ticket where isResponded=0 ");
-                            
+                            $query = mysqli_query($conn, "select user_uname,category,date,isResponded from ticket where isResponded=0 AND user_uname is not null ");
+                            $query2 = mysqli_query($conn, "select rest_uname,category,date,isResponded from ticket where isResponded=0 AND rest_uname is not null");
+                            $query3 = mysqli_query($conn, "select user_uname,category,date,isResponded from ticket where isResponded=1 AND user_uname is not null");
+                            $query4 = mysqli_query($conn, "select rest_uname,category,date,isResponded from ticket where isResponded=1 AND rest_uname is not null");
+
                             while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
 
                                 echo "<tr> <td>" . $row['user_uname'] . "</td>"
@@ -101,16 +103,28 @@ if (!isset($_SESSION['success'])) {
                                 . "<td>" . $row['date'] . "</td>"
                                 . "<td>" . "No" . "</td> </tr>";
                             }
-                               while ($row2 = mysqli_fetch_array($query2, MYSQLI_ASSOC)) {
+                            while ($row2 = mysqli_fetch_array($query2, MYSQLI_ASSOC)) {
 
                                 echo "<tr> <td>" . $row2['rest_uname'] . "</td>"
                                 . "<td> " . $row2['category'] . " </td> "
                                 . "<td>" . $row2['date'] . "</td>"
                                 . "<td>" . "No" . "</td> </tr>";
                             }
-                            
-                            //REST_UNAME EKLENECEK
-                        
+                            while ($row2 = mysqli_fetch_array($query3, MYSQLI_ASSOC)) {
+
+                                echo "<tr> <td>" . $row2['rest_uname'] . "</td>"
+                                . "<td> " . $row2['category'] . " </td> "
+                                . "<td>" . $row2['date'] . "</td>"
+                                . "<td>" . "Yes" . "</td> </tr>";
+                            }
+                            while ($row2 = mysqli_fetch_array($query4, MYSQLI_ASSOC)) {
+
+                                echo "<tr> <td>" . $row2['rest_uname'] . "</td>"
+                                . "<td> " . $row2['category'] . " </td> "
+                                . "<td>" . $row2['date'] . "</td>"
+                                . "<td>" . "Yes" . "</td> </tr>";
+                            }
+
                             ?>
 
                         </tbody>

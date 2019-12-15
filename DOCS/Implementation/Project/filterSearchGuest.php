@@ -170,7 +170,7 @@ $result = mysqli_query($conn, $sql);
                         $resta_name = $row['uname'];
                         echo "<tr>
 
-                    <td > <a href='restaurantProfile.php?varname=$resta_name'><button>" . $row['rest_name'] . " </button></a> </td>"
+                    <td > <a href='restaurantProfile.php?varname=$resta_name'>" . $row['rest_name'] . "</a> </td>"
                         . "<td> " . $row["location"] . " </td>"
                         . "<td> " . $row["phoneNo"] . " </td>"
                         . "</tr> <br>";

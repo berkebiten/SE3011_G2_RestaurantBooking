@@ -20,7 +20,7 @@ include("dbconnect.php");
         <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
         <button id="profile" ><?php echo $_SESSION['username'] ?></button>
         <a href ="support.php"><button id ="support"> Support</button> </a>
-        <a href="user.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
+        <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
     </div>
 
        <div class="adminsearchpart" id="viewMyTickets">

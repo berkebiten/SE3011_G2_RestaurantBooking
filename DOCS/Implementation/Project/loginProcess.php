@@ -6,7 +6,6 @@ function generateRandomString($length = 8) {
     return substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
 }
 
-// initializing variables
 $username = "";
 $email = "";
 $fname = "";
@@ -19,11 +18,10 @@ $rest_phone = "";
 $errors = array();
 $recCode = "";
 
-// connect to the database
 include("dbconnect.php");
 // REGISTER USER
 if (isset($_POST['reg_user'])) {
-    // receive all input values from the form
+
     $fname = mysqli_real_escape_string($conn, $_POST['fname']);
     $lname = mysqli_real_escape_string($conn, $_POST['lname']);
     $username = mysqli_real_escape_string($conn, $_POST['username']);
@@ -32,8 +30,6 @@ if (isset($_POST['reg_user'])) {
     $password_2 = mysqli_real_escape_string($conn, $_POST['password_2']);
     $recCode = generateRandomString();
 
-    // form validation: ensure that the form is correctly filled ...
-    // by adding (array_push()) corresponding error unto $errors array
     if (empty($fname)) {
         array_push($errors, "First Name is required");
     }
@@ -53,28 +49,27 @@ if (isset($_POST['reg_user'])) {
         array_push($errors, "The two passwords do not match");
     }
 
-    // first check the database to make sure 
-    // a user does not already exist with the same username and/or email
     $user_check_query = "SELECT * FROM user WHERE uname='$username' OR email='$email' LIMIT 1";
-    $restaurant_check_query = "SELECT * FROM user WHERE uname='$username' OR email='$email' LIMIT 1";
+    $restaurant_check_query = "SELECT * FROM restaurant_owner WHERE uname='$username' OR email='$email' LIMIT 1";
     $result = mysqli_query($conn, $user_check_query);
+    $result2 = mysqli_query($conn, $restaurant_check_query);
     $user = mysqli_fetch_assoc($result);
+    $rest = mysqli_fetch_assoc($result2);
 
-    if ($user) { // if user exists
-        if ($user['uname'] === $username) {
+    if ($user || $rest) {
+        if ($user['uname'] === $username || $rest['uname'] === $username) {
             array_push($errors, "Username already exists");
         }
 
-        if ($user['email'] === $email) {
+        if ($user['email'] === $email || $rest['email'] === $email) {
             array_push($errors, "email already exists");
         }
     }
 
-    // Finally, register user if there are no errors in the form
     if (count($errors) == 0) {
-        $password = md5($password_1); //encrypt the password before saving in the database
+        $password = md5($password_1);
 
-        $query = "INSERT INTO user VALUES('$username','$fname','$lname', '$email', '$password', '$recCode')";
+        $query = "INSERT INTO user VALUES('$username','$fname','$lname', '$email', '$password', '$recCode',0,0)";
         mysqli_query($conn, $query);
         header('location: signIn.php');
     }
@@ -82,7 +77,7 @@ if (isset($_POST['reg_user'])) {
 
 //REGISTER RESTAURANT
 if (isset($_POST['reg_rest'])) {
-    // receive all input values from the form
+
     $fname = mysqli_real_escape_string($conn, $_POST['fname']);
     $lname = mysqli_real_escape_string($conn, $_POST['lname']);
     $username = mysqli_real_escape_string($conn, $_POST['username']);
@@ -95,8 +90,6 @@ if (isset($_POST['reg_rest'])) {
     $password_2 = mysqli_real_escape_string($conn, $_POST['password_2']);
     $recCode = generateRandomString();
 
-    // form validation: ensure that the form is correctly filled ...
-    // by adding (array_push()) corresponding error unto $errors array
     if (empty($fname)) {
         array_push($errors, "First Name is required");
     }
@@ -116,26 +109,28 @@ if (isset($_POST['reg_rest'])) {
         array_push($errors, "The two passwords do not match");
     }
 
-    // first check the database to make sure 
-    // a user does not already exist with the same username and/or email
 
+
+    $user_check_query = "SELECT * FROM user WHERE uname='$username' OR email='$email' LIMIT 1";
     $restaurant_check_query = "SELECT * FROM restaurant_owner WHERE uname='$username' OR email='$email' LIMIT 1";
-    $result = mysqli_query($conn, $restaurant_check_query);
+    $result = mysqli_query($conn, $user_check_query);
+    $result2 = mysqli_query($conn, $restaurant_check_query);
     $user = mysqli_fetch_assoc($result);
+    $rest = mysqli_fetch_assoc($result2);
 
-    if ($user) { // if user exists
-        if ($user['uname'] === $username) {
+    if ($user || $rest) {
+        if ($user['uname'] === $username || $rest['uname'] === $username) {
             array_push($errors, "Username already exists");
         }
 
-        if ($user['email'] === $email) {
+        if ($user['email'] === $email || $rest['email'] === $email) {
             array_push($errors, "email already exists");
         }
     }
 
-    // Finally, register user if there are no errors in the form
+
     if (count($errors) == 0) {
-        $password = md5($password_1); //encrypt the password before saving in the database
+        $password = md5($password_1);
         $query = "INSERT INTO restaurant_owner(uname, fname, lname, rest_name, email, psw, location, phoneNo, cap, recCode) VALUES('$username','$fname','$lname','$rest_name', '$email', '$password','$rest_loc','$rest_phone','$rest_cap', '$recCode')";
         mysqli_query($conn, $query);
         header('location: signIn.php');
@@ -254,22 +249,19 @@ if (isset($_POST['forgot2Send'])) {
 
 //SUBMIT TICKET
 if (isset($_POST['sub_request'])) {
-    // receive all input values from the form
+
     $textArea = mysqli_real_escape_string($conn, $_POST['description']);
     $category = mysqli_real_escape_string($conn, $_POST['category']);
     $username = $_SESSION['username'];
     $date = date('Y/m/d');
 
-    // form validation: ensure that the form is correctly filled ...
-    // by adding (array_push()) corresponding error unto $errors array
     if (empty($textArea)) {
         array_push($errors, "Description is required");
     }
     if ($category == "Category") {
         array_push($errors, "You must choose a category.");
     }
-    // first check the database to make sure 
-    // that a user has less than 5requests not responded.
+
     $variable = "";
     $user_check = "SELECT uname FROM user WHERE uname='$username'";
     $rest_check = "SELECT uname FROM restaurant_owner where uname='$username'";
@@ -280,22 +272,21 @@ if (isset($_POST['sub_request'])) {
     } else if (mysqli_num_rows($query2) == 1) {
         $variable = "rest_uname";
     }
-    
-    if($variable == "user_uname"){
+
+    if ($variable == "user_uname") {
         $ticket_check_query = "SELECT * FROM ticket WHERE user_uname='$username' AND isResponded= '0'";
-    }
-    else if ($variable == "rest_uname") {
+    } else if ($variable == "rest_uname") {
         $ticket_check_query = "SELECT * FROM ticket WHERE rest_uname='$username' AND isResponded= '0'";
     }
-    
-    
+
+
     $result = mysqli_query($conn, $ticket_check_query);
     $count = mysqli_num_rows($result);
-    if ($count >= 5) { // if user exists
+    if ($count >= 5) {
         array_push($errors, "You must wait until one of your requests is responded.");
     }
 
-    // Finally, submit request if there are no errors in the form
+
     if (count($errors) == 0) {
         $variable = "";
         $user_check = "SELECT uname FROM user WHERE uname='$username'";

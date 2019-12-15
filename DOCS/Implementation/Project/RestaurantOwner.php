@@ -4,6 +4,7 @@
 <script src="scripts.js" type="text/javascript"></script>
 <?php
 session_start(); 
+include("dbconnect.php");
 if (!isset($_SESSION['success'])) {
     header('location: index.php');
 } else {
