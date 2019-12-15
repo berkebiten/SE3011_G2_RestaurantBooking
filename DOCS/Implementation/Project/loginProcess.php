@@ -1,6 +1,6 @@
 <?php
 
-session_start(); 
+session_start();
 
 function generateRandomString($length = 8) {
     return substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
@@ -251,37 +251,72 @@ if (isset($_POST['forgot2Send'])) {
         }
     }
 }
+
+//SUBMIT TICKET
 if (isset($_POST['sub_request'])) {
     // receive all input values from the form
     $textArea = mysqli_real_escape_string($conn, $_POST['description']);
     $category = mysqli_real_escape_string($conn, $_POST['category']);
     $username = $_SESSION['username'];
-    $date =  date('Y/m/d');  
-    
+    $date = date('Y/m/d');
+
     // form validation: ensure that the form is correctly filled ...
     // by adding (array_push()) corresponding error unto $errors array
     if (empty($textArea)) {
         array_push($errors, "Description is required");
     }
-        if ($category == "Category") {
+    if ($category == "Category") {
         array_push($errors, "You must choose a category.");
     }
     // first check the database to make sure 
     // that a user has less than 5requests not responded.
-
-    $ticket_check_query = "SELECT * FROM ticket WHERE uname='$username' AND isResponded= '0'";
+    $variable = "";
+    $user_check = "SELECT uname FROM user WHERE uname='$username'";
+    $rest_check = "SELECT uname FROM restaurant_owner where uname='$username'";
+    $query1 = mysqli_query($conn, $user_check);
+    $query2 = mysqli_query($conn, $rest_check);
+    if (mysqli_num_rows($query1) == 1) {
+        $variable = "user_uname";
+    } else if (mysqli_num_rows($query2) == 1) {
+        $variable = "rest_uname";
+    }
+    
+    if($variable == "user_uname"){
+        $ticket_check_query = "SELECT * FROM ticket WHERE user_uname='$username' AND isResponded= '0'";
+    }
+    else if ($variable == "rest_uname") {
+        $ticket_check_query = "SELECT * FROM ticket WHERE rest_uname='$username' AND isResponded= '0'";
+    }
+    
+    
     $result = mysqli_query($conn, $ticket_check_query);
-$count = mysqli_num_rows($result);
-    if ($count>=5) { // if user exists
-              array_push($errors, "You must wait until one of your requests is responded.");
-      
+    $count = mysqli_num_rows($result);
+    if ($count >= 5) { // if user exists
+        array_push($errors, "You must wait until one of your requests is responded.");
     }
 
     // Finally, submit request if there are no errors in the form
     if (count($errors) == 0) {
-        $query = "INSERT INTO ticket VALUES('$ticketId','$username','$category','$description','$date',0)";
-        mysqli_query($conn, $query);
+        $variable = "";
+        $user_check = "SELECT uname FROM user WHERE uname='$username'";
+        $rest_check = "SELECT uname FROM restaurant_owner where uname='$username'";
+        $query1 = mysqli_query($conn, $user_check);
+        $query2 = mysqli_query($conn, $rest_check);
+        if (mysqli_num_rows($query1) == 1) {
+            $variable = "user_uname";
+        } else if (mysqli_num_rows($query2) == 1) {
+            $variable = "rest_uname";
+        }
 
+        if ($variable == "user_uname") {
+            $query4 = "INSERT INTO ticket(user_uname,category, description, date, isResponded)  VALUES('$username','$category','$textArea','$date','0')";
+            mysqli_query($conn, $query4);
+        } else if ($variable == "rest_uname") {
+            $query5 = "INSERT INTO ticket(rest_uname,category, description, date, isResponded)  VALUES('$username','$category','$textArea','$date','0')";
+            mysqli_query($conn, $query5);
+        } else {
+            echo "sasa";
+        }
         header('location: support.php');
     }
 }
