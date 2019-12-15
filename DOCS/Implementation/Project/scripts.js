@@ -13,13 +13,11 @@ function openForm4() {
 }
 function openAdminSearch() {
     closeForm();
-    document.getElementByClass("functions").style.display = "block";
-    document.getElementByClass("searchfunction").style.display = "block";
+    document.getElementById("adminsearch").style.display = "block";
 }
 function openViewTickets() {
     closeForm();
-    document.getElementByClass("functions").style.display = "block";
-    document.getElementByClass("ticketsfunction").style.display = "block";
+    document.getElementById("viewTickets").style.display = "block";
 }
 
 function searchFilterFunction() {
@@ -41,9 +39,9 @@ function searchFilterFunction() {
     }
 }
 function closeForm() {
-    document.getElementByClass("functions").style.display = "none";
-    document.getElementByClass("adminsearch").style.display = "none";
-    document.getElementByClass("ticketsfunction").style.display = "none";
+
+    document.getElementById("adminsearch").style.display = "none";
+    document.getElementById("viewTickets").style.display = "none";
 }
 function closeBookingForm() { // close booking form pop up
     document.getElementById("bookingForm").style.display = "none";
@@ -78,31 +76,31 @@ function openWindow() {
 }
 
 // Next/previous controls
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
-    }
+function plusSlides(n) {
+    showSlides(slideIndex += n);
+}
 
 // Thumbnail image controls
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-    }
+function currentSlide(n) {
+    showSlides(slideIndex = n);
+}
 
-    function showSlides(n) {
-        var i;
-        var slides = document.getElementsByClassName("mySlides");
-        var dots = document.getElementsByClassName("dot");
-        if (n > slides.length) {
-            slideIndex = 1
-        }
-        if (n < 1) {
-            slideIndex = slides.length
-        }
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
+function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {
+        slideIndex = 1
     }
+    if (n < 1) {
+        slideIndex = slides.length
+    }
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+}
