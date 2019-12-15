@@ -32,7 +32,7 @@
     </div>
     <?php if (isset($_SESSION['success'])): ?>
         <div class ="buttonsQA">
-            <a href ="myRequestTickets.php"><button id ="myrequest">My Request Tickets</button> </a>
+            <a href ="viewMyTickets.php"><button id ="myrequest">My Request Tickets</button> </a>
             <a href="submitRequest.php"><button    id="subrequest" >Submit Request Ticket</button>   </a>
 
         </div>

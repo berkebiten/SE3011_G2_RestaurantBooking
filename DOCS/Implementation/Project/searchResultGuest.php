@@ -17,7 +17,7 @@ $query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIK
 
                 <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
                 <a href="#"><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
-                <a href ="supportUser.php"><button id ="support"> Support</button> </a>
+                <a href ="support.php"><button id ="support"> Support</button> </a>
                 <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
 
             <?php endif ?>
