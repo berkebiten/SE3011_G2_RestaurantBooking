@@ -18,7 +18,9 @@ $rest_phone = "";
 $rest_start = "";
 $rest_end = "";
 
+$feedbacks = array();
 $errors = array();
+
 $recCode = "";
 
 include("dbconnect.php");
@@ -77,7 +79,8 @@ if (isset($_POST['reg_user'])) {
 
         $query = "INSERT INTO user VALUES('$username','$fname','$lname', '$email', '$password', '$recCode',0,0)";
         mysqli_query($conn, $query);
-        header('location: signIn.php');
+        array_push($feedbacks, "You are registered now.");
+        array_push($feedbacks, "You will be redirected to the Sign In screen when you click 'OK' button.");
     }
 }
 
@@ -142,7 +145,8 @@ if (isset($_POST['reg_rest'])) {
         $password = md5($password_1);
         $query = "INSERT INTO rest_signup VALUES('$signupId', '$username','$fname','$lname','$rest_name', '$email', '$password','$rest_loc','$rest_phone', '$rest_address', '$rest_start', '$rest_end', '$rest_cap')";
         mysqli_query($conn, $query);
-        header('location: signIn.php');
+        array_push($feedbacks,"Your sign-up will be reviewed by an admin and u are going to receive an email about the sign-up result.");
+        array_push($feedbacks, "You will be redirected to the Home screen when you click 'OK' button.");
     }
 }
 

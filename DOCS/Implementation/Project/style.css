@@ -839,6 +839,41 @@ body{
     border-radius: 3px; 
     text-align: left;
 }
+#feedback {
+    display:none;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 45%;
+    height:50%;
+    padding: 5px; 
+    border: 1px solid #42A858; 
+    color: #42A858; 
+    background: #C9DBC8; 
+    border-radius: 3px; 
+    text-align: center;
+    font-weight:bold;
+    font-size:25px;
+    align-content:center;
+}
+#feedback p {
+    margin-top:15%;
+}
+#feedback a, #feedback button{
+    position: absolute;
+    top:60%;
+    left:45%;
+    padding: 20px;
+    font-size: 25px;
+    color: white;
+    background: #5F9EA0;
+    border: none;
+    border-radius: 5px;
+    cursor:pointer;
+}
 .success {
     color: #3c763d; 
     background: #dff0d8; 

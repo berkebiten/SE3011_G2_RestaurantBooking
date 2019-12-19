@@ -29,6 +29,7 @@
     <head>
     <title>Sign Up</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="scripts.js"></script>
     </head>
 
 
@@ -41,7 +42,7 @@
             <a href ="support.php"><button id ="support"> Support</button> </a>
             <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
         </div>
-        <div class="formArea">
+        <div id="formArea">
             <form class="formX" method="post" action="signUp.php">
                 <h1>Sign Up</h1>
                 <?php include('errors.php'); ?>
@@ -78,6 +79,13 @@
                     Already a member? <a href="signIn.php">Sign in</a>
                 </p>
             </form>
+        </div>
+        <div id="feedback">
+            <?php include('feedbacks.php') ?>
+            <?php if (count($feedbacks) > 0) : ?>
+                <script> openFeedback();</script>
+                <button onclick="window.location.href='signIn.php'">OK</button>
+            <?php endif ?>
         </div>
     </div>
 </body>
