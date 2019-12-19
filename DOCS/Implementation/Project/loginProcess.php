@@ -59,7 +59,7 @@ if (isset($_POST['reg_user'])) {
     $restaurant_signup_check_query = "SELECT * FROM rest_signup WHERE uname='$username' OR email='$email' LIMIT 1";
     $result = mysqli_query($conn, $user_check_query);
     $result2 = mysqli_query($conn, $restaurant_check_query);
-    $result3 = mysqli_query($conn, $restaurant_sign_up_check_query);
+    $result3 = mysqli_query($conn, $restaurant_signup_check_query);
     $user = mysqli_fetch_assoc($result);
     $rest = mysqli_fetch_assoc($result2);
     $restSignup = mysqli_fetch_assoc($result3);
