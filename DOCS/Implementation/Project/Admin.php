@@ -39,7 +39,7 @@ if (!isset($_SESSION['success'])) {
             <ul>
                 <h1> Admin Panel </h1>
                 <li><a onclick="openViewTickets()">View Request Tickets</a></li>
-                <li><a href="#news">View Restaurant Signups</a></li>
+                <li><a onclick="openRestSignUps()">View Restaurant Signups</a></li>
                 <li><a href="#contact">Ban User</a></li>
                 <li><a href="#about">Warn User</a></li>
                 <li><a onclick="openAdminSearch()">Search</a></li>
@@ -124,7 +124,56 @@ if (!isset($_SESSION['success'])) {
                                 . "<td>" . $row2['date'] . "</td>"
                                 . "<td>" . "Yes" . "</td> </tr>";
                             }
+                            ?>
 
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+            <div class="adminsearchpart" id="viewRestSignUps">
+                <div class="old_ie_wrapper">
+                    <table id="viewRestSignUps">
+                        <thead>
+                            <tr class="head">
+                                <th>Username</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Restaurant Name</th>
+                                <th>E-mail</th>
+                                <th>Location</th>
+                                <th>Phone Number</th>
+                                <th>Address</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Capacity</th>
+                                <th>Accept</th>
+                                <th>Decline</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $query = mysqli_query($conn, "Select * from rest_signup");
+
+                            while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
+                                $uname = $row['username'];
+
+                                echo "<tr> <td>" . $row['username'] . "</td>"
+                                . "<td> " . $row['fname'] . " </td> "
+                                . "<td>" . $row['lname'] . "</td>"
+                                . "<td> " . $row['rest_name'] . " </td> "
+                                . "<td>" . $row['email'] . "</td>"
+                                . "<td>" . $row['location'] . "</td>"
+                                . "<td> " . $row['phoneNo'] . " </td> "
+                                . "<td>" . $row['address'] . "</td>"
+                                . "<td> " . $row['startTime'] . " </td> "
+                                . "<td>" . $row['endTime'] . "</td>"
+                                . "<td>" . $row['cap'] . "</td>"
+                                . "<td> <a href='acceptProcess.php?varname=$uname'><button type='submit' class='btn' name='booking'>Accept</button></a></td>"
+                                . "<td> <a href='declineProcess.php?varname=$uname'><button type='submit' class='btn' name='booking'>Decline</button></a></td>"
+                                . "</tr>";
+                            }
                             ?>
 
                         </tbody>

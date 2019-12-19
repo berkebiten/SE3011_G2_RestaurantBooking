@@ -23,6 +23,10 @@ function openBookings(){
     closeForm2();
     document.getElementById("viewBookings").style.display = "block";
 }
+function openRestSignUps(){
+    closeForm3();
+    document.getElementById("viewRestSignUps").style.display = "block";
+}
 
 
 
@@ -51,6 +55,10 @@ function closeForm() {
 }
 function closeForm2(){
     document.getElementById("viewBookings").style.display = "none";
+}
+
+function closeForm3(){
+    document.getElementById("viewRestSignUps").style.display = "none";
 }
 function closeBookingForm() { // close booking form pop up
     document.getElementById("bookingForm").style.display = "none";
