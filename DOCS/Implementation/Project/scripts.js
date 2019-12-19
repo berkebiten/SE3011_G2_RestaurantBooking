@@ -24,11 +24,14 @@ function openBookings(){
     document.getElementById("viewBookings").style.display = "block";
 }
 function openRestSignUps(){
-    closeForm3();
+    closeForm();
     document.getElementById("viewRestSignUps").style.display = "block";
 }
 
-
+function openFeedback(){
+    document.getElementById("feedback").style.display= "block";
+    document.getElementById("formArea").style.display = "none";
+}
 
 function searchFilterFunction() {
     var input, filter, table, tr, td, i, txtValue;
@@ -49,7 +52,7 @@ function searchFilterFunction() {
     }
 }
 function closeForm() {
-    
+    document.getElementById("viewRestSignUps").style.display = "none";
     document.getElementById("adminsearch").style.display = "none";
     document.getElementById("viewTickets").style.display = "none";
 }
@@ -57,9 +60,6 @@ function closeForm2(){
     document.getElementById("viewBookings").style.display = "none";
 }
 
-function closeForm3(){
-    document.getElementById("viewRestSignUps").style.display = "none";
-}
 function closeBookingForm() { // close booking form pop up
     document.getElementById("bookingForm").style.display = "none";
 }

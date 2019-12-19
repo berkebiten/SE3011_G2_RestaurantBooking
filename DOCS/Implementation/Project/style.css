@@ -785,11 +785,12 @@ body{
     height:110%;
 }
 
-.formArea{
+#formArea{
+    display:block;
     margin-top:3%;
 
 }
-.formArea h3{
+#formArea h3{
     text-align:center;
 }
 
