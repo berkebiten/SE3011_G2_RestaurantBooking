@@ -86,8 +86,20 @@
                     <input placeholder="Your Restaurant's Seat Capacity" type="number" name="rest_cap" value="<?php echo $rest_cap; ?>" required/>
                 </div>
                 <div class="input-group">
-                    <label>Address</label>
+                    <label>Location</label>
                     <input placeholder="Your Restaurant's Location" type="text" name="rest_loc" value="<?php echo $rest_loc; ?>" required/>
+                </div>
+                <div class="input-group">
+                    <label>Address</label>
+                    <input placeholder="Your Restaurant's Address" type="text" name="rest_address" value="<?php echo $rest_address; ?>" required/>
+                </div>
+                <div class="input-group">
+                    <label>Start Time</label>
+                    <input type="time" name="rest_start" value="<?php echo $rest_start; ?>" required/>
+                </div>
+                <div class="input-group">
+                    <label>End Time</label>
+                    <input type="time" name="rest_end" value="<?php echo $rest_end; ?>" required/>
                 </div>
                 <div class="input-group">
                     <label>Phone Number</label>

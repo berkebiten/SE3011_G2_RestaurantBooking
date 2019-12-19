@@ -368,7 +368,7 @@ body{
 
 .functions{
     margin-left:17%;
-    width:80%;
+    width:100%;
     height:90%;
     display:block;
 
@@ -451,7 +451,7 @@ body{
     background-image: url('/css/searchicon.png');
     background-position: 10px 10px;
     background-repeat: no-repeat;
-    max-width: 900px;
+    max-width: 100%;
     font-size: 16px;
     padding: 12px 20px 12px 40px;
     border: 1px solid #ddd;
@@ -460,7 +460,7 @@ body{
 
 #adminSearchTable {
     border-collapse: collapse;
-    max-width:900px;
+    max-width:100%;
     table-layout:fixed;
 
     border: 1px solid #ddd;
@@ -476,6 +476,14 @@ body{
     font-size: 18px;
 }
 
+#viewRestSignUps{
+    width:100%;
+    border-collapse: collapse;
+    table-layout:fixed;
+    border: 1px solid #ddd;
+    font-size: 18px;
+}
+
 
 #adminSearchTable th, #adminSearchTable td {
     text-align: left;
@@ -483,6 +491,10 @@ body{
 }
 
 #viewTicketsTable th, #viewTicketsTable td {
+    text-align: left;
+    padding: 12px;
+}
+#viewRestSignUps th, #viewRestSignUps td {
     text-align: left;
     padding: 12px;
 }
@@ -499,6 +511,12 @@ body{
 
 }
 
+#viewRestSignUps tr {
+    background-color: darkgray;  
+    border-bottom: 1px solid #ddd;
+
+}
+
 #adminSearchTable tr.head  {
     background-color: #f1f1f1;
 }
@@ -506,6 +524,10 @@ body{
     background-color: #f1f1f1;
 }
 #viewTicketsTable tr.head, #viewTicketsTable tr:hover {
+    background-color: #f1f1f1;
+}
+
+#viewRestSignUps tr.head, #viewRestSignUps tr:hover {
     background-color: #f1f1f1;
 }
 

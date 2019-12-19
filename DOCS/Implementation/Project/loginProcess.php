@@ -13,7 +13,10 @@ $lname = "";
 $rest_name = "";
 $rest_cap = 0;
 $rest_loc = "";
+$rest_address = "";
 $rest_phone = "";
+$rest_start = "";
+$rest_end = "";
 
 $errors = array();
 $recCode = "";
@@ -51,13 +54,16 @@ if (isset($_POST['reg_user'])) {
 
     $user_check_query = "SELECT * FROM user WHERE uname='$username' OR email='$email' LIMIT 1";
     $restaurant_check_query = "SELECT * FROM restaurant_owner WHERE uname='$username' OR email='$email' LIMIT 1";
+    $restaurant_signup_check_query = "SELECT * FROM rest_signup WHERE uname='$username' OR email='$email' LIMIT 1";
     $result = mysqli_query($conn, $user_check_query);
     $result2 = mysqli_query($conn, $restaurant_check_query);
+    $result3 = mysqli_query($conn, $restaurant_sign_up_check_query);
     $user = mysqli_fetch_assoc($result);
     $rest = mysqli_fetch_assoc($result2);
+    $restSignup = mysqli_fetch_assoc($result3);
 
-    if ($user || $rest) {
-        if ($user['uname'] === $username || $rest['uname'] === $username) {
+    if ($user || $rest || $restSignup) {
+        if ($user['uname'] === $username || $rest['uname'] === $username || $restSignup['uname'] = $username) {
             array_push($errors, "Username already exists");
         }
 
@@ -78,17 +84,19 @@ if (isset($_POST['reg_user'])) {
 //REGISTER RESTAURANT
 if (isset($_POST['reg_rest'])) {
 
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
     $fname = mysqli_real_escape_string($conn, $_POST['fname']);
     $lname = mysqli_real_escape_string($conn, $_POST['lname']);
-    $username = mysqli_real_escape_string($conn, $_POST['username']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $rest_name = mysqli_real_escape_string($conn, $_POST['rest_name']);
     $rest_loc = mysqli_real_escape_string($conn, $_POST['rest_loc']);
+    $rest_address = mysqli_real_escape_string($conn, $_POST['rest_address']);
     $rest_cap = mysqli_real_escape_string($conn, $_POST['rest_cap']);
     $rest_phone = mysqli_real_escape_string($conn, $_POST['rest_phone']);
+    $rest_start = filter_input(INPUT_POST, 'rest_start');
+    $rest_end = filter_input(INPUT_POST, 'rest_end');
     $password_1 = mysqli_real_escape_string($conn, $_POST['password_1']);
     $password_2 = mysqli_real_escape_string($conn, $_POST['password_2']);
-    $recCode = generateRandomString();
 
     if (empty($fname)) {
         array_push($errors, "First Name is required");
@@ -109,17 +117,18 @@ if (isset($_POST['reg_rest'])) {
         array_push($errors, "The two passwords do not match");
     }
 
-
-
     $user_check_query = "SELECT * FROM user WHERE uname='$username' OR email='$email' LIMIT 1";
     $restaurant_check_query = "SELECT * FROM restaurant_owner WHERE uname='$username' OR email='$email' LIMIT 1";
+    $restaurant_signup_check_query = "SELECT * FROM rest_signup WHERE uname='$username' OR email='$email' LIMIT 1";
     $result = mysqli_query($conn, $user_check_query);
     $result2 = mysqli_query($conn, $restaurant_check_query);
+    $result3 = mysqli_query($conn, $restaurant_sign_up_check_query);
     $user = mysqli_fetch_assoc($result);
     $rest = mysqli_fetch_assoc($result2);
+    $restSignup = mysqli_fetch_assoc($result3);
 
-    if ($user || $rest) {
-        if ($user['uname'] === $username || $rest['uname'] === $username) {
+    if ($user || $rest || $restSignup) {
+        if ($user['uname'] === $username || $rest['uname'] === $username || $restSignup['username'] = $username) {
             array_push($errors, "Username already exists");
         }
 
@@ -131,7 +140,7 @@ if (isset($_POST['reg_rest'])) {
 
     if (count($errors) == 0) {
         $password = md5($password_1);
-        $query = "INSERT INTO restaurant_owner(uname, fname, lname, rest_name, email, psw, location, phoneNo, cap, recCode) VALUES('$username','$fname','$lname','$rest_name', '$email', '$password','$rest_loc','$rest_phone','$rest_cap', '$recCode')";
+        $query = "INSERT INTO rest_signup VALUES('$signupId', '$username','$fname','$lname','$rest_name', '$email', '$password','$rest_loc','$rest_phone', '$rest_address', '$rest_start', '$rest_end', '$rest_cap')";
         mysqli_query($conn, $query);
         header('location: signIn.php');
     }
