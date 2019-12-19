@@ -19,6 +19,12 @@ function openViewTickets() {
     closeForm();
     document.getElementById("viewTickets").style.display = "block";
 }
+function openBookings(){
+    closeForm2();
+    document.getElementById("viewBookings").style.display = "block";
+}
+
+
 
 function searchFilterFunction() {
     var input, filter, table, tr, td, i, txtValue;
@@ -39,9 +45,12 @@ function searchFilterFunction() {
     }
 }
 function closeForm() {
-
+    
     document.getElementById("adminsearch").style.display = "none";
     document.getElementById("viewTickets").style.display = "none";
+}
+function closeForm2(){
+    document.getElementById("viewBookings").style.display = "none";
 }
 function closeBookingForm() { // close booking form pop up
     document.getElementById("bookingForm").style.display = "none";

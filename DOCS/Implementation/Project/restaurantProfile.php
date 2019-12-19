@@ -71,7 +71,7 @@ $count2 = mysqli_num_rows($restImg);
         <?php echo "<a href='bookingForm.php?varname=$uname'><button>Make a Reservation</button></a>" ?>
         <?php endif ?>
         
-        <?php if ($isMyProfile == true): ?>
+        <?php if (isset($_SESSION['success']) && $isMyProfile == true): ?>
         <?php echo "<a href='editMyProfile.php?varname=$uname'><button>EditProfile</button></a>" ?>
         <?php endif ?>
     </div>

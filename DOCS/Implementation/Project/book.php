@@ -39,7 +39,7 @@ $cap = $restArray['cap'];
 
 if (isset($_POST['booking'])) {
     $c_username = $_SESSION['username'];
-    $r_username = filter_input(INPUT_POST, 'rName');
+    $r_username = $uname;
     $date = filter_input(INPUT_POST, 'date');
     $startTime = filter_input(INPUT_POST, 'startTime');
     $endTime = filter_input(INPUT_POST, 'endTime');
@@ -90,7 +90,7 @@ if (isset($_POST['booking'])) {
     if ($currentCap >= $party && count($errors) == 0) {
         $query = mysqli_query($conn, "insert into bookings VALUES('$bookingId', '$c_username', '$r_username','$party','$startTime','$endTime','$fname','$lname','$email','$phone','$date')");
         echo "<script> alert('Your reservation is completed.'); </script>";
-        header('location:user.php');
+        header('location:index.php');
     } else {
         array_push($errors, "There are no capacity in the restaurant that meets your party size at the selected hours.");
     }
