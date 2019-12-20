@@ -21,12 +21,12 @@ if (!$isMyProfile) {
 <body>
     <div class="top">
     <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
-        <a href='Admin.php'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
         <a href='userProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
     <a href ="support.php"><button id ="support"> Support</button> </a>
     <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>   
 </div>
-<table id="viewMyBookingsTable">
+<div id='formArea'>
+    <table id="viewMyBookingsTable">
             <thead>
                 <tr class="head">
                     <th style="width:50%;">Restaurant Name</th>
@@ -48,14 +48,23 @@ if (!$isMyProfile) {
                     $id = $row['bookingId'];
                     if(($date==$row['date'] && $time<$row['start_time']) || $date < $row['date'] ){
                     echo "<tr> <td>" . $rowR['rest_name'] . "</td>"
-                    . "<td> " . $row['date'] . " </td> <td> <a href='editBooking.php?varname=$id'><button>Edit</button> <br><br><button>Cancel</button></a></td></tr>";
+                    . "<td> " . $row['date'] . " </td> <td> <a href='editBook.php?varname=$id'><button>Edit</button></a> "
+                            . "<br><br><button onclick=\"if (confirm('Are you sure want to cancel your booking?')) window.location.href='cancelBook.php?varname=$id';\">Cancel</button></td></tr>";
                     }else {
                        echo "<tr> <td>" . $rowR['rest_name'] . "</td>"
-                    . "<td> " . $row['date'] .  " </td><td> <button>Review</button> </td></tr>"; 
+                    . "<td> " . $row['date'] .  " </td><td> <button >Review</button> </td></tr>"; 
                     }
                 }
                 ?>
             </tbody>
         </table>
+</div>
+        <div id="feedback">
+            <?php include('feedbacks.php') ?>
+            <?php if (count($feedbacks) > 0) : ?>
+                <script> openFeedback();</script>
+                <button onclick="window.location.href='cancelBooking.php?varname=<?php$id?>'">OK</button>
+            <?php endif ?>
+        </div>
         </body>
        
