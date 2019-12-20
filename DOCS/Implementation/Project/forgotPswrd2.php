@@ -3,11 +3,13 @@
 if (isset($_SESSION['success'])) {
     header('location:index.php');
 }
+
 ?>
 <html>
     <head>
     <title>Forgot Password</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="scripts.js"></script>
     </head>
 
 
@@ -20,7 +22,7 @@ if (isset($_SESSION['success'])) {
             <a href ="support.php"><button id ="support"> Support</button> </a>
             <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
         </div>
-        <div class="formArea">
+        <div id="formArea">
             <form class="formX" method="post" action="forgotPswrd2.php">
                 <h1>Forgot Password</h1>
                 <?php echo $email ?>
@@ -43,6 +45,14 @@ if (isset($_SESSION['success'])) {
                     <button type="submit" class="btn" name="forgot2Send">Confirm</button>
                 </div>
             </form>
+        </div>
+        <div id="feedback">
+            <?php include('feedbacks.php') ?>
+            <?php if (count($feedbacks) > 0) : ?>
+                <?php $fp = false; ?>
+                <script> openFeedback();</script>
+                <button onclick="window.location.href = 'signIn.php'">OK</button>
+            <?php endif ?>
         </div>
     </div>
 </body>

@@ -3,6 +3,17 @@ session_start();
 include("dbconnect.php");
 $sql = "SELECT * FROM restaurant_owner ";
 
+if (isset($_SESSION['username'])) {
+    $viewerUname = $_SESSION['username'];
+    $sql1 = "SELECT * FROM restaurant_owner WHERE uname= '$viewerUname'";
+    $sql2 = "SELECT * FROM admin WHERE uname= '$viewerUname'";
+    $query11 = mysqli_query($conn, $sql1);
+    $query12 = mysqli_query($conn, $sql2);
+    
+    if(mysqli_num_rows($query11) > 0 || mysqli_num_rows($query12)>0){
+        header('location:index.php');
+    }
+}
 
 //cuisine filters
 $cuisinearray = array();

@@ -3,6 +3,19 @@ session_start();
 include("dbconnect.php");
 $rName = filter_input(INPUT_POST, 'rName');
 $query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIKE '%$rName%' OR location LIKE '%$rName%'");
+
+if (isset($_SESSION['username'])) {
+    $viewerUname = $_SESSION['username'];
+    $sql1 = "SELECT * FROM restaurant_owner WHERE uname= '$viewerUname'";
+    $sql2 = "SELECT * FROM admin WHERE uname= '$viewerUname'";
+    $query11 = mysqli_query($conn, $sql1);
+    $query12 = mysqli_query($conn, $sql2);
+    
+    if(mysqli_num_rows($query11) > 0 || mysqli_num_rows($query12)>0){
+        header('location:index.php');
+    }
+    
+}
 ?>
 
 <html>
@@ -16,7 +29,7 @@ $query = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE rest_name LIK
             <?php if (isset($_SESSION['success'])): ?>
 
                 <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
-                <a href='userProfile.php?varname=<?php echo $_SESSION['username']?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+                <a href='userProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
                 <a href ="support.php"><button id ="support"> Support</button> </a>
                 <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
 

@@ -8,8 +8,8 @@ if (isset($_SESSION['success'])) {
     <head>
     <title>Forgot Password</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="scripts.js"></script>
     </head>
-
 
     <body>
     <div class="container" id="fullC">
@@ -20,7 +20,7 @@ if (isset($_SESSION['success'])) {
             <a href ="support.php"><button id ="support"> Support</button> </a>
             <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
         </div>
-        <div class="formArea">
+        <div id="formArea">
             <form class="formX" method="post" action="forgotPswrd.php">
                 <h1>Forgot Password</h1>
                 <?php include('errors.php'); ?>
@@ -35,6 +35,13 @@ if (isset($_SESSION['success'])) {
                 </div>
 
             </form>
+        </div>
+        <div id="feedback">
+            <?php include('feedbacks.php') ?>
+            <?php if (count($feedbacks) > 0) : ?>
+                <script> openFeedback();</script>
+                <button onclick="window.location.href = 'forgotPswrd2.php'">I'M READY</button>
+            <?php endif ?>
         </div>
     </div>
 </body>

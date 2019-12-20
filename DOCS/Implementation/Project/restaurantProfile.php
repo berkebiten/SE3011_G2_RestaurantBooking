@@ -15,6 +15,10 @@ if (isset($_SESSION['username'])) {
     $isMyProfile=false;
     $isUserViewing = false ;
     $isAdminViewing = false ;
+    /**
+    * example of documenting a variable's type
+    * @var boolean contains viewer information
+    */
     $isARestaurantViewing = false;
     
     if (mysqli_num_rows($query6) > 0) {
@@ -28,12 +32,10 @@ if (isset($_SESSION['username'])) {
     }
     
     
-    
     $vuname = $_GET['varname'];
     if($usercheck2 == $vuname){
         $isMyProfile=true;
     }
-    
 }
 $uname = $_GET['varname'];
 $sql = "SELECT * FROM restaurant_owner WHERE uname='$uname'";

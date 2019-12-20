@@ -23,6 +23,12 @@ if (isset($_SESSION['username'])) {
     if (mysqli_num_rows($queryA) > 0) {
         $isAdminViewing = true;
     }
+    if($isAdminViewing){
+        header('location:index.php');
+    }
+}
+else{
+    header('location:signIn.php');
 }
 ?>
 <html>

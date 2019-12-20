@@ -2,11 +2,23 @@
 <link rel="stylesheet" href="style.css"></link>
 <script src="scripts.js"></script>
 <?php
-session_start(); 
+session_start();
 include("dbconnect.php");
 
-if ($_SESSION['username'])
-    $c_username = "";
+if (!isset($_SESSION['username'])) {
+    header('location:signIn.php');
+} else {
+    $viewerUsername = $_SESSION['username'];
+    $sql_rest = "SELECT * FROM restaurant_owner WHERE uname='$viewerUsername'";
+    $query_rest = mysqli_query($conn, $sql_rest);
+    $sql_ad = "SELECT * FROM admin WHERE uname='$viewerUsername'";
+    $query_ad = mysqli_query($conn, $sql_ad);
+    if (mysqli_num_rows($query_rest) > 0 || mysqli_num_rows($query_ad) > 0 ) {
+        header('location:index.php');
+    }
+}
+
+$c_username = "";
 $r_username = "";
 $date = "";
 $startTime = "";
@@ -16,6 +28,7 @@ $fname = "";
 $lname = "";
 $email = "";
 $party = "";
+
 $feedbacks = array();
 $errors = array();
 
@@ -74,7 +87,7 @@ if (isset($_POST['booking'])) {
     if (empty($date)) {
         array_push($errors, "Booking date is required");
     }
-    
+
 
     $query1 = mysqli_query($conn, "SELECT * FROM bookings WHERE restaurant_uname = '$r_username' AND date = '$date'");
 

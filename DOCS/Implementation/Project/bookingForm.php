@@ -1,4 +1,18 @@
 <!DOCTYPE html>
+<?php
+if (!isset($_SESSION['username'])) {
+    header('location:signIn.php');
+} else {
+    $viewerUsername = $_SESSION['username'];
+    $sql_rest = "SELECT * FROM restaurant_owner WHERE uname='$viewerUsername'";
+    $query_rest = mysqli_query($conn, $sql_rest);
+    $sql_ad = "SELECT * FROM admin WHERE uname='$viewerUsername'";
+    $query_ad = mysqli_query($conn, $sql_ad);
+    if (mysqli_num_rows($query_rest) > 0 || mysqli_num_rows($query_ad) > 0 ) {
+        header('location:index.php');
+    }
+}
+?>
 <link rel="stylesheet" href="style.css"></link>
 <script src="scripts.js"></script>
 <?php include('book.php'); ?>
@@ -69,20 +83,18 @@
                 $uname = $_GET['varname'];
                 echo "<a href='book.php?varname=$uname'><button type='submit' class='btn' name='booking'>Book</button></a>"
                 ?>
-
             </div>
             </form>
-            
+
         </div>
         <div id="feedback">
             <?php include('feedbacks.php') ?>
             <?php if (count($feedbacks) > 0) : ?>
                 <script> openFeedback();</script>
-                <button onclick="window.location.href='viewMyBookings.php'">OK</button>
+                <button onclick="window.location.href = 'viewMyBookings.php?varname=<?php echo $_SESSION['username']?>'">OK</button>
             <?php endif ?>
         </div>
     </div>
 </div>
 </body>
 </html>
-

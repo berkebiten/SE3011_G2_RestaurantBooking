@@ -145,7 +145,7 @@ if (isset($_POST['reg_rest'])) {
         $password = md5($password_1);
         $query = "INSERT INTO rest_signup VALUES('$signupId', '$username','$fname','$lname','$rest_name', '$email', '$password','$rest_loc','$rest_phone', '$rest_address', '$rest_start', '$rest_end', '$rest_cap')";
         mysqli_query($conn, $query);
-        array_push($feedbacks,"Your sign-up will be reviewed by an admin and u are going to receive an email about the sign-up result.");
+        array_push($feedbacks, "Your sign-up will be reviewed by an admin and u are going to receive an email about the sign-up result.");
         array_push($feedbacks, "You will be redirected to the Home screen when you click 'OK' button.");
     }
 }
@@ -210,8 +210,9 @@ if (isset($_POST['forgotSend'])) {
 
 
         //TEMPORARY SOLUTION
-        if (mysqli_num_rows($results1) == 1 || mysqli_num_rows($results2) == 1 || mysqli_num_rows($results3) == 1) {
-            header('location: forgotPswrd2.php');
+        if (mysqli_num_rows($results1) == 1 || mysqli_num_rows($results2) == 1 || mysqli_num_rows($results3) == 1) {            
+            array_push($feedbacks, "A Recovery Code has been sent to your e-mail address.");
+            array_push($feedbacks, "You will be redirected to the Change Password screen when you click the button.");
         } else {
             array_push($errors, "There is no user registered with this email.");
         }
@@ -242,20 +243,25 @@ if (isset($_POST['forgot2Send'])) {
         $results3 = mysqli_query($conn, $query3);
         if ($password_1 != $password_2) {
             array_push($errors, "Password do not match.");
-        }
-
-        $password = md5($password_1);
-        if (mysqli_num_rows($results1) == 1) {
-            $changeP = mysqli_query($conn, "UPDATE user SET psw = '$password'  WHERE (recCode = '$recIn')");
-            header('location: signIn.php');
-        } else if (mysqli_num_rows($results2) == 1) {
-            $changeP = mysqli_query($conn, "UPDATE restaurant_owner SET psw = '$password'  WHERE (recCode = '$recIn')");
-            header('location: signIn.php');
-        } else if (mysqli_num_rows($results3) == 1) {
-            $changeP = mysqli_query($conn, "UPDATE admin SET psw = '$password'  WHERE (recCode = '$recIn')");
-            header('location: signIn.php');
         } else {
-            array_push($errors, "Recovery Code is wrong.");
+            
+            $password = md5($password_1);
+            if (mysqli_num_rows($results1) == 1) {
+                $changeP = mysqli_query($conn, "UPDATE user SET psw = '$password'  WHERE (recCode = '$recIn')");
+                array_push($feedbacks, "Your password has been changed.");
+                array_push($feedbacks, "You will be redirected to the Sign In screen when you click 'OK' button.");
+            } else if (mysqli_num_rows($results2) == 1) {
+                $changeP = mysqli_query($conn, "UPDATE restaurant_owner SET psw = '$password'  WHERE (recCode = '$recIn')");
+                array_push($feedbacks, "Your password has been changed.");
+                array_push($feedbacks, "You will be redirected to the Sign In screen when you click 'OK' button.");
+            } else if (mysqli_num_rows($results3) == 1) {
+                $changeP = mysqli_query($conn, "UPDATE admin SET psw = '$password'  WHERE (recCode = '$recIn')");
+                array_push($feedbacks, "Your password has been changed.");
+                array_push($feedbacks, "You will be redirected to the Sign In screen when you click 'OK' button.");
+            } else {
+                array_push($feedbacks, "Your password has been changed.");
+                array_push($feedbacks, "You will be redirected to the Sign In screen when you click 'OK' button.");
+            }           
         }
     }
 }
