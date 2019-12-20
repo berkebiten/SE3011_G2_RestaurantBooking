@@ -16,6 +16,7 @@ $fname = "";
 $lname = "";
 $email = "";
 $party = "";
+$feedbacks = array();
 $errors = array();
 
 $uname = $_GET['varname'];
@@ -89,8 +90,8 @@ if (isset($_POST['booking'])) {
 
     if ($currentCap >= $party && count($errors) == 0) {
         $query = mysqli_query($conn, "insert into bookings VALUES('$bookingId', '$c_username', '$r_username','$party','$startTime','$endTime','$fname','$lname','$email','$phone','$date')");
-        echo "<script> alert('Your reservation is completed.'); </script>";
-        header('location:index.php');
+        array_push($feedbacks, "Your booking has been completed.");
+        array_push($feedbacks, "You will be redirected to Your Bookings when you click 'OK' button.");
     } else {
         array_push($errors, "There are no capacity in the restaurant that meets your party size at the selected hours.");
     }
