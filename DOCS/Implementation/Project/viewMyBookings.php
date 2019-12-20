@@ -1,42 +1,25 @@
 <link rel="stylesheet" href="style.css"></link>
-<script src="scripts.js"></script>
 <?php
 session_start();
 include 'dbconnect.php';
-$vname = $_GET['varname'];
+$vname = $_GET['varname']; 
 $user = $_SESSION['username'];
 $sql = "select * from user where uname = '$user'";
-$sql2 = "select * from bookings where customer_uname = '$user'";
-$sql3 = "select uname from admin where uname='$user'";
 $query = mysqli_query($conn, $sql);
-$query2 = mysqli_query($conn, $sql2);
-$queryA = mysqli_query($conn, $sql3);
 $arr = mysqli_fetch_assoc($query);
-$arr2 = mysqli_fetch_assoc($query2);
-$firstname = $arr['fname'];
-$lastname = $arr['lname'];
-$isAdminViewing = false;
 $isMyProfile = false;
 
 if ($user == $vname) {
     $isMyProfile = true;
 }
-if (mysqli_num_rows($queryA) > 0) {
-    $isAdminViewing = true;
-}
 
-if (!$isMyProfile && !$isAdminViewing) {
+
+if (!$isMyProfile) {
     header('location:errorPage.php');
 }
 ?>
-<html>
-    <head>
-        <meta charset="UTF-8">
-    <title>PROFILE</title>
-
-</head>
 <body>
-<div class="top">
+    <div class="top">
     <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
     <?php if ($isAdminViewing): ?>
         <a href='Admin.php'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
@@ -46,50 +29,36 @@ if (!$isMyProfile && !$isAdminViewing) {
     <a href ="support.php"><button id ="support"> Support</button> </a>
     <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>   
 </div>
-
-<div id="fullProfile">
-    <div id="personalInfos">
-        <p><?php echo $_SESSION['username'] ?></p>
-        <label>First Name : </label><?php echo $firstname ?> <br><br>
-        <label>Last Name : </label> <?php echo $lastname ?>
-    </div>
-    <div id='profileButtons'>
-        <button>Edit Profile</button> <br><br>
-        <button>Account Settings</button>
-    </div>
-    <div class='stats' id="favRest">
-        <h4>Favorite Restaurants</h4>
-    </div>
-    <div class='stats' id="bookings">
-        <h4>Upcoming Bookings</h4>
-        <a href='viewMyBookings.php?varname=<?php echo $vname?>'>See all bookings</a>
-        <table id="adminSearchTable">
+<table id="viewMyBookingsTable">
             <thead>
                 <tr class="head">
-                    <th style="width:60%;">Restaurant Name</th>
+                    <th style="width:50%;">Restaurant Name</th>
                     <th style="width:40%;">Date</th>
+                    <th style="width:40%;"></th>
                 </tr>
             </thead>
             <tbody>
                 <?php
                 $date = date("Y-m-d");
                 $time = date("H:i:s");
-                $sqlB = "select * from bookings where customer_uname= '$vname' and date>='$date'";
+                $sqlB = "select * from bookings where customer_uname= '$vname'";
                 $queryB = mysqli_query($conn, $sqlB);
                 while ($row = mysqli_fetch_array($queryB, MYSQLI_ASSOC)) {
                     $rest_uname = $row['restaurant_uname'];
                     $sqlR = "select * from restaurant_owner where uname='$rest_uname'";
                     $restName = mysqli_query($conn, $sqlR);
                     $rowR = mysqli_fetch_array($restName, MYSQLI_ASSOC);
-                    
+                    $id = $row['bookingId'];
                     if(($date==$row['date'] && $time<$row['start_time']) || $date < $row['date'] ){
                     echo "<tr> <td>" . $rowR['rest_name'] . "</td>"
-                    . "<td> " . $row['date'] . " </td> </tr>";
+                    . "<td> " . $row['date'] . " </td> <td> <a href='editBooking.php?varname=$id'><button>Edit</button> <br><br><button>Cancel</button></a></td></tr>";
+                    }else {
+                       echo "<tr> <td>" . $rowR['rest_name'] . "</td>"
+                    . "<td> " . $row['date'] .  " </td><td> <button>Review</button> </td></tr>"; 
                     }
                 }
                 ?>
             </tbody>
         </table>
-    </div>
-</div>  
-</body>
+        </body>
+       

@@ -917,3 +917,13 @@ body{
     background-color:red;
     text-align: center;
 }
+
+#viewMyBookingsTable {
+    border-collapse: collapse;
+    max-width:100%;
+    table-layout:fixed;
+    margin-left:20%;
+    margin-top:2%;
+    border: 1px solid #ddd;
+    font-size: 18px;
+}
