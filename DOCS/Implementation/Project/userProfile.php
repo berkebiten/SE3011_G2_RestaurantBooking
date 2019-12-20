@@ -5,12 +5,27 @@
 $user = $_SESSION['username'];
 $sql = "select * from user where uname = '$user'";
 $sql2 = "select * from bookings where customer_uname = '$user'";
+$sql3 = "select uname from admin where uname='$user'";
 $query = mysqli_query($conn, $sql);
 $query2 = mysqli_query($conn, $sql2);
+$queryA = mysqli_query($conn, $sql3);
 $arr = mysqli_fetch_assoc($query);
 $arr2 = mysqli_fetch_assoc($query2);
 $firstname = $arr['fname'];
 $lastname = $arr['lname'];
+$isAdminViewing = false ;
+$isMyProfile = false;
+
+if($user==$_GET['varname']){
+    $isMyProfile = true;
+}
+if (mysqli_num_rows($queryA) > 0) {
+        $isAdminViewing = true ;
+    }
+
+if(!$isMyProfile && !$isAdminViewing){
+    header('location:errorPage.php');
+}
 ?>
 <html>
     <head>
@@ -21,7 +36,11 @@ $lastname = $arr['lname'];
 <body>
 <div class="top">
              <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
-            <a href="#"><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+            <?php if($isAdminViewing): ?>
+            <a href='Admin.php'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+            <?php else: ?>
+            <a href='userProfile.php?varname= <?php echo $_SESSION['username']?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+            <?php endif ?>
             <a href ="support.php"><button id ="support"> Support</button> </a>
             <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>   
 </div>

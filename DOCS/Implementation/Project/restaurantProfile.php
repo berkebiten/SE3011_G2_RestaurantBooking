@@ -7,19 +7,33 @@ if (isset($_SESSION['username'])) {
     
     $usercheck2 = $_SESSION['username'];
     $sql = "select * from restaurant_owner where uname = '$usercheck2'";
+    $sql2 = "select uname from user where uname='$usercheck2'";
+    $sql3 = "select uname from admin where uname='$usercheck2'";
     $query6 = mysqli_query($conn, $sql);
+    $queryU = mysqli_query($conn, $sql2);
+    $queryA = mysqli_query($conn, $sql3);
     $isMyProfile=false;
-
+    $isUserViewing = false ;
+    $isAdminViewing = false ;
+    $isARestaurantViewing = false;
+    
     if (mysqli_num_rows($query6) > 0) {
+        $isARestaurantViewing=true;
+    }
+    if (mysqli_num_rows($queryU) > 0) {
+        $isUserViewing = true ;
+    }
+    if (mysqli_num_rows($queryA) > 0) {
+        $isAdminViewing = true ;
+    }
+    
+    
+    
+    $vuname = $_GET['varname'];
+    if($usercheck2 == $vuname){
         $isMyProfile=true;
     }
     
-    
-    $isARestaurantViewing = false;
-    $vuname = $_GET['varname'];
-    if($usercheck2 == $vuname){
-        $isARestaurantViewing=true;
-    }
 }
 $uname = $_GET['varname'];
 $sql = "SELECT * FROM restaurant_owner WHERE uname='$uname'";
@@ -51,7 +65,15 @@ $count2 = mysqli_num_rows($restImg);
     <?php if (isset($_SESSION['success'])): ?>
         <div class="top">
             <a href = "SignOut.php"><button action = "SignOut.php" id="signout">Sign Out </button></a>
-            <button id="profile" ><?php echo $_SESSION['username'] ?></button>
+            <?php if($isAdminViewing): ?>
+            <a href='Admin.php'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+            <?php endif ?>
+            <?php if($isUserViewing): ?>
+            <a href='userProfile.php?varname= <?php echo $_SESSION['username']?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+            <?php endif ?>
+            <?php if($isARestaurantViewing):?>
+            <a href='restaurantProfile.php?varname= <?php echo $_SESSION['username']?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+            <?php endif ?>
             <a href ="supportUser.php"><button id ="support"> Support</button> </a>
             <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
         </div>
