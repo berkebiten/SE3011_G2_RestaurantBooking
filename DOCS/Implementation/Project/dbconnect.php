@@ -1,5 +1,5 @@
 <?php
-$dbname = "rbsdb";
+$dbname = "rbs";
 $conn = mysqli_connect("localhost", "root","");
 if (!$conn) {
     die('not connected:'.mysqli_error());

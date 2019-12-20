@@ -39,7 +39,7 @@ if(!$isMyProfile && !$isAdminViewing){
             <?php if($isAdminViewing): ?>
             <a href='Admin.php'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
             <?php else: ?>
-            <a href='userProfile.php?varname= <?php echo $_SESSION['username']?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+            <a href='userProfile.php?varname=<?php echo $_SESSION['username']?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
             <?php endif ?>
             <a href ="support.php"><button id ="support"> Support</button> </a>
             <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>   

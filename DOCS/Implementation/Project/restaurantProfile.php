@@ -69,10 +69,10 @@ $count2 = mysqli_num_rows($restImg);
             <a href='Admin.php'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
             <?php endif ?>
             <?php if($isUserViewing): ?>
-            <a href='userProfile.php?varname= <?php echo $_SESSION['username']?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+            <a href='userProfile.php?varname=<?php echo $_SESSION['username']?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
             <?php endif ?>
             <?php if($isARestaurantViewing):?>
-            <a href='restaurantProfile.php?varname= <?php echo $_SESSION['username']?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+            <a href='restaurantProfile.php?varname=<?php echo $_SESSION['username']?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
             <?php endif ?>
             <a href ="supportUser.php"><button id ="support"> Support</button> </a>
             <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
