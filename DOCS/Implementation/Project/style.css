@@ -881,3 +881,39 @@ body{
     border: 1px solid #3c763d;
     margin-bottom: 20px;
 }
+
+/*USER PROFLE*/
+#fullProfile {
+    background-color : yellow;
+    margin-top : 2%;
+    margin-left : auto;
+    margin-right : auto;
+    width: 50%;
+    height : 120%;
+}
+
+#personalInfos{
+    float:left;
+    background-color : blue;
+    width: 40%;
+    height: 40%;
+    margin-top : 5%;
+    margin-left : 30%;
+    margin-right: auto;
+}
+
+#profileButtons{
+    float:left;
+    margin-left : 5%;
+    margin-top: 15%;
+}
+
+.stats{
+    float:left;
+    margin-left:10%;
+    margin-top:5%;
+    width:35%;
+    height:50%;
+    background-color:red;
+    text-align: center;
+}
