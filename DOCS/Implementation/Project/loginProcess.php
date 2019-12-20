@@ -321,6 +321,7 @@ if (isset($_POST['sub_request'])) {
         } else {
             echo "sasa";
         }
-        header('location: support.php');
+        array_push($feedbacks, "Your ticket has been sent.");
+        array_push($feedbacks, "You will be redirected to your Tickets screen when you click 'OK' button.");
     }
 }

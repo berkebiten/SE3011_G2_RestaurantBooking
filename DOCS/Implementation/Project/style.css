@@ -861,7 +861,7 @@ body{
     align-content:center;
 }
 #feedback p {
-    margin-top:15%;
+    margin-top:5%;
 }
 #feedback a, #feedback button{
     position: absolute;

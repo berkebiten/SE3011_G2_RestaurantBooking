@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="style.css"></link>
+<script src="scripts.js"></script>
 <?php
-
 include("dbconnect.php");
 include('loginProcess.php');
 if (isset($_SESSION['username'])) {
@@ -11,17 +11,17 @@ if (isset($_SESSION['username'])) {
     $query6 = mysqli_query($conn, $sql);
     $queryU = mysqli_query($conn, $sql2);
     $queryA = mysqli_query($conn, $sql3);
-    $isUserViewing = false ;
-    $isAdminViewing = false ;
+    $isUserViewing = false;
+    $isAdminViewing = false;
     $isARestaurantViewing = false;
     if (mysqli_num_rows($query6) > 0) {
-        $isARestaurantViewing=true;
+        $isARestaurantViewing = true;
     }
     if (mysqli_num_rows($queryU) > 0) {
-        $isUserViewing = true ;
+        $isUserViewing = true;
     }
     if (mysqli_num_rows($queryA) > 0) {
-        $isAdminViewing = true ;
+        $isAdminViewing = true;
     }
 }
 ?>
@@ -36,19 +36,19 @@ if (isset($_SESSION['username'])) {
 
     <div class="top">
         <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
-            <?php if($isAdminViewing): ?>
+        <?php if ($isAdminViewing): ?>
             <a href='Admin.php'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
-            <?php endif ?>
-            <?php if($isUserViewing): ?>
-            <a href='userProfile.php?varname=<?php echo $_SESSION['username']?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
-            <?php endif ?>
-            <?php if($isARestaurantViewing):?>
-            <a href='restaurantProfile.php?varname=<?php echo $_SESSION['username']?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
-            <?php endif ?>
+        <?php endif ?>
+        <?php if ($isUserViewing): ?>
+            <a href='userProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+        <?php endif ?>
+        <?php if ($isARestaurantViewing): ?>
+            <a href='restaurantProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+        <?php endif ?>
         <a href ="support.php"><button id ="support"> Support</button> </a>
         <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
     </div>
-    <div class="formArea">
+    <div id="formArea">
         <form class="formX" method="post" action="submitRequest.php">
             <h1>Submit a Request</h1>
             <?php include('errors.php'); ?>
@@ -62,32 +62,17 @@ if (isset($_SESSION['username'])) {
             <h3>Description</h3>
             <textarea rows="8" cols="50" class="tArea" name="description" ></textarea>
             <br><br>
-
+            
             <button type="submit" id="subsub" name="sub_request">Submit</button>
         </form>
     </div>
-
-
-    <!--    <h1 id ="supportHeader">Submit a Request Ticket</h1>
-     
-    <div class ="submitReq">
-        <br>
-        <select class="select-css" name ="category">
-            <option>Category</option>
-            <option>Apples</option>
-            <option>Bananas</option>
-            <option>Grapes</option>
-            <option>Oranges</option>
-        </select>
-        <textarea class ="tArea" rows="8" cols="50" name="tArea"  required/>
-Description Here.
-        </textarea> 
-        <br><br>
-         <a href ="supportUser.php"><button id ="subsub" name="sub_request">Submit</button> </a>
-        
-
-
-    </div>-->
+    <div id="feedback">
+        <?php include('feedbacks.php') ?>
+        <?php if (count($feedbacks) > 0) : ?>
+            <script> openFeedback();</script>
+            <button onclick="window.location.href = 'viewMyTickets.php'">OK</button>
+        <?php endif ?>
+    </div>
 </div>
 </body>
 </html>
