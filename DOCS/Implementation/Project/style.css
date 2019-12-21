@@ -883,22 +883,38 @@ body{
 
 /*USER PROFLE*/
 #fullProfile {
-    background-color : yellow;
+  background-color:DCDCDC;
     margin-top : 2%;
     margin-left : auto;
     margin-right : auto;
-    width: 50%;
-    height : 120%;
+    width: 90%;
+    height : 110%;
 }
 
 #personalInfos{
     float:left;
-    background-color : blue;
+    background-color :E6E6FA;
     width: 40%;
-    height: 40%;
+    height: 30%;
     margin-top : 5%;
     margin-left : 30%;
     margin-right: auto;
+    text-align : center ;
+    border-style: groove;
+}
+
+#personalInfos p, label {
+margin-top : 10%;
+font-family: "Comic Sans MS", cursive, sans-serif;
+font-size: 17px;
+letter-spacing: 2px;
+word-spacing: 2px;
+color: #000000;
+font-weight: normal;
+text-decoration: none;
+font-style: normal;
+font-variant: normal;
+text-transform: none;
 }
 
 #profileButtons{
@@ -909,24 +925,27 @@ body{
 
 .stats{
     float:left;
-    margin-left:10%;
+    margin-left:6%;
     margin-top:5%;
-    width:35%;
+    width:40%;
     height:50%;
-    background-color:red;
+    background-color: E6E6FA;
     text-align: center;
+    border-style: groove;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 #viewMyBookingsTable {
     border-collapse: collapse;
     max-width:100%;
     table-layout:fixed;
-    margin-left:20%;
+    margin-left:5%;
+    margin-right: 5%;
     margin-top:2%;
     border: 1px solid #ddd;
     font-size: 18px;
 }
-
 
 #viewMyBookingsTable th, #viewMyBookingsTable td {
     text-align: left;

@@ -15,6 +15,7 @@ $arr = mysqli_fetch_assoc($query);
 $arr2 = mysqli_fetch_assoc($query2);
 $firstname = $arr['fname'];
 $lastname = $arr['lname'];
+$email = $arr['email'];
 $isAdminViewing = false;
 $isMyProfile = false;
 
@@ -50,8 +51,9 @@ if (!$isMyProfile && !$isAdminViewing) {
 <div id="fullProfile">
     <div id="personalInfos">
         <p><?php echo $_SESSION['username'] ?></p>
-        <label>First Name : </label><?php echo $firstname ?> <br><br>
-        <label>Last Name : </label> <?php echo $lastname ?>
+        <label>First Name: <?php echo $firstname ?> </label><br><br>
+        <label>Last Name:  <?php echo $lastname ?></label> <br><br>
+        <label>Email:  <?php echo $email ?></label>
     </div>
     <div id='profileButtons'>
         <button>Edit Profile</button> <br><br>
@@ -62,12 +64,15 @@ if (!$isMyProfile && !$isAdminViewing) {
     </div>
     <div class='stats' id="bookings">
         <h4>Upcoming Bookings</h4>
-        <a href='viewMyBookings.php?varname=<?php echo $vname?>'>See all bookings</a>
-        <table id="adminSearchTable">
+        <?php if($isMyProfile): ?>
+        <a style ="float:right; margin-right:6%;" href='viewMyBookings.php?varname=<?php echo $vname?>'>See all bookings</a><br>
+        <?php endif ?> 
+        <table id="viewMyBookingsTable">
             <thead>
                 <tr class="head">
-                    <th style="width:60%;">Restaurant Name</th>
+                    <th style="width:40%;">Restaurant Name</th>
                     <th style="width:40%;">Date</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -77,6 +82,7 @@ if (!$isMyProfile && !$isAdminViewing) {
                 $sqlB = "select * from bookings where customer_uname= '$vname' and date>='$date'";
                 $queryB = mysqli_query($conn, $sqlB);
                 while ($row = mysqli_fetch_array($queryB, MYSQLI_ASSOC)) {
+                    $id= $row['bookingId'];
                     $rest_uname = $row['restaurant_uname'];
                     $sqlR = "select * from restaurant_owner where uname='$rest_uname'";
                     $restName = mysqli_query($conn, $sqlR);
@@ -84,7 +90,8 @@ if (!$isMyProfile && !$isAdminViewing) {
                     
                     if(($date==$row['date'] && $time<$row['start_time']) || $date < $row['date'] ){
                     echo "<tr> <td>" . $rowR['rest_name'] . "</td>"
-                    . "<td> " . $row['date'] . " </td> </tr>";
+                    . "<td> " . $row['date'] . " </td> <td>  <a href='editBook.php?varname=$id'><button>Edit</button></a> "
+                            . "<br><br><button onclick=\"if (confirm('Are you sure want to cancel your booking?')) window.location.href='cancelBook.php?varname=$id';\">Cancel</button></td></tr>";
                     }
                 }
                 ?>
