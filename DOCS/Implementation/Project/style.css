@@ -971,3 +971,7 @@ text-transform: none;
     text-align: left;
     padding: 12px;
 }
+
+#formArea p{
+    text-align:center;
+}
