@@ -125,7 +125,7 @@ if (isset($_POST['reg_rest'])) {
     $restaurant_signup_check_query = "SELECT * FROM rest_signup WHERE uname='$username' OR email='$email' LIMIT 1";
     $result = mysqli_query($conn, $user_check_query);
     $result2 = mysqli_query($conn, $restaurant_check_query);
-    $result3 = mysqli_query($conn, $restaurant_sign_up_check_query);
+    $result3 = mysqli_query($conn, $restaurant_signup_check_query);
     $user = mysqli_fetch_assoc($result);
     $rest = mysqli_fetch_assoc($result2);
     $restSignup = mysqli_fetch_assoc($result3);
@@ -143,7 +143,8 @@ if (isset($_POST['reg_rest'])) {
 
     if (count($errors) == 0) {
         $password = md5($password_1);
-        $query = "INSERT INTO rest_signup VALUES('$signupId', '$username','$fname','$lname','$rest_name', '$email', '$password','$rest_loc','$rest_phone', '$rest_address', '$rest_start', '$rest_end', '$rest_cap')";
+        $query = "INSERT INTO rest_signup VALUES('$signupId', '$username', '$fname', '$lname', '$rest_name', '$email', '$password', '$rest_loc', '$rest_phone', "
+                . "'$rest_address', '$rest_start', '$rest_end', '$rest_cap')";
         mysqli_query($conn, $query);
         array_push($feedbacks, "Your sign-up will be reviewed by an admin and u are going to receive an email about the sign-up result.");
         array_push($feedbacks, "You will be redirected to the Home screen when you click 'OK' button.");
@@ -204,17 +205,47 @@ if (isset($_POST['forgotSend'])) {
         $results1 = mysqli_query($conn, $query1);
         $results2 = mysqli_query($conn, $query2);
         $results3 = mysqli_query($conn, $query3);
-        /*
-          EMAIL PROCESS WILL BE INSERTED HERE
-         */
 
+        if ($results1) {
+            $count1 = mysqli_fetch_assoc($results1);
+            $to_email = $email;
+            $rec_code = $count1['recCode'];
+            $subject = "Restaurant Sign Up";
+            $body = "Your Recovery Code is ". $rec_code . ":)";
+            $headers = "From: Restaurant Booking System";
 
-        //TEMPORARY SOLUTION
-        if (mysqli_num_rows($results1) == 1 || mysqli_num_rows($results2) == 1 || mysqli_num_rows($results3) == 1) {            
-            array_push($feedbacks, "A Recovery Code has been sent to your e-mail address.");
-            array_push($feedbacks, "You will be redirected to the Change Password screen when you click the button.");
-        } else {
-            array_push($errors, "There is no user registered with this email.");
+            if (mail($to_email, $subject, $body, $headers)) {
+                array_push($feedbacks, "Email successfully sent to " . $to_email . "");
+            }
+            
+            header('location: forgotPswrd2.php');
+            
+        } else if ($results2) {
+            $count2 = mysqli_fetch_assoc($results2);
+            $to_email = $email;
+            $rec_code = $count2['recCode'];
+            $subject = "Restaurant Sign Up";
+            $body = "Your Recovery Code is ". $rec_code . ":)";
+            $headers = "From: Restaurant Booking System";
+
+            if (mail($to_email, $subject, $body, $headers)) {
+                array_push($feedbacks, "Email successfully sent to " . $to_email . "");
+            }
+
+            header('location: forgotPswrd2.php');
+        } else if ($results3) {
+            $count3 = mysqli_fetch_assoc($results3);
+            $to_email = $email;
+            $rec_code = $count3['recCode'];
+            $subject = "Restaurant Sign Up";
+            $body = "Your Recovery Code is ". $rec_code . ":)";
+            $headers = "From: Restaurant Booking System";
+
+            if (mail($to_email, $subject, $body, $headers)) {
+                array_push($feedbacks, "Email successfully sent to " . $to_email . "");
+            }
+
+            header('location: forgotPswrd2.php');
         }
     }
 }
@@ -244,7 +275,7 @@ if (isset($_POST['forgot2Send'])) {
         if ($password_1 != $password_2) {
             array_push($errors, "Password do not match.");
         } else {
-            
+
             $password = md5($password_1);
             if (mysqli_num_rows($results1) == 1) {
                 $changeP = mysqli_query($conn, "UPDATE user SET psw = '$password'  WHERE (recCode = '$recIn')");
@@ -261,7 +292,7 @@ if (isset($_POST['forgot2Send'])) {
             } else {
                 array_push($feedbacks, "Your password has been changed.");
                 array_push($feedbacks, "You will be redirected to the Sign In screen when you click 'OK' button.");
-            }           
+            }
         }
     }
 }
@@ -331,3 +362,4 @@ if (isset($_POST['sub_request'])) {
         array_push($feedbacks, "You will be redirected to your Tickets screen when you click 'OK' button.");
     }
 }
+    

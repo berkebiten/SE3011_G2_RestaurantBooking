@@ -1,19 +1,18 @@
-<!DOCTYPE html>
-<link rel="stylesheet" href="style.css"></link>
-<script src="scripts.js"></script>
 <?php
 session_start();
 include("dbconnect.php");
-
+$feedbacks=array();
 function generateRandomString($length = 8) {
     return substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
 }
 
 $uname = $_GET['varname'];
-$sql = "SELECT * FROM rest_signup WHERE username='$uname'";
+$sql = "SELECT * FROM rest_signup WHERE uname='$uname'";
 $query = mysqli_query($conn, $sql);
+
 $restArray = mysqli_fetch_assoc($query);
-$rest_uname = $restArray['username'];
+
+$rest_uname = $restArray['uname'];
 $rest_fname = $restArray['fname'];
 $rest_lname = $restArray['lname'];
 $rest_name = $restArray['rest_name'];
@@ -34,14 +33,18 @@ $query = "INSERT INTO restaurant_owner(uname, fname, lname, rest_name, email, ps
 $boolean = mysqli_query($conn, $query);
 
 if ($boolean) {
-    $query1 = "DELETE FROM rest_signup WHERE username='$uname'";
+    $query1 = "DELETE FROM rest_signup WHERE uname='$uname'";
     mysqli_query($conn, $query1);
-    //send mail to the rest owner
-    header('location: Admin.php');
-} else {
-    echo "<script> alert('The registeration is completed.'); </script> ";
-}
+    $subject = "Restaurant Sign Up";
+    $body = "Welcome to our Restaurant Booking System. Your registration is accepted. :)";
+    $headers = "From: Restaurant Booking System";
 
+    if (mail($rest_email, $subject, $body, $headers)) {
+        array_push($feedbacks, "Email successfully sent to " . $rest_email . ". About being accepted.");
+    }
+    
+    header('location: Admin.php');
+}
 ?>
 
 
