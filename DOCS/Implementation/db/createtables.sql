@@ -1,4 +1,4 @@
-use rbs;
+use rbsdb;
 
 CREATE TABLE `user` (
   `uname` varchar(45) NOT NULL,
@@ -78,6 +78,7 @@ CREATE TABLE rest_signup (
   address longtext NOT NULL,
   startTime time NOT NULL,
   endTime time NOT NULL,
+  cap int(11) NOT NULL,
   PRIMARY KEY (signupId)
 );
 
