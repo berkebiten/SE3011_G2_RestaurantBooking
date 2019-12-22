@@ -90,7 +90,7 @@ if (!$isMyProfile && !$isAdminViewing) {
                     
                     if(($date==$row['date'] && $time<$row['start_time']) || $date < $row['date'] ){
                     echo "<tr> <td>" . $rowR['rest_name'] . "</td>"
-                    . "<td> " . $row['date'] . " </td> <td>  <a href='editBook.php?varname=$id'><button>Edit</button></a> "
+                    . "<td> " . $row['date'] . " </td> <td>  <a href='editBookingForm.php?varname=$id'><button>Edit</button></a> "
                             . "<br><br><button onclick=\"if (confirm('Are you sure want to cancel your booking?')) window.location.href='cancelBook.php?varname=$id';\">Cancel</button></td></tr>";
                     }
                 }

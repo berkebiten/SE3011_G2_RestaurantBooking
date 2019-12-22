@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+include('book.php'); 
 if (!isset($_SESSION['username'])) {
     header('location:signIn.php');
 } else {
@@ -8,14 +9,13 @@ if (!isset($_SESSION['username'])) {
     $query_rest = mysqli_query($conn, $sql_rest);
     $sql_ad = "SELECT * FROM admin WHERE uname='$viewerUsername'";
     $query_ad = mysqli_query($conn, $sql_ad);
-    if (mysqli_num_rows($query_rest) > 0 || mysqli_num_rows($query_ad) > 0 ) {
+    if (mysqli_num_rows($query_rest) > 0 || mysqli_num_rows($query_ad) > 0) {
         header('location:index.php');
     }
 }
 ?>
 <link rel="stylesheet" href="style.css"></link>
 <script src="scripts.js"></script>
-<?php include('book.php'); ?>
 <html>
     <body>
     <div class="container" id="fullC">
@@ -91,7 +91,7 @@ if (!isset($_SESSION['username'])) {
             <?php include('feedbacks.php') ?>
             <?php if (count($feedbacks) > 0) : ?>
                 <script> openFeedback();</script>
-                <button onclick="window.location.href = 'viewMyBookings.php?varname=<?php echo $_SESSION['username']?>'">OK</button>
+                <button onclick="window.location.href = 'viewMyBookings.php?varname=<?php echo $_SESSION['username'] ?>'">OK</button>
             <?php endif ?>
         </div>
     </div>

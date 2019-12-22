@@ -13,7 +13,7 @@ if (!isset($_SESSION['username'])) {
     $query_rest = mysqli_query($conn, $sql_rest);
     $sql_ad = "SELECT * FROM admin WHERE uname='$viewerUsername'";
     $query_ad = mysqli_query($conn, $sql_ad);
-    if (mysqli_num_rows($query_rest) > 0 || mysqli_num_rows($query_ad) > 0 ) {
+    if (mysqli_num_rows($query_rest) > 0 || mysqli_num_rows($query_ad) > 0) {
         header('location:index.php');
     }
 }
