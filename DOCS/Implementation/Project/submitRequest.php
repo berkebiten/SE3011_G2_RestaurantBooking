@@ -60,10 +60,11 @@ else{
             <?php include('errors.php'); ?>
             <select class="select-css" name ="category">
                 <option>Category</option>
-                <option>Apples</option>
-                <option>Bananas</option>
-                <option>Grapes</option>
-                <option>Oranges</option>
+                <option>Account Issues</option>
+                <option>Help</option>
+                <option>Report</option>
+                <option>Suggestion</option>
+                 <option>Bug</option>
             </select>
             <h3>Description</h3>
             <textarea rows="8" cols="50" class="tArea" name="description" ></textarea>

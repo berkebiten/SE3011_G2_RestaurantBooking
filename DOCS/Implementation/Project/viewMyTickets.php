@@ -70,20 +70,37 @@ else{
                         </thead>
                         <tbody>
                             <?php
-                            $query = mysqli_query($conn, "select category,date,isResponded from ticket where isResponded=0 ");
-                            $query2 = mysqli_query($conn, "select category,date,isResponded from ticket where isResponded=1 ");
+                            $username = $_SESSION['username'];
+                            $query = mysqli_query($conn, "select category,date,isResponded,ticketId from ticket where isResponded=0 AND user_uname= '$username'");
+                            $query2 = mysqli_query($conn, "select category,date,isResponded,ticketId from ticket where isResponded=0 AND rest_uname='$username'");
+                             $query3 = mysqli_query($conn, "select category,date,isResponded, ticketId from ticket where isResponded=1 AND user_uname='$username'");
+                              $query4 = mysqli_query($conn, "select category,date,isResponded,ticketId from ticket where isResponded=1 AND rest_uname='$username'");
                             while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
-
-                                echo "<tr> <td>" . $row['category'] . "</td>"
+                                    $ticketId = $row['ticketId'];
+                                echo "<tr> <td><a href='viewTickets.php?varname=$ticketId'>" . $row['category'] . "</td>"
                                 . "<td> " . $row['date'] . " </td> "
                             . "<td>" . "No" . "</td> </tr>";
                                
                             }
+                                            while ($row = mysqli_fetch_array($query3, MYSQLI_ASSOC)) {
+                                                $ticketId = $row['ticketId'];
+                                echo "<tr><td> <a href='viewTickets.php?varname=$ticketId'>" . $row['category'] . "</td>"
+                                . "<td> " . $row['date'] . " </td> "
+                            . "<td>" . "Yes" . "</td> </tr>";
+                               
+                            }
                             //REST_UNAME EKLENECEK
                             while ($row2 = mysqli_fetch_array($query2, MYSQLI_ASSOC)) {
-                                  echo "<tr> <td>" . $row['category'] . "</td>"
-                                . "<td> " . $row['date'] . " </td> "
-                                . "<td>" . $row['No'] . "</td></tr>";
+                                    $ticketId = $row['ticketId'];
+                                echo "<tr> <td><a href='viewTickets.php?varname=$ticketId'>" . $row2['category'] . "</td>"
+                                . "<td> " . $row2['date'] . " </td> "
+                                . "<td>" . $row2['No'] . "</td></tr>";
+                            }
+                             while ($row2 = mysqli_fetch_array($query4, MYSQLI_ASSOC)) {
+                                 $ticketId = $row['ticketId'];
+                                  echo "<tr> <td><a href='viewTickets.php?varname=$ticketId'> " . $row2['category'] . "</td>"
+                                . "<td> " . $row2['date'] . " </td> "
+                                . "<td>" . $row2['Yes'] . "</td></tr>";
                             }
                             ?>
 
