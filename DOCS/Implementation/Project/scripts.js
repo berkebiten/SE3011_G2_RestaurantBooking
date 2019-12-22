@@ -23,6 +23,16 @@ function openBookings(){
     closeForm2();
     document.getElementById("viewBookings").style.display = "block";
 }
+function openAccountSettings(){
+    closeForm2();
+    document.getElementById("accountSettings").style.display = "block";
+}
+
+function openAccountSettings2(){
+    closeForm();
+    document.getElementById("accountSettings").style.display = "block";
+}
+
 function openRestSignUps(){
     closeForm();
     document.getElementById("viewRestSignUps").style.display = "block";
@@ -55,9 +65,11 @@ function closeForm() {
     document.getElementById("viewRestSignUps").style.display = "none";
     document.getElementById("adminsearch").style.display = "none";
     document.getElementById("viewTickets").style.display = "none";
+    document.getElementById("accountSettings").style.display = "none";
 }
 function closeForm2(){
     document.getElementById("viewBookings").style.display = "none";
+    document.getElementById("accountSettings").style.display = "none";
 }
 
 function closeBookingForm() { // close booking form pop up

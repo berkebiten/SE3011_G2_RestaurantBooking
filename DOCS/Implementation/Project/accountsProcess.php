@@ -4,20 +4,20 @@ include('dbconnect.php');
 session_start();
 $errors = array();
 $feedbacks = array();
-$isViewerAuthorized=false;
-if (!isset($_SESSION['success'])) {
-    header('location:errorPage.php');
-} else {
-    if($_GET['varname']==$_SESSION['username']){
-        $isViewerAuthorized=true;
-    }
-}
+$isViewerAuthorized = false;
+//if (!isset($_SESSION['success'])) {
+//    header('location:errorPage.php');
+//} else {
+//    if($_GET['varname']==$_SESSION['username']){
+//        $isViewerAuthorized=true;
+//    }
+//}
+//
+//if(!$isViewerAuthorized){
+//    header('location:errorPage.php');
+//}
 
-if(!$isViewerAuthorized){
-    header('location:errorPage.php');
-}
-
-$uname = $_GET['varname'];
+$uname = $_SESSION['username'];
 
 $current_email = "";
 $email_1 = "";
@@ -27,6 +27,7 @@ if (isset($_POST['changePassword'])) {
     $current_password = mysqli_real_escape_string($conn, $_POST['current_password']);
     $password_1 = mysqli_real_escape_string($conn, $_POST['password_1']);
     $password_2 = mysqli_real_escape_string($conn, $_POST['password_2']);
+
     if (empty($current_password)) {
         array_push($errors, "Current Password is required");
     }if (empty($password_1)) {
@@ -45,16 +46,16 @@ if (isset($_POST['changePassword'])) {
         $results2 = mysqli_query($conn, $query2);
         $results3 = mysqli_query($conn, $query3);
         $array = array();
-        if ($results1) {
-            $array = mysqli_fetch_assoc($results1);
-        } else if ($results2) {
-            $array = mysqli_fetch_assoc($results2);
-        } else if ($results3) {
-            $array = mysqli_fetch_assoc($results3);
+        if (mysqli_num_rows($results1) > 0) {
+            $array = mysqli_fetch_array($results1, MYSQLI_ASSOC);
+        } else if (mysqli_num_rows($results2) > 0) {
+            $array = mysqli_fetch_array($results2, MYSQLI_ASSOC);
+        } else if (mysqli_num_rows($results3) > 0) {
+            $array = mysqli_fetch_array($results3, MYSQLI_ASSOC);
         }
 
-        md5($current_password);
-        if ($current_password != $array['psw']) {
+        $current_password2 = md5($current_password);
+        if ($current_password2 == $array['psw']) {
 
             if ($password_1 != $password_2) {
                 array_push($errors, "Password do not match.");
@@ -79,7 +80,7 @@ if (isset($_POST['changePassword'])) {
                 }
             }
         } else {
-            arrays_push($errors, "Your current password is wrong.");
+            array_push($errors, "Your current password is wrong.");
         }
     }
 }
@@ -106,15 +107,16 @@ if (isset($_POST['changeEmail'])) {
         $results1 = mysqli_query($conn, $query1);
         $results2 = mysqli_query($conn, $query2);
         $results3 = mysqli_query($conn, $query3);
-        if ($result1) {
-            $array = mysqli_fetch_assoc($results1);
-        } else if ($resut2) {
-            $array = mysqli_fetch_assoc($results2);
-        } else if ($result3) {
-            $array = mysqli_fetch_assoc($results3);
+        $array = array();
+        if (mysqli_num_rows($results1) > 0) {
+            $array = mysqli_fetch_array($results1, MYSQLI_ASSOC);
+        } else if (mysqli_num_rows($results2) > 0) {
+            $array = mysqli_fetch_array($results2, MYSQLI_ASSOC);
+        } else if (mysqli_num_rows($results3) > 0) {
+            $array = mysqli_fetch_array($results3, MYSQLI_ASSOC);
         }
 
-        if ($current_email != $array['email']) {
+        if ($current_email == $array['email']) {
 
             if ($email_1 != $email_2) {
                 array_push($errors, "Emails do not match.");
@@ -136,10 +138,9 @@ if (isset($_POST['changeEmail'])) {
                     array_push($feedbacks, "Your email has not been changed.");
                     array_push($feedbacks, "You will be redirected to the home page screen when you click 'OK' button.");
                 }
-                header('location: index.php');
             }
         } else {
-            arrays_push($errors, "Your current email is wrong.");
+            array_push($errors, "Your current email is wrong.");
         }
     }
 }

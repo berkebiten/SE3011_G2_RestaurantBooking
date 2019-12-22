@@ -272,21 +272,22 @@ if (isset($_POST['forgot2Send'])) {
         $results1 = mysqli_query($conn, $query1);
         $results2 = mysqli_query($conn, $query2);
         $results3 = mysqli_query($conn, $query3);
+        $recIn2 = generateRandomString();
         if ($password_1 != $password_2) {
             array_push($errors, "Password do not match.");
         } else {
 
             $password = md5($password_1);
             if (mysqli_num_rows($results1) == 1) {
-                $changeP = mysqli_query($conn, "UPDATE user SET psw = '$password'  WHERE (recCode = '$recIn')");
+                $changeP = mysqli_query($conn, "UPDATE user SET psw = '$password', recCode = '$recIn2'  WHERE (recCode = '$recIn')");
                 array_push($feedbacks, "Your password has been changed.");
                 array_push($feedbacks, "You will be redirected to the Sign In screen when you click 'OK' button.");
             } else if (mysqli_num_rows($results2) == 1) {
-                $changeP = mysqli_query($conn, "UPDATE restaurant_owner SET psw = '$password'  WHERE (recCode = '$recIn')");
+                $changeP = mysqli_query($conn, "UPDATE restaurant_owner SET psw = '$password', recCode = '$recIn2'  WHERE (recCode = '$recIn')");
                 array_push($feedbacks, "Your password has been changed.");
                 array_push($feedbacks, "You will be redirected to the Sign In screen when you click 'OK' button.");
             } else if (mysqli_num_rows($results3) == 1) {
-                $changeP = mysqli_query($conn, "UPDATE admin SET psw = '$password'  WHERE (recCode = '$recIn')");
+                $changeP = mysqli_query($conn, "UPDATE admin SET psw = '$password', recCode = '$recIn2'  WHERE (recCode = '$recIn')");
                 array_push($feedbacks, "Your password has been changed.");
                 array_push($feedbacks, "You will be redirected to the Sign In screen when you click 'OK' button.");
             } else {

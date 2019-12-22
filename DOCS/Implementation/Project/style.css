@@ -816,7 +816,9 @@ body{
     width:100%;
     height:110%;
 }
-
+.changePassword {
+    display:inline-block;
+}
 #formArea{
     display:block;
     margin-top:3%;
@@ -824,6 +826,30 @@ body{
 }
 #formArea h3{
     text-align:center;
+}
+
+.formX1, .content {
+    float:left;
+    margin-left:5%;
+    width: 30%;
+    margin: 0px;
+    padding: 20px;
+    border: 1px solid #B0C4DE;
+    background-color:white;
+    border-radius: 0px 0px 10px 10px;
+}
+#accountSettings{
+    display:none;
+}
+
+.formX1 button {
+    padding: 10px;
+    font-size: 15px;
+    color: white;
+    background: #5F9EA0;
+    border: none;
+    border-radius: 5px;
+    cursor:pointer;
 }
 
 .formX, .content {

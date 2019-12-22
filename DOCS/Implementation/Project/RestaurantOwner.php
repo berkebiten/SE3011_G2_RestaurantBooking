@@ -3,7 +3,7 @@
 
 <script src="scripts.js" type="text/javascript"></script>
 <?php
-session_start();
+include('accountsProcess.php');
 include("dbconnect.php");
 if (!isset($_SESSION['success'])) {
     header('location: index.php');
@@ -39,50 +39,107 @@ if (!isset($_SESSION['success'])) {
                     <ul>
                         <h1> Restaurant Menu </h1>
                         <li><a onclick="openBookings()">View Bookings of My Restaurant</a></li>
-                        <li><?php echo "<a href='accountSettings.php?varname=$username'><button class='btn' name='accountSettings'>Account Settings</button></a>" ?></li>
+                        <li><a onclick="openAccountSettings()">Account Settings</a></li>
                     </ul>
                 </div>
-            </div>
-            <div class="functions">
-                <div class="adminsearchpart" id="viewBookings">
 
-                    <div class="old_ie_wrapper">
-                        <table id="adminSearchTable">
-                            <thead>
-                                <tr class="head">
-                                    <th style="width:15%;">Customer</th>
-                                    <th style="width:9%;">Party Size</th>
-                                    <th style="width:15%;">Date</th>
-                                    <th style="width:12%;">Start</th>
-                                    <th style="width:12%;">End</th>
-                                    <th style="width:13%;">Name</th>
-                                    <th style="width:13%;">Surname</th>
-                                    <th style="width:14%;">Phone</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $vari = $_SESSION['username'];
-                                $query1 = mysqli_query($conn, "select * from bookings where restaurant_uname = '$vari'");
-                                
+                <div class="functions">
+                    <div class="adminsearchpart" id="viewBookings">
+
+                        <div class="old_ie_wrapper">
+                            <table id="adminSearchTable">
+                                <thead>
+                                    <tr class="head">
+                                        <th style="width:15%;">Customer</th>
+                                        <th style="width:9%;">Party Size</th>
+                                        <th style="width:15%;">Date</th>
+                                        <th style="width:12%;">Start</th>
+                                        <th style="width:12%;">End</th>
+                                        <th style="width:13%;">Name</th>
+                                        <th style="width:13%;">Surname</th>
+                                        <th style="width:14%;">Phone</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $vari = $_SESSION['username'];
+                                    $query1 = mysqli_query($conn, "select * from bookings where restaurant_uname = '$vari'");
 
 
-                                while ($bookArr = mysqli_fetch_array($query1, MYSQLI_ASSOC)) {
 
-                                    echo "<tr> <td>" . $bookArr['customer_uname'] . "</td>"
-                                    . "<td> " . $bookArr['party'] . " </td> "
-                                    . "<td> " . $bookArr['date'] . "</td>"
-                                    . "<td> " . $bookArr['start_time'] . "</td>"
-                                    . "<td> " . $bookArr['end_time'] . " </td> "
-                                    . "<td> " . $bookArr['fname'] . "</td>"
-                                    . "<td> " . $bookArr['lname'] . "</td>"
-                                    . "<td> " . $bookArr['phoneNo'] . "</td> </tr>";
-                                    
-                                }
-                                ?>
+                                    while ($bookArr = mysqli_fetch_array($query1, MYSQLI_ASSOC)) {
 
-                            </tbody>
-                        </table>
+                                        echo "<tr> <td>" . $bookArr['customer_uname'] . "</td>"
+                                        . "<td> " . $bookArr['party'] . " </td> "
+                                        . "<td> " . $bookArr['date'] . "</td>"
+                                        . "<td> " . $bookArr['start_time'] . "</td>"
+                                        . "<td> " . $bookArr['end_time'] . " </td> "
+                                        . "<td> " . $bookArr['fname'] . "</td>"
+                                        . "<td> " . $bookArr['lname'] . "</td>"
+                                        . "<td> " . $bookArr['phoneNo'] . "</td> </tr>";
+                                    }
+                                    ?>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="adminsearchpart" id="accountSettings">
+
+                        <div class="changePassword" id="formArea" >
+                            <form class="formX1" method="post" action="RestaurantOwner.php">
+                                <h1>Change Password</h1>
+                                <?php include('errors.php'); ?>
+                                <div class="input-group">
+                                    <label>Current Password</label>
+                                    <input placeholder="Current Password" type="password" name="current_password" required/>
+                                    <br><br>
+                                </div>
+                                <div class="input-group">    
+                                    <label><b>Password</b></label>
+                                    <input placeholder="Your new password" type="password"  name="password_1" required/>
+
+                                </div>
+                                <div class="input-group">    
+                                    <label><b>Confirm Password</b></label>
+                                    <input placeholder="Re-enter your new password" type="password"  name="password_2" required/>
+                                </div>
+                                <div class="input-group">
+                                    <button type="submit" class="btn" name="changePassword">Confirm</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="changeEmail" id="formArea" >
+                            <form class="formX1" method="post" action="RestaurantOwner.php">
+                                <h1>Change Email</h1>
+                                <?php include('errors.php'); ?>
+                                <div class="input-group">
+                                    <label>Current Email</label>
+                                    <input placeholder="Current email" type="email" name="current_email" value="<?php echo $current_email ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+                                    <br><br>
+                                </div>
+                                <div class="input-group">    
+                                    <label><b>Password</b></label>
+                                    <input placeholder="Your new email" type="email"  name="email_1" value="<?php echo $email_1 ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+
+                                </div>
+                                <div class="input-group">    
+                                    <label><b>Confirm Password</b></label>
+                                    <input placeholder="Re-enter your new Email" type="email"  name="email_2" value="<?php echo $email_2 ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+                                </div>
+                                <div class="input-group">
+                                    <button type="submit" class="btn" name="changeEmail">Confirm</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="feedback">
+                        <?php include('feedbacks.php') ?>
+                        <?php if (count($feedbacks) > 0) : ?>
+                            <script> openFeedback();</script>
+                            <button onclick="window.location.href = 'Admin.php'">OK</button>
+                        <?php endif ?>
                     </div>
                 </div>
             </div>

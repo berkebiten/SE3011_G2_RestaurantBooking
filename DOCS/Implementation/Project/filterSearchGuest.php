@@ -1,6 +1,7 @@
 <?php
 session_start(); 
 include("dbconnect.php");
+
 $sql = "SELECT * FROM restaurant_owner ";
 
 if (isset($_SESSION['username'])) {
@@ -153,9 +154,9 @@ $result = mysqli_query($conn, $sql);
                         <table>
                             <tr><p>Price Options</p></tr>
                             <tr><input type="checkbox" id="selectAll" onclick="checkAll('chk2')" name="filter2" value="All">All</input><br></tr>
-                            <tr><input type="checkbox" id="chk2" name="filter2[]" value="$">$</input><br></tr>
-                            <tr><input type="checkbox" id="chk2" name="filter2[]" value="$$">$$</input><br>  </tr>
-                            <tr><input type="checkbox" id="chk2" name="filter2[]" value="$$$">$$$</input><br></tr>
+                            <tr><input type="checkbox" id="chk2" name="filter2[]" value="1">Cheap</input><br></tr>
+                            <tr><input type="checkbox" id="chk2" name="filter2[]" value="2">Average</input><br>  </tr>
+                            <tr><input type="checkbox" id="chk2" name="filter2[]" value="3">Expensive</input><br></tr>
                         </table>
                     </div>
                     <div class="rankOptions">

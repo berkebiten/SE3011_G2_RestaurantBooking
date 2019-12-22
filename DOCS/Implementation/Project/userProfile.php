@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="style.css"></link>
 <script src="scripts.js"></script>
 <?php
-include('accountsProcess.php');
+session_start();
 include 'dbconnect.php';
 $vname = $_GET['varname'];
 $user = $_SESSION['username'];
@@ -63,7 +63,7 @@ header('location:errorPage.php');
         <button>Warn User</button>
         <?php else: ?>
         <button>Edit Profile</button> <br><br>
-        <button>Account Settings</button>
+        <a href="accountSettings.php"<button>Account Settings</button></a>
         <?php endif ?>
     </div>
     <div class='stats' id="favRest">
