@@ -1,6 +1,8 @@
-
+html{
+    height:100%;
+}
 body{
-
+    height:100%;
     background-image: url("img/918404.jpg");
 
 
@@ -69,6 +71,9 @@ body{
 
 .container{
     width:100%;
+    height:100%;
+}
+#fullC{
     height:100%;
 }
 .container h1{
@@ -230,11 +235,7 @@ body{
     text-align : center ;
 }
 
-.mostpopular{
-    margin-top : 2%;
-    margin-left : 27%;
 
-}
 .form-popup {
     display: none;
     position: fixed;
@@ -1012,5 +1013,42 @@ body{
 }
 
 #formArea p{
+    text-align:center;
+}
+.mostpopular{
+    width:60%;
+    height:60%;
+    margin-left : auto;
+    margin-right: auto;
+
+}
+
+.restaurantCard{
+    margin-left:auto;
+    margin-right:auto;
+    height:30%;
+    background-color:#CAE3E3;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 40%;
+}
+.restaurantCard h2{
+    margin:0;
+    height:100%;
+    background-color:#CAE3E3;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 100%;
+    text-decoration:none;
+}
+.restaurantCard:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.cardContainer{
+    text-align:center;
+    margin:0;
+}
+
+.cardContainer h4{
     text-align:center;
 }
