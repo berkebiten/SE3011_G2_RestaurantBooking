@@ -62,7 +62,7 @@ header('location:errorPage.php');
         <button>Ban User</button> <br><br>
         <button>Warn User</button>
         <?php else: ?>
-        <button>Edit Profile</button> <br><br>
+        <button>Edit Profile</button> <br><br> //authentication rest owner cannot see the edit profile button
         <a href="accountSettings.php"<button>Account Settings</button></a>
         <?php endif ?>
     </div>
