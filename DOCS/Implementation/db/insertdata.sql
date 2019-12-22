@@ -61,3 +61,13 @@ INSERT INTO ticket(user_uname,category, description, date, isResponded) VALUES (
 INSERT INTO ticket(user_uname,category, description, date, isResponded) VALUES ('pankylol','help','help me please','2019-12-18',0);
 INSERT INTO ticket(user_uname,category,description, date, isResponded, respond, admin_uname) VALUES ('kelbero','suggestion','u can add something','2019-12-12',1, 'yes we can', 'drogba1905');
 INSERT INTO ticket(rest_uname, category, description, date, isResponded) VALUES ('allfather', 'suggestion', 'i need this', '2019-12-20', 0);
+
+INSERT INTO rbs.image (imgId, name, rest_uname) VALUES ('1', 'balkan3.jpg', 'lapulga');
+INSERT INTO rbs.image (imgId, name, rest_uname) VALUES ('2', 'balkan2.jpg', 'lapulga');
+INSERT INTO rbs.image (imgId, name, rest_uname) VALUES ('3', 'balkan.jpg', 'lapulga');
+INSERT INTO rbs.image (imgId, name, rest_uname) VALUES ('4', 'lebron.jpg', 'kingjames');
+INSERT INTO rbs.image (imgId, name, rest_uname) VALUES ('5', 'james.jpg', 'kingjames');
+INSERT INTO rbs.image (imgId, name, rest_uname) VALUES ('6', 'tako.jpg', 'kingjames');
+INSERT INTO rbs.image (imgId, name, rest_uname) VALUES ('7', '1.jpg', 'allfather');
+INSERT INTO rbs.image (imgId, name, rest_uname) VALUES ('8', '2.jpg', 'allfather');
+INSERT INTO rbs.image (imgId, name, rest_uname) VALUES ('9', '3.jpg', 'allfather');
