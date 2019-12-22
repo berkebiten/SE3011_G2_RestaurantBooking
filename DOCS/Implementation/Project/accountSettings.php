@@ -57,8 +57,6 @@ if($isARestaurantViewing || $isAdminViewing){
 
                 <?php if (!$isAdminViewing): ?>
                     <a href ="support.php"><button id ="support"> Support</button> </a>
-                <?php else: ?>
-                    <a href="accountSettings.php?varname=<?php echo $_SESSION['username'] ?>"><button class='btn' name='accountSettings'>Account Settings</button></a>
                 <?php endif ?>
                 <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
             </div>
