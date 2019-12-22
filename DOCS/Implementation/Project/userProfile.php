@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="style.css"></link>
 <script src="scripts.js"></script>
 <?php
-session_start();
+include('accountsProcess.php');
 include 'dbconnect.php';
 $vname = $_GET['varname'];
 $user = $_SESSION['username'];

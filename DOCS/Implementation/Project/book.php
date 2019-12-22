@@ -10,8 +10,8 @@ if (!isset($_SESSION['username'])) {
 } else {
     $viewerUsername = $_SESSION['username'];
     $sql_rest = "SELECT * FROM restaurant_owner WHERE uname='$viewerUsername'";
-    $query_rest = mysqli_query($conn, $sql_rest);
     $sql_ad = "SELECT * FROM admin WHERE uname='$viewerUsername'";
+    $query_rest = mysqli_query($conn, $sql_rest);
     $query_ad = mysqli_query($conn, $sql_ad);
     if (mysqli_num_rows($query_rest) > 0 || mysqli_num_rows($query_ad) > 0) {
         header('location:index.php');
@@ -45,11 +45,6 @@ $address = $restArray['address'];
 $start = $restArray['startTime'];
 $end = $restArray['endTime'];
 $cap = $restArray['cap'];
-
-//$count = mysqli_num_rows($query);
-//if($count == 0) {
-//    header('location:errorPage.php');
-//}
 
 if (isset($_POST['booking'])) {
     $c_username = $_SESSION['username'];
@@ -87,6 +82,10 @@ if (isset($_POST['booking'])) {
     if (empty($date)) {
         array_push($errors, "Booking date is required");
     }
+    if ($startTime > $endTime) {
+        array_push($errors, "Starting time of the booking cannot be bigger than ending time.");
+    }
+
 
 
     $query1 = mysqli_query($conn, "SELECT * FROM bookings WHERE restaurant_uname = '$r_username' AND date = '$date'");
@@ -102,9 +101,10 @@ if (isset($_POST['booking'])) {
 
 
     if ($currentCap >= $party && count($errors) == 0) {
-        $query = mysqli_query($conn, "insert into bookings VALUES('$bookingId', '$c_username', '$r_username','$party','$startTime','$endTime','$fname','$lname','$email','$phone','$date')");
+        $query = mysqli_query($conn, "insert into bookings(customer_uname, restaurant_uname, party, start_time, end_time, fname, lname, email, phoneNo, date) VALUES('$c_username', '$r_username','$party','$startTime','$endTime','$fname','$lname','$email','$phone','$date')");
         array_push($feedbacks, "Your booking has been completed.");
         array_push($feedbacks, "You will be redirected to Your Bookings when you click 'OK' button.");
+
     } else {
         array_push($errors, "There are no capacity in the restaurant that meets your party size at the selected hours.");
     }

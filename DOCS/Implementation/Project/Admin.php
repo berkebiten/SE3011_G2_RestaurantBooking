@@ -2,7 +2,7 @@
 <link href="style.css" rel="stylesheet" ></link>
 <script src="scripts.js" type="text/javascript"></script>
 <?php
-session_start();
+include('accountsProcess.php');
 include("dbconnect.php");
 if (!isset($_SESSION['success'])) {
     header('location: index.php');
@@ -30,6 +30,7 @@ if (!isset($_SESSION['success'])) {
         <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
         <button id="profile" ><?php echo $_SESSION['username'] ?></button>
         <a href="Admin.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
+        <?php echo "<a href='accountSettings.php?varname=$username'><button class='btn' name='accountSettings'>Account Settings</button></a>" ?>
     </div>
     <div class="wholepanel">
 
@@ -182,6 +183,13 @@ if (!isset($_SESSION['success'])) {
                     </table>
 
                 </div>
+            </div>
+                        <div id="feedback">
+                <?php include('feedbacks.php') ?>
+                <?php if (count($feedbacks) > 0) : ?>
+                    <script> openFeedback();</script>
+                    <button onclick="window.location.href = 'Admin.php'">OK</button>
+                <?php endif ?>
             </div>
         </div>
     </div>

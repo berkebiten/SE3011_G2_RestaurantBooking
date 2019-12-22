@@ -37,16 +37,16 @@ if (isset($_POST['filterSubmit'])) {
 
     if (isset($_POST['filter1'])) { // filter1 isimli checkboxlardan hiçbiri dolu değil mi diye kontrol ediyor 
         if (!isset($_POST['filter'])) {  // filter isimli checkboxlardan hiçbiri dolu değil mi diye kontrol ediyor oan göre query düzenliyor. dolu değilse WHERE doluysa AND 
-            $sql .= 'WHERE seating_option LIKE ';
+            $sql .= 'WHERE seating_options LIKE ';
         } else {
-            $sql .= ' AND seating_option LIKE ';
+            $sql .= ' AND seating_options LIKE ';
         }
 
         $seating = $_POST['filter1'];
         foreach ($_POST['filter1'] as $seating) {
             $seatingarray[] = "'%" . $seating . "%'";
         }
-        $states1 = implode(" OR seating_option LIKE ", $seatingarray);
+        $states1 = implode(" OR seating_options LIKE ", $seatingarray);
         $sql .= $states1;
     }
 }
@@ -66,7 +66,7 @@ if (isset($_POST['filterSubmit'])) {
         foreach ($_POST['filter2'] as $price) {
             $pricearray[] = "'" . $price . "'";
         }
-        $states2 = implode(" OR seating_option LIKE ", $pricearray);
+        $states2 = implode(" OR price LIKE ", $pricearray);
         $sql .= $states2;
     }
 }
@@ -87,7 +87,7 @@ if (isset($_POST['filterSubmit'])) {
         foreach ($_POST['filter3'] as $stars) {
             $starsarray[] = "'" . $stars . "'";
         }
-        $states3 = implode(" OR seating_option LIKE ", $starsarray);
+        $states3 = implode(" OR stars LIKE ", $starsarray);
         $sql .= $states3;
     }
 }
