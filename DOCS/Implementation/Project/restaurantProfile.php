@@ -88,7 +88,7 @@ $count2 = mysqli_num_rows($restImg);
             <?php if($isARestaurantViewing):?>
             <a href='restaurantProfile.php?varname=<?php echo $_SESSION['username']?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
             <?php endif ?>
-            <a href ="supportUser.php"><button id ="support"> Support</button> </a>
+            <a href ="support.php"><button id ="support"> Support</button> </a>
             <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
         </div>
     <?php endif ?>
