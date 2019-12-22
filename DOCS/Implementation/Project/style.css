@@ -649,18 +649,11 @@ body{
 #description {
     text-align : center;
     width : 80%;
-    height: 25%;
-    margin-left : 10%;
-    margin-top : 5%;    
-}
-
-#menu {
-    text-align : center;
-    width : 80%;
     height: 40%;
     margin-left : 10%;
     margin-top : 5%;    
 }
+
 
 #infos {
     text-align:center;

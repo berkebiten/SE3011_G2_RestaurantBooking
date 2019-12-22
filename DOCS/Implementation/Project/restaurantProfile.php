@@ -117,16 +117,19 @@ $count2 = mysqli_num_rows($restImg);
                 <br>
                 <font face="Century Gothic" size="4"><?php echo $description ?></font>
             </div>
-
-            <div id="menu">
-                MENU
+            <div id="infos">
+                <font face="Century Gothic" size="4"><h3>Address</h3> <?php echo $address ?></font>
+                <font face="Century Gothic" size="4"><h3>Hours of operation</h3> <?php echo date('g:i A', strtotime($start)), '-', date('g:i A', strtotime($end)) ?></font>>
+                <font face="Century Gothic" size="4"><h3>Payment Options </h3> <?php echo $payment ?></font>
+                <font face="Century Gothic" size="4"><h3>Additional </h3> <?php echo $additional ?></font>
+                <font face="Century Gothic" size="4"><h3>Phone number </h3> <?php echo $phoneNo ?> </font>
             </div>
         </div>
         <div id="secondPart">
             <div class="slideshow-container">
                 <?php while ($imgArr = mysqli_fetch_array($restImg, MYSQLI_ASSOC)) : ?>
                     <div class="mySlides fade">
-                        <img class="restPics" src="restaurantImages/<?php echo $vuname ?>/<?php echo $imgArr['name'] ?>">
+                        <img class="restPics" src="restaurantImages/<?php echo $_GET['varname'] ?>/<?php echo $imgArr['name'] ?>">
                             <div class="text"><?php echo $count2 ?></div>
                     </div>
                 <?php endwhile; ?> 
@@ -143,14 +146,6 @@ $count2 = mysqli_num_rows($restImg);
             <?php
             echo "<a href='img.php?varname=$uname'>Upload a photo </a>";
             ?>
-
-            <div id="infos">
-                <font face="Century Gothic" size="4"><h3>Address</h3> <?php echo $address ?></font>
-                <font face="Century Gothic" size="4"><h3>Hours of operation</h3> <?php echo date('g:i A', strtotime($start)), '-', date('g:i A', strtotime($end)) ?></font>>
-                <font face="Century Gothic" size="4"><h3>Payment Options </h3> <?php echo $payment ?></font>
-                <font face="Century Gothic" size="4"><h3>Additional </h3> <?php echo $additional ?></font>
-                <font face="Century Gothic" size="4"><h3>Phone number </h3> <?php echo $phoneNo ?> </font>
-            </div>
         </div>
     </div>
     <div class="reviewHeader">
