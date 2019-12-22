@@ -55,7 +55,7 @@ if ($count == 0) {
     header('location:errorPage.php');
 }
 $commentQuery = mysqli_query($conn, "select * from review where rest_uname='$uname'");
-$sqlB = "select * from images where uname= '$uname'";
+$sqlB = "select * from image where rest_uname= '$uname'";
 $restImg = mysqli_query($conn, $sqlB);
 $count2 = mysqli_num_rows($restImg);
 ?>
@@ -126,7 +126,7 @@ $count2 = mysqli_num_rows($restImg);
             <div class="slideshow-container">
                 <?php while ($imgArr = mysqli_fetch_array($restImg, MYSQLI_ASSOC)) : ?>
                     <div class="mySlides fade">
-                        <img class="restPics" src="restaurantImages/<?php echo $uname ?>/<?php echo $imgArr['name'] ?>">
+                        <img class="restPics" src="restaurantImages/<?php echo $vuname ?>/<?php echo $imgArr['name'] ?>">
                             <div class="text"><?php echo $count2 ?></div>
                     </div>
                 <?php endwhile; ?> 
