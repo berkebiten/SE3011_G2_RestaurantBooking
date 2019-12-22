@@ -140,7 +140,7 @@ if (isset($_POST['reg_rest'])) {
         }
     }
 
-
+$signUpId = null ;
     if (count($errors) == 0) {
         $password = md5($password_1);
         $query = "INSERT INTO rest_signup VALUES('$signupId', '$username', '$fname', '$lname', '$rest_name', '$email', '$password', '$rest_loc', '$rest_phone', "

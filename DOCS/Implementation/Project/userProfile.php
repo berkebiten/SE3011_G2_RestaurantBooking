@@ -56,8 +56,13 @@ if (!$isMyProfile && !$isAdminViewing) {
         <label>Email:  <?php echo $email ?></label>
     </div>
     <div id='profileButtons'>
+        <?php if ($isAdminViewing): ?>
+        <button>Ban User</button> <br><br>
+        <button>Warn User</button>
+        <?php else: ?>
         <button>Edit Profile</button> <br><br>
         <button>Account Settings</button>
+        <?php endif ?>
     </div>
     <div class='stats' id="favRest">
         <h4>Favorite Restaurants</h4>
@@ -87,13 +92,20 @@ if (!$isMyProfile && !$isAdminViewing) {
                     $sqlR = "select * from restaurant_owner where uname='$rest_uname'";
                     $restName = mysqli_query($conn, $sqlR);
                     $rowR = mysqli_fetch_array($restName, MYSQLI_ASSOC);
-                    
+                    if (!$isAdminViewing){
                     if(($date==$row['date'] && $time<$row['start_time']) || $date < $row['date'] ){
                     echo "<tr> <td>" . $rowR['rest_name'] . "</td>"
                     . "<td> " . $row['date'] . " </td> <td>  <a href='editBookingForm.php?varname=$id'><button>Edit</button></a> "
                             . "<br><br><button onclick=\"if (confirm('Are you sure want to cancel your booking?')) window.location.href='cancelBook.php?varname=$id';\">Cancel</button></td></tr>";
+                    }}
+                    else {
+                        if(($date==$row['date'] && $time<$row['start_time']) || $date < $row['date'] ){
+                    echo "<tr> <td>" . $rowR['rest_name'] . "</td>"
+                    . "<td> " . $row['date'] . " </td> <td> </tr>";
+                    }
                     }
                 }
+                
                 ?>
             </tbody>
         </table>
