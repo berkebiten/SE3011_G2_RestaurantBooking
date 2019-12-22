@@ -3,6 +3,7 @@ include 'dbconnect.php';
 $uname=$_GET['varname'];
 $target_dir = "restaurantImages/$uname/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+$imgName = $_FILES["fileToUpload"]["name"];
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 // Check if image file is a actual image or fake image
@@ -33,6 +34,10 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
 }
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 1) {
+    echo $imgName;
 move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+$sql = "insert into images values (6,'$imgName','daad','$uname')";
+$query = mysqli_query($conn, $sql);
+header('Location: index.php');
 }
 ?>

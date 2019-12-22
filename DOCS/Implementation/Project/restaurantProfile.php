@@ -53,8 +53,8 @@ $count = mysqli_num_rows($query);
 if ($count == 0) {
     header('location:errorPage.php');
 }
-$restImg = mysqli_query($conn, "SELECT * FROM image WHERE rest_uname='$uname'");
-$imgArr = mysqli_fetch_assoc($restImg);
+$sqlB = "select * from images where uname= '$uname'";
+$restImg = mysqli_query($conn, $sqlB);
 $count2 = mysqli_num_rows($restImg);
 ?>
 <html>
@@ -112,7 +112,6 @@ $count2 = mysqli_num_rows($restImg);
         </div>
         <div id="secondPart">
             <div class="slideshow-container">
-
                 <?php while ($imgArr = mysqli_fetch_array($restImg, MYSQLI_ASSOC)) : ?>
                     <div class="mySlides fade">
                         <img class="restPics" src="restaurantImages/<?php echo $uname ?>/<?php echo $imgArr['name'] ?>">
