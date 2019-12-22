@@ -43,6 +43,13 @@ INSERT INTO `rest_signup` VALUES(2,'pankyrest','Ugur','Tas','Pankys Hall','ayibe
 INSERT INTO `rest_signup` VALUES(3, 'sinopmanti','Ali','Atahan','Meshur Sinop Manticisi','57sinob@gmail.com','c48441e989575be5b9c68af087510134','Sultanbeyli','12345','Sultanbeyli Merkez','11:00:00','21:00:00',150);
 INSERT INTO `rest_signup` VALUES(4,'ozkan58','Oguz','Ozkan','Sivasli Prens','kangal@gmail.com','c48441e989575be5b9c68af087510134','Yenidogan','12345','Yenidogan Metro','10:00:00','20:00:00',30);
 INSERT INTO `rest_signup` VALUES(5,'pismaniye41','Berke','Biten','Izmit ','izmit@gmail.com','c48441e989575be5b9c68af087510134','Tasdelen','12345','Tasdelen Saat Kulesi','8:00:00','23:00:00',110);
+INSERT INTO rest_signup VALUES(6,'nusretetci','Nusret','Biten','Nusret ','nusret@gmail.com','c48441e989575be5b9c68af087510134','Etiler','12345','Etiler Merkez','8:00:00','23:00:00',110);
+INSERT INTO rest_signup VALUES(7,'abovvv41','Hamza','Biten','ABOVVVV KEBAP ','abovv@gmail.com','c48441e989575be5b9c68af087510134','Agva','12345','Agva Deniz','8:00:00','23:00:00',30);
+INSERT INTO rest_signup VALUES(8,'tantuninuri','Nuri','Biten','Tantuni Nuri','tantu@gmail.com','c48441e989575be5b9c68af087510134','Levent','12345','Levent Merkez','10:00:00','21:00:00',15);
+INSERT INTO rest_signup VALUES(9,'pitbullsami','Sami','Tekinoglu','Tekinoglu Restoran','oglum@gmail.com','c48441e989575be5b9c68af087510134','Seyrantepe','12345','Seyrantepe Mahallesi','9:00:00','21:00:00',70);
+INSERT INTO rest_signup VALUES(10,'salonburger','Volkan','Meydan','Salon Burger ','volkanabi@gmail.com','c48441e989575be5b9c68af087510134','Uskudar','12345','Uskudar Merkez','9:00:00','21:00:00',40);
+INSERT INTO rest_signup VALUES(11,'kebappe','Kylian','Mbappe','KebabLand','kylian@gmail.com','c48441e989575be5b9c68af087510134','Bahcesehir','12345','Bahcesehir Mahallesi Abant sokak','9:00:00','21:00:00',40);
+INSERT INTO rest_signup VALUES(12,'yuksel12','Yuksel','Meydan','Cay Ocagi','caycii@gmail.com','c48441e989575be5b9c68af087510134','Cekmekoy','12345','Cekmekoy Eczane','10:00:00','22:00:00',40);
 
 INSERT INTO `admin` VALUES ('aykut1907','aykut','kocaman','aykut54@gmail.com','e5a88636b50c779a7353c5c93bc36900','a63kuIWe');
 INSERT INTO `admin` VALUES ('drogba1905','didier','drogba','drogba@gmail.com','e5a88636b50c779a7353c5c93bc36900','YSjTZqDP');
@@ -62,12 +69,12 @@ INSERT INTO ticket(user_uname,category, description, date, isResponded) VALUES (
 INSERT INTO ticket(user_uname,category,description, date, isResponded, respond, admin_uname) VALUES ('kelbero','suggestion','u can add something','2019-12-12',1, 'yes we can', 'drogba1905');
 INSERT INTO ticket(rest_uname, category, description, date, isResponded) VALUES ('allfather', 'suggestion', 'i need this', '2019-12-20', 0);
 
-INSERT INTO rbs.image (imgId, name, rest_uname) VALUES ('1', 'balkan3.jpg', 'lapulga');
-INSERT INTO rbs.image (imgId, name, rest_uname) VALUES ('2', 'balkan2.jpg', 'lapulga');
-INSERT INTO rbs.image (imgId, name, rest_uname) VALUES ('3', 'balkan.jpg', 'lapulga');
-INSERT INTO rbs.image (imgId, name, rest_uname) VALUES ('4', 'lebron.jpg', 'kingjames');
-INSERT INTO rbs.image (imgId, name, rest_uname) VALUES ('5', 'james.jpg', 'kingjames');
-INSERT INTO rbs.image (imgId, name, rest_uname) VALUES ('6', 'tako.jpg', 'kingjames');
-INSERT INTO rbs.image (imgId, name, rest_uname) VALUES ('7', '1.jpg', 'allfather');
-INSERT INTO rbs.image (imgId, name, rest_uname) VALUES ('8', '2.jpg', 'allfather');
-INSERT INTO rbs.image (imgId, name, rest_uname) VALUES ('9', '3.jpg', 'allfather');
+INSERT INTO image (imgId, name, rest_uname) VALUES ('1', 'balkan3.jpg', 'lapulga');
+INSERT INTO image (imgId, name, rest_uname) VALUES ('2', 'balkan2.jpg', 'lapulga');
+INSERT INTO image (imgId, name, rest_uname) VALUES ('3', 'balkan.jpg', 'lapulga');
+INSERT INTO image (imgId, name, rest_uname) VALUES ('4', 'lebron.jpg', 'kingjames');
+INSERT INTO image (imgId, name, rest_uname) VALUES ('5', 'james.jpg', 'kingjames');
+INSERT INTO image (imgId, name, rest_uname) VALUES ('6', 'tako.jpg', 'kingjames');
+INSERT INTO image (imgId, name, rest_uname) VALUES ('7', '1.jpg', 'allfather');
+INSERT INTO image (imgId, name, rest_uname) VALUES ('8', '2.jpg', 'allfather');
+INSERT INTO image (imgId, name, rest_uname) VALUES ('9', '3.jpg', 'allfather');

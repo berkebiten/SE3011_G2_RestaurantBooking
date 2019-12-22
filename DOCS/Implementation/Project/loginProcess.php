@@ -24,9 +24,9 @@ $errors = array();
 $recCode = "";
 
 include("dbconnect.php");
-// REGISTER USER
+// USER REGISTRATION PROCESS
 if (isset($_POST['reg_user'])) {
-
+    //GETTING VARIABLES FROM FORM
     $fname = mysqli_real_escape_string($conn, $_POST['fname']);
     $lname = mysqli_real_escape_string($conn, $_POST['lname']);
     $username = mysqli_real_escape_string($conn, $_POST['username']);

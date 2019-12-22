@@ -14,6 +14,7 @@ $errors = array();
 
 
 if (isset($_POST['drop_review'])) {
+    
     $customer_uname = $_SESSION['username'];
 
     $sqlRest = "select restaurant_uname from bookings where bookingId = '$bookId'";
@@ -25,6 +26,7 @@ if (isset($_POST['drop_review'])) {
     $text = filter_input(INPUT_POST, 'text');
     $starStr = filter_input(INPUT_POST, 'starRate');
     $priceStr = filter_input(INPUT_POST, 'priceRate');
+    
 
     if ($starStr == "Bad") {
         $star = 1;

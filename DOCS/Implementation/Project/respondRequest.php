@@ -14,6 +14,9 @@ if (isset($_SESSION['username'])) {
         header('location:errorPage.php');
     }
 }
+else{
+    header('location:errorPage.php');
+}
 ?>
     <?php
 $ticketId = $_GET['varname'];

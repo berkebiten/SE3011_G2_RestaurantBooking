@@ -1,10 +1,20 @@
 <?php
+
 include('dbconnect.php');
 session_start();
 $errors = array();
 $feedbacks = array();
+$isViewerAuthorized=false;
 if (!isset($_SESSION['success'])) {
-    header('location:index.php');
+    header('location:errorPage.php');
+} else {
+    if($_GET['varname']==$_SESSION['username']){
+        $isViewerAuthorized=true;
+    }
+}
+
+if(!$isViewerAuthorized){
+    header('location:errorPage.php');
 }
 
 $uname = $_GET['varname'];
@@ -103,7 +113,7 @@ if (isset($_POST['changeEmail'])) {
         } else if ($result3) {
             $array = mysqli_fetch_assoc($results3);
         }
-        
+
         if ($current_email != $array['email']) {
 
             if ($email_1 != $email_2) {
@@ -133,6 +143,5 @@ if (isset($_POST['changeEmail'])) {
         }
     }
 }
-
 ?>
 

@@ -5,19 +5,20 @@
 session_start();
 include("dbconnect.php");
 
-//if (!isset($_SESSION['username'])) {
-//    header('location:signIn.php');
-//} else {
-//    $viewerUsername = $_SESSION['username'];
-//    $sql_rest = "SELECT * FROM restaurant_owner WHERE uname='$viewerUsername'";
-//    $query_rest = mysqli_query($conn, $sql_rest);
-//    $sql_ad = "SELECT * FROM admin WHERE uname='$viewerUsername'";
-//    $query_ad = mysqli_query($conn, $sql_ad);
-//    if (mysqli_num_rows($query_rest) > 0 || mysqli_num_rows($query_ad) > 0) {
-//        header('location:index.php');
-//    }
-//}
+if (!isset($_SESSION['username'])) {
+    header('location:signIn.php');
+} else {
+    $viewerUsername = $_SESSION['username'];
+    $sql_rest = "SELECT * FROM restaurant_owner WHERE uname='$viewerUsername'";
+    $query_rest = mysqli_query($conn, $sql_rest);
+    $sql_ad = "SELECT * FROM admin WHERE uname='$viewerUsername'";
+    $query_ad = mysqli_query($conn, $sql_ad);
+    if (mysqli_num_rows($query_rest) > 0 || mysqli_num_rows($query_ad) > 0) {
+        header('location:index.php');
+    }
+}
 
+//INITIALIZING OF VARIABLES
 $c_username = "";
 $r_username = "";
 $date = "";
@@ -32,6 +33,7 @@ $party = "";
 $feedbacks = array();
 $errors = array();
 
+//PULL THE DATAS OF THE BOOKING
 $bookId = $_GET['varname'];
 $sqlBook = "select * from bookings where bookingId = '$bookId'";
 $queryBook = mysqli_query($conn, $sqlBook);
@@ -44,11 +46,12 @@ $start = $restArray['startTime'];
 $end = $restArray['endTime'];
 $cap = $restArray['cap'];
 
-//$count = mysqli_num_rows($query);
-//if($count == 0) {
-//    header('location:errorPage.php');
-//}
+$count = mysqli_num_rows($sqlBook);
+if($count == 0) {
+    header('location:errorPage.php');
+}
 
+// IF THE EDIT BOOKING BUTTON ACTIVATED PULL THE INPUTS FROM THE FORM
 if (isset($_POST['editBooking'])) {
     $c_username = $_SESSION['username'];
     $r_username = $restUname;
@@ -61,6 +64,7 @@ if (isset($_POST['editBooking'])) {
     $email = filter_input(INPUT_POST, 'email');
     $party = filter_input(INPUT_POST, 'party');
 
+    //CHECK THE VALIDITY OF THE FORM
     if (empty($fname)) {
         array_push($errors, "First Name is required");
     }
@@ -86,11 +90,11 @@ if (isset($_POST['editBooking'])) {
         array_push($errors, "Booking date is required");
     }
 
-
+    //FIND THE RESTAURANT
     $query1 = mysqli_query($conn, "SELECT * FROM bookings WHERE restaurant_uname = '$r_username' AND date = '$date'");
-
     $partySize = 0;
     $i = 0;
+    //CALCULATE THE AVAILABLE CAPACITY OF THE RESTAURANT DURING THE RESERVATION 
     while ($array = mysqli_fetch_array($query1, MYSQLI_ASSOC)) {
         if (!(strtotime($startTime) - strtotime($array['end_time']) >= 0 || strtotime($array['start_time']) - strtotime($endTime) >= 0)) {
             if($array['bookingId'] != $bookId){
@@ -100,7 +104,7 @@ if (isset($_POST['editBooking'])) {
     }
     $currentCap = $cap - $partySize;
 
-
+   //CHECK IF THE PARTY SIZE FITS IN AVAILABLE CAPACITY AND MAKE THE RESERVATION
     if ($currentCap >= $party && count($errors) == 0) {
         $queryDelete = mysqli_query($conn,"delete from bookings where bookingId = '$bookId'");
         $queryInsert = mysqli_query($conn, "insert into bookings VALUES('$bookId', '$c_username', '$r_username','$party','$startTime','$endTime','$fname','$lname','$email','$phone','$date')");

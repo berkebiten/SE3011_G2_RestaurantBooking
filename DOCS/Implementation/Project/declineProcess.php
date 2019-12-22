@@ -1,5 +1,20 @@
 <?php
+
 include('dbconnect.php');
+
+session_start();
+
+$usercheck2 = $_SESSION['username'];
+$sql3 = "select uname from admin where uname='$usercheck2'";
+$queryA = mysqli_query($conn, $sql3);
+
+if (mysqli_num_rows($queryA) > 0) {
+    $isAdminViewing = true;
+}
+
+if (!$isAdminViewing) {
+    header('location:errorPage.php');
+}
 $uname = $_GET['varname'];
 $query1 = "DELETE FROM rest_signup WHERE uname='$uname'";
 $boolean = mysqli_query($conn, $query1);
@@ -17,7 +32,7 @@ if ($boolean) {
     if (mail($rest_email, $subject, $body, $headers)) {
         array_push($feedbacks, "Email successfully sent to " . $rest_email . ". About being denied.");
     }
-    
+
     header('location: Admin.php');
 }
 

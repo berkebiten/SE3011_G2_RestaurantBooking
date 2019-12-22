@@ -4,8 +4,9 @@
 <?php
 include('dbconnect.php');
 session_start();
+$isMyProfile=false;
 if (isset($_SESSION['username'])) {
-    
+
     $usercheck2 = $_SESSION['username'];
     $sql = "select * from restaurant_owner where uname = '$usercheck2'";
     $sql2 = "select uname from user where uname='$usercheck2'";
@@ -13,29 +14,25 @@ if (isset($_SESSION['username'])) {
     $query6 = mysqli_query($conn, $sql);
     $queryU = mysqli_query($conn, $sql2);
     $queryA = mysqli_query($conn, $sql3);
-    $isMyProfile=false;
-    $isUserViewing = false ;
-    $isAdminViewing = false ;
-    /**
-    * example of documenting a variable's type
-    * @var boolean contains viewer information
-    */
+    $isMyProfile = false;
+    $isUserViewing = false;
+    $isAdminViewing = false;    
     $isARestaurantViewing = false;
-    
+
     if (mysqli_num_rows($query6) > 0) {
-        $isARestaurantViewing=true;
+        $isARestaurantViewing = true;
     }
     if (mysqli_num_rows($queryU) > 0) {
-        $isUserViewing = true ;
+        $isUserViewing = true;
     }
     if (mysqli_num_rows($queryA) > 0) {
-        $isAdminViewing = true ;
+        $isAdminViewing = true;
     }
-    
-    
+
+
     $vuname = $_GET['varname'];
-    if($usercheck2 == $vuname){
-        $isMyProfile=true;
+    if ($usercheck2 == $vuname) {
+        $isMyProfile = true;
     }
 }
 $uname = $_GET['varname'];
@@ -79,14 +76,14 @@ $count2 = mysqli_num_rows($restImg);
     <?php if (isset($_SESSION['success'])): ?>
         <div class="top">
             <a href = "SignOut.php"><button action = "SignOut.php" id="signout">Sign Out </button></a>
-            <?php if($isAdminViewing): ?>
-            <a href='Admin.php'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+            <?php if ($isAdminViewing): ?>
+                <a href='Admin.php'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
             <?php endif ?>
-            <?php if($isUserViewing): ?>
-            <a href='userProfile.php?varname=<?php echo $_SESSION['username']?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+            <?php if ($isUserViewing): ?>
+                <a href='userProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
             <?php endif ?>
-            <?php if($isARestaurantViewing):?>
-            <a href='restaurantProfile.php?varname=<?php echo $_SESSION['username']?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+            <?php if ($isARestaurantViewing): ?>
+                <a href='restaurantProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
             <?php endif ?>
             <a href ="support.php"><button id ="support"> Support</button> </a>
             <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
@@ -103,12 +100,12 @@ $count2 = mysqli_num_rows($restImg);
     <?php endif ?>
     <div>
         <font  face="Century Gothic" size="8"><?php echo $rest_name ?></font>
-        <?php if (isset($_SESSION['success']) && $isARestaurantViewing==false): ?>
-        <?php echo "<a href='bookingForm.php?varname=$uname'><button>Make a Reservation</button></a>" ?>
+        <?php if (isset($_SESSION['success']) && $isARestaurantViewing == false): ?>
+            <?php echo "<a href='bookingForm.php?varname=$uname'><button>Make a Reservation</button></a>" ?>
         <?php endif ?>
-        
+
         <?php if (isset($_SESSION['success']) && $isMyProfile == true): ?>
-        <?php echo "<a href='editMyProfile.php?varname=$uname'><button>EditProfile</button></a>" ?>
+            <?php echo "<a href='editMyProfile.php?varname=$uname'><button>EditProfile</button></a>" ?>
         <?php endif ?>
     </div>
     <div id="full">
@@ -130,7 +127,7 @@ $count2 = mysqli_num_rows($restImg);
                 <?php while ($imgArr = mysqli_fetch_array($restImg, MYSQLI_ASSOC)) : ?>
                     <div class="mySlides fade">
                         <img class="restPics" src="restaurantImages/<?php echo $_GET['varname'] ?>/<?php echo $imgArr['name'] ?>">
-                            <div class="text"><?php echo $count2 ?></div>
+                            
                     </div>
                 <?php endwhile; ?> 
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -144,7 +141,9 @@ $count2 = mysqli_num_rows($restImg);
             </div>
 
             <?php
-            echo "<a href='img.php?varname=$uname'>Upload a photo </a>";
+            if ($isMyProfile) {
+                echo "<a href='img.php?varname=$uname'>Upload a photo </a>";
+            }
             ?>
         </div>
     </div>

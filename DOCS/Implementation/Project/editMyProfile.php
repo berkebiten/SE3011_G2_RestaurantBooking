@@ -3,13 +3,13 @@
 include 'editMyProfileProcess.php';
 if (isset($_SESSION['username'])) {
     $usercheck2 = $_SESSION['username'];
-     $sql3 = "select uname from restaurant_owner where uname='$usercheck2'";
-       $queryR = mysqli_query($conn, $sql3);
-        $isOwnerViewing = false;
-        if (mysqli_num_rows($queryR) > 0) {
+    $sql3 = "select uname from restaurant_owner where uname='$usercheck2'";
+    $queryR = mysqli_query($conn, $sql3);
+    $isOwnerViewing = false;
+    if (mysqli_num_rows($queryR) > 0) {
         $isOwnerViewing = true;
     }
-      if(!$isOwnerViewing){
+    if (!$isOwnerViewing) {
         header('location:errorPage.php');
     }
 }
@@ -49,11 +49,11 @@ $email = $editArray['email'];
     <div id='formArea'>
         <?php include('errors.php'); ?>
         <form class='formX' method='post' action='editMyProfile.php?varname=<?php echo $uname ?>'>
-               <div class="input-group">
+            <div class="input-group">
                 <label for="fname">First Name</label>
                 <input class="input" type="text" placeholder="Enter First Name"name="fname" value="<?php echo $fname ?>"></input>
             </div>
-              <div class="input-group">
+            <div class="input-group">
                 <label for="lname">Last Name</label>
                 <input class="input" type="text"  placeholder="Enter Last Name"name="lname" value="<?php echo $lname ?>"></input>
             </div>
@@ -61,35 +61,35 @@ $email = $editArray['email'];
                 <label for="rName">Restaurant Name</label>
                 <input class="input" type="text" value="<?php echo $restName ?>" name="rName"></input>
             </div>
-             <div class="input-group">
+            <div class="input-group">
                 <label for="location">Location</label>
-                <input class="input" type="text" value="<?php echo $location?>" name="location"></input>
+                <input class="input" type="text" value="<?php echo $location ?>" name="location"></input>
             </div>
-             <div class="input-group">
+            <div class="input-group">
                 <label for="phone">Phone Number</label>
                 <input class="input" type="text" value="<?php echo $phone ?>" name="phone"></input>
             </div>
-             <div class="input-group">
+            <div class="input-group">
                 <label for="capacity">Capacity</label>
                 <input class="input" type="text" value="<?php echo $cap ?>" name="capacity"></input>
             </div>
             <div class="input-group">
                 <label for="description">Description</label>
-            <textarea rows="8" cols="50" class="tArea" name="description"><?php echo $description ?></textarea>
+                <textarea rows="8" cols="50" class="tArea" name="description"><?php echo $description ?></textarea>
             </div>
-             <div class="input-group">
+            <div class="input-group">
                 <label for="payment">Payment</label>
-                <input class="input" type="text" value="<?php echo $payment?>" name="payment"></input>
+                <input class="input" type="text" value="<?php echo $payment ?>" name="payment"></input>
             </div>
-                <div class="input-group">
+            <div class="input-group">
                 <label for="additional">Additional</label>
-                <input class="input" type="text" value="<?php echo $additional?>" name="additional"></input>
+                <input class="input" type="text" value="<?php echo $additional ?>" name="additional"></input>
             </div>
             <div class="input-group">
                 <label for="address">Address</label>
-                <input class="input" type="text" value="<?php echo $address?>" name="address"></input>
+                <input class="input" type="text" value="<?php echo $address ?>" name="address"></input>
             </div>
-          
+
             <div class="input-group">
                 <label for="time">Start Time</label>
                 <input class="input" id="bookingsTime" type="time" name="startTime" value="<?php echo $startTime ?>"> </input>
@@ -98,18 +98,18 @@ $email = $editArray['email'];
                 <label for="time">End Time</label>
                 <input class="input" id="bookingeTime" type="time" name="endTime" value="<?php echo $endTime ?>"></input>
             </div>
-              <div class="input-group">
+            <div class="input-group">
                 <label for="cuisines">Cuisines</label>
-                <input class="input" type="text" value="<?php echo $cuisines?>" name="cuisines"></input>
-            </div>
-              <div class="input-group">
-                <label for="seating_options">Seating Options</label>
-                <input class="input" type="text" value="<?php echo $seating_options?>" name="seating_options"></input>
+                <input class="input" type="text" value="<?php echo $cuisines ?>" name="cuisines"></input>
             </div>
             <div class="input-group">
-                <label for="price">Price</label>
-                <input class="input" type="text" value="<?php echo $price?>" name="price"></input>
+                <label for="seating_options">Seating Options</label>
+                <input type="checkbox" name="seat1" value="Bar"/> Bar <br>
+                <input type="checkbox" name="seat2" value="High Top"/> High Top <br>
+                <input type="checkbox" name="seat3" value="Standart" /> Standard <br>
+                <input type="checkbox" name="seat4" value="Outdoor" /> Outdoor <br>
             </div>
+
             <a href='editMyProfileProcess.php?varname=<?php echo $uname ?>'><button type='submit' class='btn' name='editRestaurant'>Edit</button></a>
         </form>   
     </div>

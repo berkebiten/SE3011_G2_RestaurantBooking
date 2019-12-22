@@ -2,7 +2,9 @@
 <link href="style.css" rel="stylesheet" ></link>
 <script src="scripts.js" type="text/javascript"></script>
 <?php
-include('accountsProcess.php');
+
+session_start();
+
 include("dbconnect.php");
 if (!isset($_SESSION['success'])) {
     header('location: index.php');
@@ -41,8 +43,6 @@ if (!isset($_SESSION['success'])) {
                 <h1> Admin Panel </h1>
                 <li><a onclick="openViewTickets()">View Request Tickets</a></li>
                 <li><a onclick="openRestSignUps()">View Restaurant Signups</a></li>
-                <li><a href="#contact">Ban User</a></li>
-                <li><a href="#about">Warn User</a></li>
                 <li><a onclick="openAdminSearch()">Search</a></li>
             </ul>
         </div>
@@ -107,7 +107,7 @@ if (!isset($_SESSION['success'])) {
                                 . "<td>" . "No" . "</td> </tr>";
                             }
                             while ($row2 = mysqli_fetch_array($query2, MYSQLI_ASSOC)) {
-                                     $ticketId = $row['ticketId'];
+                                     $ticketId = $row2['ticketId'];
                                 echo "<tr> <td><a href='respondRequest.php?varname=$ticketId'>" . $row2['rest_uname'] . "</td>"
                                 . "<td> " . $row2['category'] . " </td> "
                                 . "<td>" . $row2['date'] . "</td>"
@@ -121,7 +121,7 @@ if (!isset($_SESSION['success'])) {
                                 . "<td>" . "Yes" . "</td> </tr>";
                             }
                             while ($row2 = mysqli_fetch_array($query4, MYSQLI_ASSOC)) {
-                                 $ticketId = $row['ticketId'];
+                                 $ticketId = $row2['ticketId'];
                                 echo "<tr> <td><a href='respondRequest.php?varname=$ticketId'>" . $row2['rest_uname'] . "</td>"
                                 . "<td> " . $row2['category'] . " </td> "
                                 . "<td>" . $row2['date'] . "</td>"

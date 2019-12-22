@@ -24,7 +24,7 @@ if (!isset($_SESSION['success'])) {
             </div>
             <div id="formArea">
                 <form class="formX" method="post" action="accountsProcess.php?varname=<?php echo $uname ?>">
-                    <h1>Forgot Password</h1>
+                    <h1>Change Email</h1>
                     <?php include('errors.php'); ?>
                     <div class="input-group">
                         <label>Current Email</label>

@@ -27,7 +27,6 @@ if (isset($_POST['editRestaurant'])) {
     $endTime = mysqli_real_escape_string($conn, $_POST['endTime']);
     $cuisines = mysqli_real_escape_string($conn, $_POST['cuisines']);
     $seatingOptions = mysqli_real_escape_string($conn, $_POST['seating_options']);
-      $price = mysqli_real_escape_string($conn, $_POST['price']);
 
     if (empty($fname)) {
         array_push($errors, "First Name is required");
@@ -71,14 +70,12 @@ if (isset($_POST['editRestaurant'])) {
      if (empty($seatingOptions)) {
         array_push($errors, "Seating option is required");
     }
-     if (empty($price)) {
-        array_push($errors, "Price is required");
-    }
+
 
 
     if (count($errors) == 0) {
          $uname = $_SESSION['username'];
-       $queryEdit = "UPDATE restaurant_owner SET fname='$fname', lname='$lname', rest_name='$rest_name', location='$location', phoneNo='$phone', cap='$capacity', description='$description', payment='$payment', additional='$additional', address ='$address', startTime='$startTime', endTime='$endTime', cuisines='$cuisines', seating_options='$seatingOptions', price='$price' WHERE uname='$uname' ";
+       $queryEdit = "UPDATE restaurant_owner SET fname='$fname', lname='$lname', rest_name='$rest_name', location='$location', phoneNo='$phone', cap='$capacity', description='$description', payment='$payment', additional='$additional', address ='$address', startTime='$startTime', endTime='$endTime', cuisines='$cuisines', seating_options='$seatingOptions' WHERE uname='$uname' ";
       mysqli_query($conn,$queryEdit);
         array_push($feedbacks, "Your restaurant has been editted.");
         array_push($feedbacks, "You will be redirected to Restaurant Page when you click 'OK' button.");

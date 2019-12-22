@@ -3,7 +3,7 @@
 
 <script src="scripts.js" type="text/javascript"></script>
 <?php
-include('accountsProcess.php');
+session_start();
 include("dbconnect.php");
 if (!isset($_SESSION['success'])) {
     header('location: index.php');
@@ -39,9 +39,7 @@ if (!isset($_SESSION['success'])) {
                     <ul>
                         <h1> Restaurant Menu </h1>
                         <li><a onclick="openBookings()">View Bookings of My Restaurant</a></li>
-                        <li><a href="#news">View Reviews</a></li>
                         <li><?php echo "<a href='accountSettings.php?varname=$username'><button class='btn' name='accountSettings'>Account Settings</button></a>" ?></li>
-                        <li><a href="#about">Support</a></li>
                     </ul>
                 </div>
             </div>
