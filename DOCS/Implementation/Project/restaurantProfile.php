@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="style.css"></link>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
 <script src="scripts.js"></script>
 <?php
 include('dbconnect.php');
@@ -53,12 +54,23 @@ $count = mysqli_num_rows($query);
 if ($count == 0) {
     header('location:errorPage.php');
 }
+$commentQuery = mysqli_query($conn, "select * from review where rest_uname='$uname'");
 $sqlB = "select * from images where uname= '$uname'";
 $restImg = mysqli_query($conn, $sqlB);
 $count2 = mysqli_num_rows($restImg);
 ?>
+
+<?php include('replyProcess.php'); ?>
 <html>
     <head>
+        <style>
+            .checked {
+                color: #FFE100;
+            }
+            .checked2{
+                color:#7BFF00;
+            }
+        </style>
         <meta charset="UTF-8">
     <title>RESTAURANT</title>
 </head>
@@ -141,8 +153,64 @@ $count2 = mysqli_num_rows($restImg);
             </div>
         </div>
     </div>
-    <div id="reviews">
+    <div class="reviewHeader">
         <h2>REVIEWS</h2>
+    </div>
+
+
+    <div class="reviews">
+        <?php while ($row = mysqli_fetch_array($commentQuery, MYSQLI_ASSOC)): ?>
+            <div class="commentCard">
+                <div class='starNPrice'>
+                    <?php
+                    $starCount = $row['star'];
+                    $priceCount = $row['price'];
+                    $cs = 0;
+                    $cp = 0;
+                    while ($cs < $starCount) {
+                        echo "<span class='fa fa-star checked'></span>";
+                        $cs++;
+                    }
+                    if ($starCount < 3) {
+                        $es = 0;
+                        while ($es < (3 - $starCount)) {
+                            echo "<span class='fa fa-star'></span>";
+                            $es++;
+                        }
+                    }
+                    echo "<br>";
+                    while ($cp < $priceCount) {
+                        echo "<span class='fa fa-usd checked2'></span>";
+                        $cp++;
+                    }
+                    if ($priceCount < 3) {
+                        $ep = 0;
+                        while ($ep < (3 - $priceCount)) {
+                            echo "<span class='fa fa-usd'></span>";
+                            $ep++;
+                        }
+                    }
+                    ?>
+                </div>
+                <div class="comment">
+                    <p> <?php echo $row['customer_uname'] . ": " . $row['text']; ?> </p>
+                </div>
+
+                <?php if (!empty($row['reply'])): ?>
+                    <div class="replyRest">
+                        <p> <?php echo $row['rest_uname'] . ": " . $row['reply']; ?> </p>
+                    </div>
+
+                <?php endif ?>
+                <?php if (empty($row['reply']) && $isMyProfile): ?>
+                    <form class="replyComment" method="post" action="restaurantProfile.php?varname=<?php echo $_GET['varname'] ?>">
+                        <input type="number" class="invs" name='reviewId' value="<?php echo $row['reviewId'] ?>" />
+                        <textarea rows="3" cols="50" class="rArea" name="reply" required></textarea>
+                        <button type="submit" class="btn" name="drop_reply">Submit</button>
+                    </form>
+                <?php endif ?>
+            </div>
+        <?php endwhile ?>
     </div>
 </div>
 </body>

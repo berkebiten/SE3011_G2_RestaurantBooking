@@ -212,6 +212,8 @@ body{
     margin-left:15%;
     width:70%;
 }
+
+
 .submitReq{
 
     background-color:white;
@@ -654,7 +656,7 @@ body{
 #menu {
     text-align : center;
     width : 80%;
-    height: 60%;
+    height: 40%;
     margin-left : 10%;
     margin-top : 5%;    
 }
@@ -770,13 +772,50 @@ body{
     height :35%;
 }
 
-#reviews{
+.reviews{
     margin:auto;
     width:80%;
     height:60%;
-    overflow-y:scroll;
-    background-color:red;
+    overflow-y:auto;
+    background-color:#DBDBB4;
     text-align:center;
+}
+
+.reviewHeader{
+    margin:auto;
+    width:80%;
+    background-color:#A3A383;
+    text-align:center;
+}
+.starNPrice{
+    float:left;
+}
+
+
+.commentCard{
+    font-family:Courier;
+    width:95%;
+    margin-left:2.5%;
+    background:#949479;
+    font-weight:bold;
+}
+.comment{
+    width:90%;
+    margin-left:5%;
+    text-align:left;
+}
+.replyRest{
+
+    margin-left:7%;
+    text-align:left;
+}
+.replyComment input{
+    width: 3%;
+    padding:0px;
+    margin: 0 0 0 0;
+    border: none;
+    background: none;
+    display:none;
 }
 
 #full{
@@ -883,7 +922,7 @@ body{
 
 /*USER PROFLE*/
 #fullProfile {
-  background-color:DCDCDC;
+    background-color:DCDCDC;
     margin-top : 2%;
     margin-left : auto;
     margin-right : auto;
@@ -904,17 +943,17 @@ body{
 }
 
 #personalInfos p, label {
-margin-top : 10%;
-font-family: "Comic Sans MS", cursive, sans-serif;
-font-size: 17px;
-letter-spacing: 2px;
-word-spacing: 2px;
-color: #000000;
-font-weight: normal;
-text-decoration: none;
-font-style: normal;
-font-variant: normal;
-text-transform: none;
+    margin-top : 10%;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 17px;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    color: #000000;
+    font-weight: normal;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
 }
 
 #profileButtons{

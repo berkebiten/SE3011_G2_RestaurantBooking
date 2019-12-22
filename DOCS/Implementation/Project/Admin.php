@@ -67,7 +67,8 @@ if (!isset($_SESSION['success'])) {
                                 . "<td> " . "Restaurant Owner" . " </td> </tr>";
                             }
                             while ($row2 = mysqli_fetch_array($query2, MYSQLI_ASSOC)) {
-                                echo "<tr> <td> " . $row2["uname"] . " </td>"
+                                $user_uname = $row2['uname'];
+                                echo "<tr> <td><a href='userProfile.php?varname=$user_uname'> " . $row2["uname"] . "</a></td>"
                                 . "<td> " . "User" . " </td> </tr>";
                             }
                             ?>
