@@ -158,9 +158,9 @@ if (!isset($_SESSION['success'])) {
                             $query = mysqli_query($conn, "Select * from rest_signup");
 
                             while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
-                                $uname = $row['username'];
+                                $uname = $row['uname'];
 
-                                echo "<tr> <td>" . $row['username'] . "</td>"
+                                echo "<tr> <td>" . $row['uname'] . "</td>"
                                 . "<td> " . $row['fname'] . " </td> "
                                 . "<td>" . $row['lname'] . "</td>"
                                 . "<td> " . $row['rest_name'] . " </td> "
