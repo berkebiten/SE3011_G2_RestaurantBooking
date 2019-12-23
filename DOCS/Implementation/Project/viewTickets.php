@@ -22,15 +22,14 @@ if (!$isMyProfile) {
     header('location:errorPage.php');
 }
 //END OF SESSION=VARNAME
-
 //CHECKS THE TYPE OF THE USER
 
 $usercheck2 = $_SESSION['username'];
-$sql1 = "select * from restaurant_owner where uname = '$usercheck2'";
+$sql1 = "select uname from restaurant_owner where uname = '$usercheck2'";
 $sql2 = "select uname from user where uname='$usercheck2'";
 $sql3 = "select uname from admin where uname='$usercheck2'";
 $query6 = mysqli_query($conn, $sql1);
-$queryUs = mysqli_query($conn, $sql2);
+$queryU = mysqli_query($conn, $sql2);
 $queryA = mysqli_query($conn, $sql3);
 $isUserViewing = false;
 $isAdminViewing = false;
@@ -43,7 +42,7 @@ if (mysqli_num_rows($queryU) > 0) {
     $isUserViewing = true;
 }
 if (mysqli_num_rows($queryA) > 0) {
-    $isAdminViewing = true;
+    header('location:Admin.php');
 }
 //END OF CHECK TYPE
 ?>
@@ -78,8 +77,12 @@ if ($count == 0) {
 
     <div class="top">
         <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
-   <a href='restaurantProfile.php?varname=<?php echo $usercheck ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
-        <a href='userProfile.php?varname=<?php echo $usercheck ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+        <?php if ($isARestaurantViewing): ?>
+            <a href='restaurantProfile.php?varname=<?php echo $usercheck2 ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+        <?php endif ?>
+        <?php if ($isUserViewing): ?>
+            <a href='userProfile.php?varname=<?php echo $usercheck2 ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+        <?php endif ?>
         <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
     </div>
     <div id="formArea">
@@ -90,7 +93,7 @@ if ($count == 0) {
             <h3>Description</h3>
             <textarea placeholder ="<?php echo $description ?>"rows="8" cols="50" class="tArea" name="description" readonly></textarea>
             <h3>Answer</h3>
-           <?php if ($isResponded == 0): ?> <!-- IF IS RESPONDED 0, MEANS THERE IS NO ANSWER-->
+            <?php if ($isResponded == 0): ?> <!-- IF IS RESPONDED 0, MEANS THERE IS NO ANSWER-->
                 <p> This Ticket has not been answered yet.</p>
             <?php endif ?>
             <?php if ($isResponded == 1): ?> <!--IF IS RESPONDED 1, MEANS THERE ARE ANSWER AND SHOWS IT.-->
@@ -100,7 +103,7 @@ if ($count == 0) {
         </form>
 
     </div>
-  
+
 </div>
 </body>
 </html>
