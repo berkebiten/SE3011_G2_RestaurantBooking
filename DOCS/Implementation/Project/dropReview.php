@@ -2,6 +2,7 @@
 
 include("dbconnect.php");
 
+// INITIALIZING THE VARIABLES 
 $customer_uname = "";
 $rest_uname = "";
 $text = "";
@@ -13,7 +14,7 @@ $errors = array();
 
 
 
-if (isset($_POST['drop_review'])) {
+if (isset($_POST['drop_review'])) { //IS DROP_REVIEW BUTTON CLICKED OR NOT
     
     $customer_uname = $_SESSION['username'];
 
@@ -27,7 +28,7 @@ if (isset($_POST['drop_review'])) {
     $starStr = filter_input(INPUT_POST, 'starRate');
     $priceStr = filter_input(INPUT_POST, 'priceRate');
     
-
+    // VALUES OF THE STARS
     if ($starStr == "Bad") {
         $star = 1;
     } else if ($starStr == "Average") {
@@ -37,7 +38,8 @@ if (isset($_POST['drop_review'])) {
     } else {
         $star = 0;
     }
-
+    
+    // VALUES OF THE PRICE
     if ($priceStr == "Cheap") {
         $price = 1;
     } else if ($priceStr == "Average") {
@@ -47,12 +49,13 @@ if (isset($_POST['drop_review'])) {
     } else {
         $price = 0;
     }
-
+    
+    // INITIALIZING ERRORS 
     if (empty($text)) {
         array_push($errors, "Review text is required.");
     }
 
-
+    // IF THERE ARE NO ERRORS INSERTS THE REVIEW TO THE REVIEW TABLE
     if (count($errors) == 0) {
         $sqlInsert = "INSERT INTO review(customer_uname, rest_uname, text, star, price) VALUES('$customer_uname','$rest_uname','$text','$star','$price')";
         $queryInsert = mysqli_query($conn, $sqlInsert);
