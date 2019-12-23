@@ -4,14 +4,14 @@ include("dbconnect.php");
 
 $sql = "SELECT * FROM restaurant_owner ";
 
-if (isset($_SESSION['username'])) {
-    $viewerUname = $_SESSION['username'];
-    $sql1 = "SELECT * FROM restaurant_owner WHERE uname= '$viewerUname'";
-    $sql2 = "SELECT * FROM admin WHERE uname= '$viewerUname'";
+if (isset($_SESSION['username'])) { // checkıng if a user is logged in or not
+    $viewerUname = $_SESSION['username']; // session username
+    $sql1 = "SELECT * FROM restaurant_owner WHERE uname= '$viewerUname'"; // SELECTING EVERYTING FROM RESTAURANT USER TABLE WHERE USERNAME IS THE SESSION USERNAME
+    $sql2 = "SELECT * FROM admin WHERE uname= '$viewerUname'"; // SELECTING EVERYTING FROM ADMIN TABLE WHERE USERNAME IS THE SESSION USERNAME
     $query11 = mysqli_query($conn, $sql1);
     $query12 = mysqli_query($conn, $sql2);
     
-    if(mysqli_num_rows($query11) > 0 || mysqli_num_rows($query12)>0){
+    if(mysqli_num_rows($query11) > 0 || mysqli_num_rows($query12)>0){ // CHECK IF THE VIEWER IS AN ADMIN OR RESTAURANT OWNER OR NOT
         header('location:index.php');
     }
 }
@@ -20,13 +20,13 @@ if (isset($_SESSION['username'])) {
 $cuisinearray = array();
 if (isset($_POST['filterSubmit'])) {
 
-    if (isset($_POST['filter'])) { // filter isimli checkboxlardan hiçbiri dolu değil mi diye kontrol ediyor 
-        $sql .= 'WHERE cuisines LIKE ';
+    if (isset($_POST['filter'])) { // CHECKS IF CHECKBOXES THAT NAMED FILTER IS EMPTY OR NOT
+        $sql .= 'WHERE cuisines LIKE '; // SETTING THE QUERY FOR THE FILTERING
         $cuisines = $_POST['filter'];
         foreach ($_POST['filter'] as $cuisines) {
             $cuisinearray[] = "'%" . $cuisines . "%'";
         }
-        $states = implode(" OR cuisines LIKE ", $cuisinearray);
+        $states = implode(" OR cuisines LIKE ", $cuisinearray); // IMPLODE PUTS THE FIRST STRING IN BETWEEN THE INDEXES OF THE CUISINE ARRAY
         $sql .= $states;
     }
 }
@@ -36,8 +36,8 @@ if (isset($_POST['filterSubmit'])) {
 $seatingarray = array();
 if (isset($_POST['filterSubmit'])) {
 
-    if (isset($_POST['filter1'])) { // filter1 isimli checkboxlardan hiçbiri dolu değil mi diye kontrol ediyor 
-        if (!isset($_POST['filter'])) {  // filter isimli checkboxlardan hiçbiri dolu değil mi diye kontrol ediyor oan göre query düzenliyor. dolu değilse WHERE doluysa AND 
+    if (isset($_POST['filter1'])) { // CHECKS IF CHECKBOXES THAT NAMED FILTER1 IS EMPTY OR NOT
+        if (!isset($_POST['filter'])) {  // CHECKS IF CHECKBOXES THAT NAMED FILTER IS EMPTY OR NOT AND SETS THE QUERY IF ITS EMPTY ADDS WHERE IF NOT EMPTY ADDS AND
             $sql .= 'WHERE seating_options LIKE ';
         } else {
             $sql .= ' AND seating_options LIKE ';
@@ -56,8 +56,8 @@ if (isset($_POST['filterSubmit'])) {
 $pricearray = array();
 if (isset($_POST['filterSubmit'])) {
 
-    if (isset($_POST['filter2'])) { // filter2 isimli checkboxlardan hiçbiri dolu değil mi diye kontrol ediyor 
-        if (!isset($_POST['filter']) && !isset($_POST['filter1'])) {  // filter, filter1 isimli checkboxlardan hiçbiri dolu değil mi diye kontrol ediyor oan göre query düzenliyor. dolu değilse WHERE doluysa AND
+    if (isset($_POST['filter2'])) { // CHECKS IF CHECKBOXES THAT NAMED FILTER2 IS EMPTY OR NOT
+        if (!isset($_POST['filter']) && !isset($_POST['filter1'])) {   // CHECKS IF CHECKBOXES THAT NAMED FILTER AND FILTER1 IS EMPTY OR NOT AND SETS THE QUERY IF ITS EMPTY ADDS WHERE IF NOT EMPTY ADDS AND
             $sql .= 'WHERE price = ';
         } else {
             $sql .= ' AND price = ';
@@ -77,8 +77,8 @@ if (isset($_POST['filterSubmit'])) {
 $starsarray = array();
 if (isset($_POST['filterSubmit'])) {
 
-    if (isset($_POST['filter3'])) { //filter3 isimli checkboxlardan hiçbiri dolu değil mi diye kontrol ediyor 
-        if (!isset($_POST['filter']) && !isset($_POST['filter1']) && !isset($_POST['filter2'])) { //filter, filter1 ve filter2 isimli checkboxlardan hiçbiri dolu değil mi diye kontrol ediyor oan göre query düzenliyor. dolu değilse WHERE doluysa AND
+    if (isset($_POST['filter3'])) { // CHECKS IF CHECKBOXES THAT NAMED FILTER3 IS EMPTY OR NOTr 
+        if (!isset($_POST['filter']) && !isset($_POST['filter1']) && !isset($_POST['filter2'])) { // CHECKS IF CHECKBOXES THAT NAMED FILTER, FILTER1 AND FILTER 2 IS EMPTY OR NOT AND SETS THE QUERY IF ITS EMPTY ADDS WHERE IF NOT EMPTY ADDS AND
             $sql .= 'WHERE stars = ';
         } else {
             $sql .= ' AND stars = ';
@@ -93,7 +93,7 @@ if (isset($_POST['filterSubmit'])) {
     }
 }
 
-$result = mysqli_query($conn, $sql);
+$result = mysqli_query($conn, $sql); // WORKS THE QUERY THAT HAS BEEN SET
 ?>
 
 <html>
@@ -104,7 +104,7 @@ $result = mysqli_query($conn, $sql);
         <div class="container" id="fullC">
 
             <div class="top">
-            <?php if (isset($_SESSION['success'])): ?>
+            <?php if (isset($_SESSION['success'])): // IF A USER IS LOGGED IN SHOW USER HEADER?>
 
                 <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
                 <a href='userProfile.php?varname=<?php echo $_SESSION['username']?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
@@ -112,7 +112,7 @@ $result = mysqli_query($conn, $sql);
                 <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
 
             <?php endif ?>
-            <?php if (!isset($_SESSION['success'])): ?>
+            <?php if (!isset($_SESSION['success'])): // IF A USER IS NOT LOGGED IN SHOW GUEST HEADER ?>
 
                 <a href="restSignUp.php"><button  id="rsignup">Restaurant Sign Up</button></a>
                 <a href="signUp.php"><button id="signup" >Sign Up</button></a>
@@ -128,6 +128,7 @@ $result = mysqli_query($conn, $sql);
                     <div class="cuisineOptions">
                         <table>
                             <tr><p>Cuisines</p></tr>
+<!--                            THE CHECKBOXES THAT ARE NAMED FILTER-->
                             <tr><input type="checkbox" id="selectAll" onclick="checkAll('chk')" name="filter" value="All">All</input><br></tr>
                             <tr><input type="checkbox" id="chk" name="filter[]" value="Mediterranean Food">Mediterranean Food</input><br></tr>
                             <tr><input type="checkbox" id="chk" name="filter[]" value="Turkish Food">Turkish Food</input><br>  </tr>
@@ -143,6 +144,7 @@ $result = mysqli_query($conn, $sql);
                     <div class="seatingOptions">
                         <table>
                             <tr><p>Seating Options</p></tr>
+                        <!--                            THE CHECKBOXES THAT ARE NAMED FILTER1-->
                             <tr><input type="checkbox" id="selectAll" onclick="checkAll('chk1')" name="filter1" value="All">All</input><br></tr>
                             <tr><input type="checkbox" id="chk1" name="filter1[]" value="Bar">Bar</input><br></tr>
                             <tr><input type="checkbox" id="chk1" name="filter1[]" value="High Top">High Top</input><br>  </tr>
@@ -153,6 +155,7 @@ $result = mysqli_query($conn, $sql);
                     <div class="priceOptions">
                         <table>
                             <tr><p>Price Options</p></tr>
+                        <!--                            THE CHECKBOXES THAT ARE NAMED FILTER2-->
                             <tr><input type="checkbox" id="selectAll" onclick="checkAll('chk2')" name="filter2" value="All">All</input><br></tr>
                             <tr><input type="checkbox" id="chk2" name="filter2[]" value="1">Cheap</input><br></tr>
                             <tr><input type="checkbox" id="chk2" name="filter2[]" value="2">Average</input><br>  </tr>
@@ -162,6 +165,7 @@ $result = mysqli_query($conn, $sql);
                     <div class="rankOptions">
                         <table>
                             <tr><p>Rank Options</p></tr>
+                        <!--                            THE CHECKBOXES THAT ARE NAMED FILTER3-->
                             <tr><input type="checkbox" id="selectAll" onclick="checkAll('chk3')" name="filter3" value="All">All</input><br></tr>
                             <tr><input type="checkbox" id="chk3" name="filter3[]" value="3">3</input><br></tr>
                             <tr><input type="checkbox" id="chk3" name="filter3[]" value="2">2</input><br></tr>
@@ -172,6 +176,7 @@ $result = mysqli_query($conn, $sql);
                 </form>
             </div>
             <div class="results">
+<!--                PRINTING THE SEARCH RESULTS AFTER FILTERING-->
                 <table id="searchResults">
                     <?php
                     echo "<tr><th style=width:30%;> Restaurant Name </th><th style=width:40%;> Adress </th><th style=width:20%;> Phone Number </th></tr> <br>";
@@ -180,7 +185,7 @@ $result = mysqli_query($conn, $sql);
                         $resta_name = $row['uname'];
                         echo "<tr>
 
-                    <td > <a href='restaurantProfile.php?varname=$resta_name'>" . $row['rest_name'] . "</a> </td>"
+                    <td > <a href='restaurantProfile.php?varname=$resta_name'>" . $row['rest_name'] . "</a> </td>" //REDIRECTS TO THE RESTAURANT PROFILE THAT IS BEEN CHOOSEN TO BOOK
                         . "<td> " . $row["location"] . " </td>"
                         . "<td> " . $row["phoneNo"] . " </td>"
                         . "</tr> <br>";
