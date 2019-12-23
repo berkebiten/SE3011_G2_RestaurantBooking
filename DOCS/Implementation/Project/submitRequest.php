@@ -3,6 +3,7 @@
 <?php
 include("dbconnect.php");
 include('loginProcess.php');
+//CHECKS THE USER TYPE AND LOCATES TO RELATED HOMEPAGE.
 if (isset($_SESSION['username'])) {
     $usercheck2 = $_SESSION['username'];
     $sql = "select * from restaurant_owner where uname = '$usercheck2'";
@@ -30,7 +31,9 @@ if (isset($_SESSION['username'])) {
 else{
     header('location:signIn.php');
 }
+//END OF RELATED HOMEPAGE.
 ?>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -45,10 +48,10 @@ else{
         <?php if ($isAdminViewing): ?>
             <a href='Admin.php'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
         <?php endif ?>
-        <?php if ($isUserViewing): ?>
+<!--        <?php if ($isUserViewing): ?> //GO TO RELATED USER PAGE-->
             <a href='userProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
         <?php endif ?>
-        <?php if ($isARestaurantViewing): ?>
+<!--        <?php if ($isARestaurantViewing): ?> GO TO RELATED RESTAURANT PAGE-->
             <a href='restaurantProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
         <?php endif ?>
         <a href ="support.php"><button id ="support"> Support</button> </a>
