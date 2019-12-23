@@ -1,11 +1,11 @@
 <?php
 
 session_start();
-
+//RANDOM STRING GENERATION FUNCTION (FOR RECCODE)
 function generateRandomString($length = 8) {
     return substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
 }
-
+//INITIALIZING VARIABLES
 $username = "";
 $email = "";
 $fname = "";
@@ -24,9 +24,9 @@ $errors = array();
 $recCode = "";
 
 include("dbconnect.php");
-// USER REGISTRATION PROCESS
+// USER REGISTRATION PROCESS START
 if (isset($_POST['reg_user'])) {
-    //GETTING VARIABLES FROM FORM
+    //GETTING INPUT FROM FORM
     $fname = mysqli_real_escape_string($conn, $_POST['fname']);
     $lname = mysqli_real_escape_string($conn, $_POST['lname']);
     $username = mysqli_real_escape_string($conn, $_POST['username']);
@@ -35,6 +35,7 @@ if (isset($_POST['reg_user'])) {
     $password_2 = mysqli_real_escape_string($conn, $_POST['password_2']);
     $recCode = generateRandomString();
 
+    //PUSHING ERRORS TO THE ERRORS ARRAY IF THE FIELDS ARE EMPTY
     if (empty($fname)) {
         array_push($errors, "First Name is required");
     }
@@ -54,6 +55,7 @@ if (isset($_POST['reg_user'])) {
         array_push($errors, "The two passwords do not match");
     }
 
+    //CHECKING IF THE USERNAME OR EMAIL ALREADY EXISTS IN DATABASE
     $user_check_query = "SELECT * FROM user WHERE uname='$username' OR email='$email' LIMIT 1";
     $restaurant_check_query = "SELECT * FROM restaurant_owner WHERE uname='$username' OR email='$email' LIMIT 1";
     $restaurant_signup_check_query = "SELECT * FROM rest_signup WHERE uname='$username' OR email='$email' LIMIT 1";
@@ -64,6 +66,8 @@ if (isset($_POST['reg_user'])) {
     $rest = mysqli_fetch_assoc($result2);
     $restSignup = mysqli_fetch_assoc($result3);
 
+
+    //PUSHES THE RELATED ERRORS TO THE ERRORS ARRAY IF USERNAME OR EMAIL ALREADY EXISTS
     if ($user || $rest || $restSignup) {
         if ($user['uname'] === $username || $rest['uname'] === $username || $restSignup['uname'] = $username) {
             array_push($errors, "Username already exists");
@@ -73,7 +77,7 @@ if (isset($_POST['reg_user'])) {
             array_push($errors, "email already exists");
         }
     }
-
+    //IF THERE IS NO ERRORS IN ERRORS ARRAY: INSERTS THE GIVEN DATA TO THE DATABASE AND PUSHES FEEDBACKS TO FEEDBACKS ARRAY
     if (count($errors) == 0) {
         $password = md5($password_1);
 
@@ -84,9 +88,9 @@ if (isset($_POST['reg_user'])) {
     }
 }
 
-//REGISTER RESTAURANT
+// RESTAURANT REGISTRATION PROCESS START
 if (isset($_POST['reg_rest'])) {
-
+    //GETTING INPUTS FROM FORM
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $fname = mysqli_real_escape_string($conn, $_POST['fname']);
     $lname = mysqli_real_escape_string($conn, $_POST['lname']);
@@ -101,6 +105,7 @@ if (isset($_POST['reg_rest'])) {
     $password_1 = mysqli_real_escape_string($conn, $_POST['password_1']);
     $password_2 = mysqli_real_escape_string($conn, $_POST['password_2']);
 
+    //PUSHING ERRORS TO THE ERRORS ARRAY IF THE FIELDS ARE EMPTY
     if (empty($fname)) {
         array_push($errors, "First Name is required");
     }
@@ -123,6 +128,7 @@ if (isset($_POST['reg_rest'])) {
         array_push($errors, "Opening time of the restaurant cannot be bigger than closing time.");
     }
 
+    //CHECKING IF THE USERNAME OR EMAIL ALREADY EXISTS IN DATABASE
     $user_check_query = "SELECT * FROM user WHERE uname='$username' OR email='$email' LIMIT 1";
     $restaurant_check_query = "SELECT * FROM restaurant_owner WHERE uname='$username' OR email='$email' LIMIT 1";
     $restaurant_signup_check_query = "SELECT * FROM rest_signup WHERE uname='$username' OR email='$email' LIMIT 1";
@@ -133,6 +139,8 @@ if (isset($_POST['reg_rest'])) {
     $rest = mysqli_fetch_assoc($result2);
     $restSignup = mysqli_fetch_assoc($result3);
 
+
+    //PUSHES THE RELATED ERRORS TO THE ERRORS ARRAY IF USERNAME OR EMAIL ALREADY EXISTS
     if ($user || $rest || $restSignup) {
         if ($user['uname'] === $username || $rest['uname'] === $username || $restSignup['username'] = $username) {
             array_push($errors, "Username already exists");
@@ -143,7 +151,10 @@ if (isset($_POST['reg_rest'])) {
         }
     }
 
+    //INITIALIZING signUpId EMPTY, BECAUSE IT IS AN AUTO INCREMENT FIELD
     $signUpId = null;
+
+    //IF THERE IS NO ERRORS IN ERRORS ARRAY: INSERTS THE GIVEN DATA TO THE DATABASE AND PUSHES FEEDBACKS TO FEEDBACKS ARRAY
     if (count($errors) == 0) {
         $signupId = null;
         $password = md5($password_1);
@@ -155,26 +166,32 @@ if (isset($_POST['reg_rest'])) {
     }
 }
 
-//LOGIN
+// LOGIN PROCESS START
 if (isset($_POST['login_user'])) {
+    //GETTING INPUT FROM FORM
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
-
+//PUSHING ERRORS TO THE ERRORS ARRAY IF THE FIELDS ARE EMPTY
     if (empty($username)) {
         array_push($errors, "Username is required");
     }
     if (empty($password)) {
         array_push($errors, "Password is required");
     }
-
+    //IF THERE IS NO ERRORS
     if (count($errors) == 0) {
-        $password2 = md5($password);
+
+        $password2 = md5($password); //ENCRYPTS THE PASSWORD
+
+        //CHECKS IF USERNAME AND PASSWORD MATCHES
         $query1 = "SELECT * FROM user WHERE uname='$username' AND psw='$password2'";
         $query2 = "SELECT * FROM restaurant_owner WHERE uname='$username' AND psw='$password2'";
         $query3 = "SELECT * FROM admin WHERE uname='$username' AND psw='$password2'";
         $results1 = mysqli_query($conn, $query1);
         $results2 = mysqli_query($conn, $query2);
         $results3 = mysqli_query($conn, $query3);
+
+        //LOGS THE USER IN AND SETS THE SESSION VARIABLES
         if (mysqli_num_rows($results1) == 1) {
             $_SESSION['username'] = $username;
             $_SESSION['success'] = "You are now logged in";
@@ -192,17 +209,21 @@ if (isset($_POST['login_user'])) {
         }
     }
 }
-//FORGOT PASSWORD
+
+
+//FORGOT PASSWORD PROCESS START
 if (isset($_POST['forgotSend'])) {
+    //GETS EMAIL INPUT FROM FORM
     $email = mysqli_real_escape_string($conn, $_POST['email']);
 
-
+    //CHECKS IF THE FIELD IS EMPTY; IF IT IS, PUSHES AN ERROR
     if (empty($email)) {
         array_push($errors, "Email is required");
     }
 
-
+    //IF THERE IS NO ERRORS
     if (count($errors) == 0) {
+        //CHECKS IF THE GIVEN EMAIL MATCHES FOR A USER IN DATABASE
         $query1 = "SELECT * FROM user WHERE email='$email' ";
         $query2 = "SELECT * FROM restaurant_owner WHERE email='$email' ";
         $query3 = "SELECT * FROM admin WHERE email='$email' ";
@@ -210,48 +231,51 @@ if (isset($_POST['forgotSend'])) {
         $results2 = mysqli_query($conn, $query2);
         $results3 = mysqli_query($conn, $query3);
 
+        //IF GIVEN EMAIL MATCHES WITH A USER
         if (mysqli_num_rows($results1) == 1) {
             $count1 = mysqli_fetch_assoc($results1);
             $to_email = $email;
             $rec_code = $count1['recCode'];
             $subject = "Restaurant Sign Up";
-            $body = "Your Recovery Code is " . $rec_code . ":)";
+            $body = "Your Recovery Code is " . $rec_code . "";
             $headers = "From: Restaurant Booking System";
 
-            if (mail($to_email, $subject, $body, $headers)) {
+            if (mail($to_email, $subject, $body, $headers)) {//SENDS EMAIL
                 array_push($feedbacks, "Email successfully sent to " . $to_email . "");
             }
-        } else if (mysqli_num_rows($results2) == 1) {
+        } else if (mysqli_num_rows($results2) == 1) { //IF GIVEN EMAIL MATCHES WITH A RESTAURANT OWNER
             $count2 = mysqli_fetch_assoc($results2);
             $to_email = $email;
             $rec_code = $count2['recCode'];
             $subject = "Restaurant Sign Up";
-            $body = "Your Recovery Code is " . $rec_code . ":)";
+            $body = "Your Recovery Code is " . $rec_code . "";
             $headers = "From: Restaurant Booking System";
 
-            if (mail($to_email, $subject, $body, $headers)) {
+            if (mail($to_email, $subject, $body, $headers)) {//SENDS EMAIL
                 array_push($feedbacks, "Email successfully sent to " . $to_email . "");
             }
-        } else if (mysqli_num_rows($results3) == 1) {
+        } else if (mysqli_num_rows($results3) == 1) {//IF GIVEN EMAIL MATCHES WITH AN ADMIN
             $count3 = mysqli_fetch_assoc($results3);
             $to_email = $email;
             $rec_code = $count3['recCode'];
             $subject = "Restaurant Sign Up";
-            $body = "Your Recovery Code is " . $rec_code . ":)";
+            $body = "Your Recovery Code is " . $rec_code . "";
             $headers = "From: Restaurant Booking System";
 
-            if (mail($to_email, $subject, $body, $headers)) {
+            if (mail($to_email, $subject, $body, $headers)) {//SENDS EMAIL
                 array_push($feedbacks, "Email successfully sent to " . $to_email . "");
             }
         }
     }
 }
 
-//FORGOT PASSWORD 2
+//SECOND PAGE OF FORGOT PASSWORD
 if (isset($_POST['forgot2Send'])) {
+    //GETS INPUTS FROM FORM
     $recIn = mysqli_real_escape_string($conn, $_POST['recIn']);
     $password_1 = mysqli_real_escape_string($conn, $_POST['password_1']);
     $password_2 = mysqli_real_escape_string($conn, $_POST['password_2']);
+    //CHECKS IF INPUTS ARE EMPTY
     if (empty($recIn)) {
         array_push($errors, "Recovery Code is required");
     }if (empty($password_1)) {
@@ -261,35 +285,36 @@ if (isset($_POST['forgot2Send'])) {
         array_push($errors, "Re-Password is required");
     }
 
+    //IF THERE IS NO ERRORS
     if (count($errors) == 0) {
 
 
-        if ($password_1 != $password_2) {
+        if ($password_1 != $password_2) {   //IF TWO GIVEN PASSWORDS ARE NOT MATCHING
             array_push($errors, "Password do not match.");
-        } else {
+        } else {    //IF TWO GIVEN PASSWORDS ARE MATCHING
+            //CHECKS IF THE GIVEN RECCODE IS MATCHING WITH AN ACCOUNT, AND DETERMINES THE TYPE OF ACCOUNT
             $query1 = "SELECT * FROM user WHERE recCode='$recIn'";
             $query2 = "SELECT * FROM restaurant_owner WHERE recCode='$recIn'";
             $query3 = "SELECT * FROM admin WHERE recCode='$recIn'";
             $results1 = mysqli_query($conn, $query1);
             $results2 = mysqli_query($conn, $query2);
             $results3 = mysqli_query($conn, $query3);
-            $recIn2 = generateRandomString();
-            $password = md5($password_1);
-            if (mysqli_num_rows($results1) == 1) {
+            $recIn2 = generateRandomString(); //GENERATES A NEW RECOVERY CODE FOR ACCOUNT
+            $password = md5($password_1); //ENCRYPTS THE GIVEN PASSWORD
+            if (mysqli_num_rows($results1) == 1) { //IF ACCOUNT TYPE IS USER
                 $changeP = mysqli_query($conn, "UPDATE user SET psw = '$password', recCode = '$recIn2'  WHERE (recCode = '$recIn')");
                 array_push($feedbacks, "Your password has been changed.");
                 array_push($feedbacks, "You will be redirected to the Sign In screen when you click 'OK' button.");
-            } else if (mysqli_num_rows($results2) == 1) {
+            } else if (mysqli_num_rows($results2) == 1) {//IF ACCOUNT TYPE IS RESTAURANT OWNER
                 $changeP = mysqli_query($conn, "UPDATE restaurant_owner SET psw = '$password', recCode = '$recIn2'  WHERE (recCode = '$recIn')");
                 array_push($feedbacks, "Your password has been changed.");
                 array_push($feedbacks, "You will be redirected to the Sign In screen when you click 'OK' button.");
-            } else if (mysqli_num_rows($results3) == 1) {
+            } else if (mysqli_num_rows($results3) == 1) {//IF ACCOUNT TYPE IS ADMIN
                 $changeP = mysqli_query($conn, "UPDATE admin SET psw = '$password', recCode = '$recIn2'  WHERE (recCode = '$recIn')");
                 array_push($feedbacks, "Your password has been changed.");
                 array_push($feedbacks, "You will be redirected to the Sign In screen when you click 'OK' button.");
-            } else {
-                array_push($feedbacks, "Your password has been changed.");
-                array_push($feedbacks, "You will be redirected to the Sign In screen when you click 'OK' button.");
+            } else {//IF THERE IS NO ACCOUNT MATCHING PUSHES AN ERROR
+                array_push($errors, "recCode is not correct.");
             }
         }
     }
