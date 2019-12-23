@@ -86,6 +86,9 @@ if (isset($_POST['editRestaurant'])) {
     if (empty($seatingOptions)) {
         array_push($errors, "Seating option is required");
     }
+    if ($startTime > $endTime) {
+        array_push($errors, "Starting time of the booking cannot be later than ending time.");
+    }
 
 
 

@@ -83,7 +83,7 @@ if (isset($_POST['booking'])) {
         array_push($errors, "Booking date is required");
     }
     if ($startTime > $endTime) {
-        array_push($errors, "Starting time of the booking cannot be bigger than ending time.");
+        array_push($errors, "Starting time of the booking cannot be later than ending time.");
     }
 
 
@@ -104,9 +104,8 @@ if (isset($_POST['booking'])) {
         $query = mysqli_query($conn, "insert into bookings(customer_uname, restaurant_uname, party, start_time, end_time, fname, lname, email, phoneNo, date) VALUES('$c_username', '$r_username','$party','$startTime','$endTime','$fname','$lname','$email','$phone','$date')");
         array_push($feedbacks, "Your booking has been completed.");
         array_push($feedbacks, "You will be redirected to Your Bookings when you click 'OK' button.");
-
-    } else {
+    } else if (!($currentCap >= $party)) {
         array_push($errors, "There are no capacity in the restaurant that meets your party size at the selected hours.");
-    }
+    } 
 }
 ?>
