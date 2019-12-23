@@ -7,12 +7,12 @@ if (!isset($_SESSION['username'])) {
 } else {
     $uname = $_SESSION['username'];
     $vname = $_GET['varname'];
-    $sql1 = "select * from bookings where bookingId='$vname'";
-    $query1 = mysqli_query($conn, $sql1);
+    $sql2 = "select * from bookings where bookingId='$vname'";
+    $query1 = mysqli_query($conn, $sql2);
     $arr1 = mysqli_fetch_array($query1, MYSQLI_ASSOC);
-    if (mysqli_num_rows($arr1) > 0) {
+    if (mysqli_num_rows($query1) > 0) {
         $customer_uname = $arr1['customer_uname'];
-        $restaurant_uname = $arr1['customer_uname'];
+        $restaurant_uname = $arr1['restaurant_uname'];
         if ($customer_uname != $_SESSION['username']) {//CHECKS IF THE CALLER IS THE OWNER OF THE BOOKING
             header('location: errorPage.php'); //REDIRECTS TO ERROR PAGE IF NOT
         } else {

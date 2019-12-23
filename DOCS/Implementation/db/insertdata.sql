@@ -73,9 +73,9 @@ INSERT INTO `bookings` VALUES (10,'elifdeniz','allfather',3,'17:00:00','20:00:00
 
 INSERT INTO `review` VALUES (1,'kelbero','lapulga','Cok guzel bir aksam gecirdim harika bi mekan burası.',3,2,'Tesekkurler.');
 INSERT INTO `review` VALUES (2,'kelbero','allfather','Dunyanin en guzel restorani olabilir.Tatlilarini ozellikle tavsiye ederim.',2,1,'Yine bekleriz.');
-INSERT INTO `review` VALUES (1,'berbuser','bybado','Buranin kori durumlarine bayiliyorum yav.',3,2,'Biz de sana bayiliyoruz.');
-INSERT INTO `review` VALUES (2,'grayson34','lemankadikoy','Surekli gidiyorum. Deli miyim ne?',3,3,'suphelenmeye basladik.');
-INSERT INTO `review` VALUES (2,'grayson34','lemankadikoy','Gene gittim. Harika bir yer.',3,2,NULL);
+INSERT INTO `review` VALUES (3,'berbuser','bybado','Buranin kori durumlarine bayiliyorum yav.',3,2,'Biz de sana bayiliyoruz.');
+INSERT INTO `review` VALUES (4,'grayson34','lemankadikoy','Surekli gidiyorum. Deli miyim ne?',3,3,'suphelenmeye basladik.');
+INSERT INTO `review` VALUES (5,'grayson34','lemankadikoy','Gene gittim. Harika bir yer.',3,2,NULL);
 
 INSERT INTO ticket(user_uname,category, description, date, isResponded) VALUES ('pankylol','help','help me','2019-12-17',0);
 INSERT INTO ticket(user_uname,category, description, date, isResponded) VALUES ('pankylol','help','help me please','2019-12-18',0);

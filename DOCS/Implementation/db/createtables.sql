@@ -138,7 +138,7 @@ CREATE TABLE favorites (
 favoritesId bigint(20) NOT NULL AUTO_INCREMENT,
 customer_uname varchar(45) NOT NULL,
 rest_uname varchar(45) NOT NULL,
-PRIMARY KEY(reviewId),
+PRIMARY KEY(favoritesId),
 FOREIGN KEY (customer_uname) REFERENCES user(uname),
 FOREIGN KEY (rest_uname) REFERENCES restaurant_owner(uname)
 );
