@@ -5,6 +5,7 @@
 session_start();
 include("dbconnect.php");
 if (isset($_SESSION['success'])) {
+    //CHECKS THE TYPE OF USER AND GO TO RELATED HOMEPAGE.
     $usercheck2 = $_SESSION['username'];
     $sql = "select * from restaurant_owner where uname = '$usercheck2'";
     $sql2 = "select uname from user where uname='$usercheck2'";
@@ -30,6 +31,7 @@ if (isset($_SESSION['success'])) {
 } else {
     header('location:signIn.php');
 }
+//END OF USER TYPE.
 ?>
 <html>
 
@@ -43,10 +45,10 @@ if (isset($_SESSION['success'])) {
 
     <div class="top">
         <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
-        <?php if ($isUserViewing): ?>
+<!--        <?php if ($isUserViewing): ?> IF IT IS USER, GO TO THAT USER HOMEPAGE-->
             <a href='userProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
         <?php endif ?>
-        <?php if ($isARestaurantViewing): ?>
+<!--        <?php if ($isARestaurantViewing): ?> IF IT IS RESTAURANTOWNER, GO TO THAT RESTAURANTOWNER HOMEPAGE-->
             <a href='restaurantProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
         <?php endif ?>
         <a href ="support.php"><button id ="support"> Support</button> </a>
@@ -66,36 +68,46 @@ if (isset($_SESSION['success'])) {
                 </thead>
                 <tbody>
                     <?php
+                    //THERE ARE 4QUERY THAT CONTROLS THE TYPE OF THE USER AND IF THE TICKET IS RESPONDED OR NOT
                     $username = $_SESSION['username'];
                     $query = mysqli_query($conn, "select category,date,isResponded,ticketId from ticket where isResponded=0 AND user_uname= '$username'");
                     $query2 = mysqli_query($conn, "select category,date,isResponded,ticketId from ticket where isResponded=0 AND rest_uname='$username'");
                     $query3 = mysqli_query($conn, "select category,date,isResponded, ticketId from ticket where isResponded=1 AND user_uname='$username'");
                     $query4 = mysqli_query($conn, "select category,date,isResponded,ticketId from ticket where isResponded=1 AND rest_uname='$username'");
+                    //END OF CONTROL
+                    //IF FIRST QUERY STARTS, SHOWS USER WITH NOT RESPONDED
                     while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
                         $ticketId = $row['ticketId'];
                         echo "<tr> <td><a href='viewTickets.php?varname=$ticketId'>" . $row['category'] . "</td>"
                         . "<td> " . $row['date'] . " </td> "
                         . "<td>" . "No" . "</td> </tr>";
                     }
+                    //END OF FIRST
+                    //IF THIRD QUERY STARTS, SHOWS USER WITH RESPONDED
                     while ($row = mysqli_fetch_array($query3, MYSQLI_ASSOC)) {
                         $ticketId = $row['ticketId'];
                         echo "<tr><td> <a href='viewTickets.php?varname=$ticketId'>" . $row['category'] . "</td>"
                         . "<td> " . $row['date'] . " </td> "
                         . "<td>" . "Yes" . "</td> </tr>";
                     }
-                    //REST_UNAME EKLENECEK
+                    //END OF THIRD
+                   
+                   //IF SECOND QUERY STARTS, SHOWS RESTAURANTOWNER WITH NOT RESPONDED
                     while ($row2 = mysqli_fetch_array($query2, MYSQLI_ASSOC)) {
                         $ticketId = $row2['ticketId'];
                         echo "<tr> <td><a href='viewTickets.php?varname=$ticketId'>" . $row2['category'] . "</td>"
                         . "<td> " . $row2['date'] . " </td> "
                         . "<td>" . "No" . "</td></tr>";
                     }
+                    //END OF SECOND
+                    //IF LAST QUERY STARTS, SHOWS RESTAURANTOWNER WITH RESPONDED
                     while ($row2 = mysqli_fetch_array($query4, MYSQLI_ASSOC)) {
                         $ticketId = $row2['ticketId'];
                         echo "<tr> <td><a href='viewTickets.php?varname=$ticketId'> " . $row2['category'] . "</td>"
                         . "<td> " . $row2['date'] . " </td> "
                         . "<td>" . "Yes" . "</td></tr>";
                     }
+                    //END OF LAST
                     ?>
 
                 </tbody>
