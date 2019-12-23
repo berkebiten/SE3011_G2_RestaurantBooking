@@ -2,11 +2,12 @@
 include('accountsProcess.php');
 
 
-if (!isset($_SESSION['success'])) {
+if (!isset($_SESSION['success'])) {//REDIRECTS THE USER TO THE INDEX IF VIEWER IS A GUEST
     header('location:index.php');
 }
 
-$username = $_SESSION['username'];
+//INITIALIZING VARIABLES AND DETERMINING THE USER TYPE
+$username = $_SESSION['username']; 
 $usercheck2 = $_SESSION['username'];
 $sql = "select * from restaurant_owner where uname = '$usercheck2'";
 $sql2 = "select uname from user where uname='$usercheck2'";
@@ -20,16 +21,16 @@ $isAdminViewing = false;
 
 $isARestaurantViewing = false;
 
-if (mysqli_num_rows($query6) > 0) {
+if (mysqli_num_rows($query6) > 0) {//IF VIEWER IS A RESTAURANT
     $isARestaurantViewing = true;
 }
-if (mysqli_num_rows($queryU) > 0) {
+if (mysqli_num_rows($queryU) > 0) {//IF VIEWER IS A USER
     $isUserViewing = true;
 }
-if (mysqli_num_rows($queryA) > 0) {
+if (mysqli_num_rows($queryA) > 0) {//IF VIEWER IS AN ADMIN
     $isAdminViewing = true;
 }
-if($isARestaurantViewing || $isAdminViewing){
+if($isARestaurantViewing || $isAdminViewing){// REDIRECTS THE VIEWER TO THE ERRORPAGE IF VIEWER IS AN ADMIN OR RESTAURANT OWNER 
     header('location: errorPage.php');
 }
 ?>
@@ -45,6 +46,7 @@ if($isARestaurantViewing || $isAdminViewing){
         <div class="container" id="fullC">
             <div class="top">
                 <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
+                <!-- PROFILE BUTTON NAVIGATION DYNAMISM RELATED TO ACCOUNT TYPE !-->
                 <?php if ($isAdminViewing): ?>
                     <a href='Admin.php'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
                 <?php endif ?>
