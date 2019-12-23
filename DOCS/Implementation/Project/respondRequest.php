@@ -62,13 +62,13 @@ if ($count == 0) {
             <?php include('errors.php'); ?>
              <h3>Category : <?php echo $category ?></h3>
             <h3>Description</h3>
-<!--            <textarea placeholder ="<?php echo $description ?>"rows="8" cols="50" class="tArea" name="description" readonly></textarea> //SEE THE SUBMIT TICKET-->
+           <textarea placeholder ="<?php echo $description ?>"rows="8" cols="50" class="tArea" name="description" readonly></textarea> <!-- SEE THE SUBMIT TICKET-->
             <h3>Answer</h3>
-<!--        <?php if ($isResponded == 0): ?> //IF IT IS NOT RESPONDED, ADD A BUTTON AND TEXTAREA-->
+       <?php if ($isResponded == 0): ?> <!-- IF IT IS NOT RESPONDED, ADD A BUTTON AND TEXTAREA-->
                 <textarea rows="8" cols="50" class="tArea" name="answer" required/></textarea>
                 <button type="submit" id="subsub" name="respond_request">Submit</button>
             <?php endif ?>
-<!--            <?php if($isResponded == 1):?> // IF IT IS RESPONDED, THEN JUST SEE THE ANSWER.-->
+            <?php if($isResponded == 1):?> <!-- IF IT IS RESPONDED, THEN JUST SEE THE ANSWER.-->
                 <textarea placeholder ="<?php echo $respond ?>"rows="8" cols="50" class="tArea" name="answer" readonly></textarea>
             <?php endif ?>
              
