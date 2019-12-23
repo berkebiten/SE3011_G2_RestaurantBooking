@@ -48,10 +48,10 @@ else{
         <?php if ($isAdminViewing): ?>
             <a href='Admin.php'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
         <?php endif ?>
-<!--        <?php if ($isUserViewing): ?> //GO TO RELATED USER PAGE-->
+        <?php if ($isUserViewing): ?> <!--GO TO RELATED USER PAGE-->
             <a href='userProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
         <?php endif ?>
-<!--        <?php if ($isARestaurantViewing): ?> GO TO RELATED RESTAURANT PAGE-->
+       <?php if ($isARestaurantViewing): ?> <!-- GO TO RELATED RESTAURANT PAGE-->
             <a href='restaurantProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
         <?php endif ?>
         <a href ="support.php"><button id ="support"> Support</button> </a>
