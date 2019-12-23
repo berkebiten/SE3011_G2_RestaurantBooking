@@ -2,9 +2,12 @@
 <script src="scripts.js"></script>
 <?php
 session_start();
+//IF THERE IS NO SESSION, ERROR PAGE.
 if (!isset($_SESSION['success'])) {
     header('location:errorPage.php');
 }
+//END OF ERROR PAGE.
+//CHECKS IF SESSION USER EQUALS TO VARNAME IF IT IS NOT GO TO ERROR PAGE.
 include("dbconnect.php");
 $vname = $_GET['varname'];
 $user = $_SESSION['username'];
@@ -18,6 +21,9 @@ if (($user == $arrU['user_uname']) || ($user == $arrU['rest_uname'])) {
 if (!$isMyProfile) {
     header('location:errorPage.php');
 }
+//END OF SESSION=VARNAME
+
+//CHECKS THE TYPE OF THE USER
 
 $usercheck2 = $_SESSION['username'];
 $sql1 = "select * from restaurant_owner where uname = '$usercheck2'";
@@ -39,8 +45,10 @@ if (mysqli_num_rows($queryU) > 0) {
 if (mysqli_num_rows($queryA) > 0) {
     $isAdminViewing = true;
 }
+//END OF CHECK TYPE
 ?>
 <?php
+//GETS TICKET ID, AND SELECTS ALL INFO FROM DATABASE, IF COUNT IS 0 GO TO ERROR.
 $ticketId = $_GET['varname'];
 $sql = "SELECT * FROM ticket WHERE ticketId='$ticketId'";
 $query = mysqli_query($conn, $sql);
@@ -57,6 +65,7 @@ $count = mysqli_num_rows($query);
 if ($count == 0) {
     header('location:errorPage.php');
 }
+//END OF GETTING TICKET ID
 ?>
 <html>
     <head>
@@ -69,35 +78,29 @@ if ($count == 0) {
 
     <div class="top">
         <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
-
+   <a href='restaurantProfile.php?varname=<?php echo $usercheck ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
         <a href='userProfile.php?varname=<?php echo $usercheck ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
         <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
     </div>
     <div id="formArea">
-        <form class="formX" method="post" action="respondRequest.php?varname=<?php echo $ticketId ?>">
+        <form class="formX" method="post" action="viewTickets.php?varname=<?php echo $ticketId ?>">
             <h1>My Tickets</h1>
 
             <h3>Category : <?php echo $category ?></h3>
             <h3>Description</h3>
             <textarea placeholder ="<?php echo $description ?>"rows="8" cols="50" class="tArea" name="description" readonly></textarea>
             <h3>Answer</h3>
-            <?php if ($isResponded == 0): ?>
+<!--            <?php if ($isResponded == 0): ?> IF IS RESPONDED 0, MEANS THERE IS NO ANSWER-->
                 <p> This Ticket has not been answered yet.</p>
             <?php endif ?>
-            <?php if ($isResponded == 1): ?>
+<!--            <?php if ($isResponded == 1): ?> IF IS RESPONDED 1, MEANS THERE ARE ANSWER AND SHOWS IT.-->
                 <textarea placeholder ="<?php echo $respond ?>"rows="8" cols="50" class="tArea" name="answer" readonly></textarea>
             <?php endif ?>
 
         </form>
 
     </div>
-    <div id="feedback">
-        <?php include('feedbacks.php') ?>
-        <?php if (count($feedbacks) > 0) : ?>
-            <script> openFeedback();</script>
-            <button onclick="window.location.href = 'Admin.php'">OK</button>
-        <?php endif ?>
-    </div>
+  
 </div>
 </body>
 </html>
