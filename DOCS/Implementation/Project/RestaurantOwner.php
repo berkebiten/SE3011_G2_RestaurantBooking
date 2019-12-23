@@ -3,15 +3,15 @@
 
 <script src="scripts.js" type="text/javascript"></script>
 <?php
-include('accountsProcess.php'); // INCLUDE FOR ACCOUNT SETTINGS
+include('accountsProcess.php');
 include("dbconnect.php");
-if (!isset($_SESSION['success'])) { // CHECKING AUTHENTICATION 
+if (!isset($_SESSION['success'])) {
     header('location: index.php');
 } else {
     $username = $_SESSION['username'];
     $query = mysqli_query($conn, "select * from restaurant_owner where uname = '$username'");
     $counta = mysqli_num_rows($query);
-    if ($counta != 1) { // IF THE VIEWER IS NOT A RESTAURANT OWNER REDIRECTS TO HOME PAGE
+    if ($counta != 1) {
         header("location:index.php");
     }
     $restArray = mysqli_fetch_assoc($query);
@@ -62,12 +62,11 @@ if (!isset($_SESSION['success'])) { // CHECKING AUTHENTICATION
                                 </thead>
                                 <tbody>
                                     <?php
-                                    // START OF THE VIEW BOOKINGS OF THE RESTAURANT
                                     $vari = $_SESSION['username'];
                                     $query1 = mysqli_query($conn, "select * from bookings where restaurant_uname = '$vari'");
 
 
-                                    //PRINTS THE VALUES OF THE BOOKINGS OF THE RESTAURANT
+
                                     while ($bookArr = mysqli_fetch_array($query1, MYSQLI_ASSOC)) {
 
                                         echo "<tr> <td>" . $bookArr['customer_uname'] . "</td>"
@@ -90,8 +89,7 @@ if (!isset($_SESSION['success'])) { // CHECKING AUTHENTICATION
                         <div class="changePassword" id="formArea" >
                             <form class="formX1" method="post" action="RestaurantOwner.php">
                                 <h1>Change Password</h1>
-                                <?php include('errors.php'); ?>7
-<!--                                START OF THE CHANGE PASSWORD -->
+                                <?php include('errors.php'); ?>
                                 <div class="input-group">
                                     <label>Current Password</label>
                                     <input placeholder="Current Password" type="password" name="current_password" required/>
@@ -111,32 +109,30 @@ if (!isset($_SESSION['success'])) { // CHECKING AUTHENTICATION
                                 </div>
                             </form>
                         </div>
-<!--                        END OF THE CHANGE PASSWORD-->
+
                         <div class="changeEmail" id="formArea" >
                             <form class="formX1" method="post" action="RestaurantOwner.php">
                                 <h1>Change Email</h1>
                                 <?php include('errors.php'); ?>
-<!--                                START OF THE CHANGE EMAIL-->
                                 <div class="input-group">
                                     <label>Current Email</label>
-                                    <input placeholder="Current email" type="email" name="current_email" value="<?php echo $current_email ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+                                    <input placeholder="Current email" type="email" name="current_email" value="<?php echo $current_email ?>" pattern="[a-z0-9._%+-]+@gmail\.com$" required/>
                                     <br><br>
                                 </div>
                                 <div class="input-group">    
                                     <label><b>Password</b></label>
-                                    <input placeholder="Your new email" type="email"  name="email_1" value="<?php echo $email_1 ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+                                    <input placeholder="Your new email" type="email"  name="email_1" value="<?php echo $email_1 ?>" pattern="[a-z0-9._%+-]+@gmail\.com$" required/>
 
                                 </div>
                                 <div class="input-group">    
                                     <label><b>Confirm Password</b></label>
-                                    <input placeholder="Re-enter your new Email" type="email"  name="email_2" value="<?php echo $email_2 ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+                                    <input placeholder="Re-enter your new Email" type="email"  name="email_2" value="<?php echo $email_2 ?>" pattern="[a-z0-9._%+-]+@gmail\.com$" required/>
                                 </div>
                                 <div class="input-group">
                                     <button type="submit" class="btn" name="changeEmail">Confirm</button>
                                 </div>
                             </form>
                         </div>
-<!--                        END OF THE CHANGE EMAIL-->
                     </div>
                     <div id="feedback">
                         <?php include('feedbacks.php') ?>

@@ -213,17 +213,17 @@ if (!isset($_SESSION['success'])) {
                         <?php include('errors.php'); ?>
                         <div class="input-group">
                             <label>Current Email</label>
-                            <input placeholder="Current email" type="email" name="current_email" value="<?php echo $current_email ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+                            <input placeholder="Current email" type="email" name="current_email" value="<?php echo $current_email ?>" pattern="[a-z0-9._%+-]+@gmail\.com$" required/>
                             <br><br>
                         </div>
                         <div class="input-group">    
                             <label><b>Password</b></label>
-                            <input placeholder="Your new email" type="email"  name="email_1" value="<?php echo $email_1 ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+                            <input placeholder="Your new email" type="email"  name="email_1" value="<?php echo $email_1 ?>" pattern="[a-z0-9._%+-]+@gmail\.com$" required/>
 
                         </div>
                         <div class="input-group">    
                             <label><b>Confirm Password</b></label>
-                            <input placeholder="Re-enter your new Email" type="email"  name="email_2" value="<?php echo $email_2 ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+                            <input placeholder="Re-enter your new Email" type="email"  name="email_2" value="<?php echo $email_2 ?>" pattern="[a-z0-9._%+-]+@gmail\.com$" required/>
                         </div>
                         <div class="input-group">
                             <button type="submit" class="btn" name="changeEmail">Confirm</button>

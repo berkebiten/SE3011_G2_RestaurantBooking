@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="style.css"></link>
 <script src="scripts.js"></script>
-<?php session_start(); 
+<?php
+session_start();
 include 'dbconnect.php';
 if (isset($_SESSION['username'])) {
     $usercheck2 = $_SESSION['username'];
@@ -11,20 +12,20 @@ if (isset($_SESSION['username'])) {
     $query6 = mysqli_query($conn, $sql);
     $queryU = mysqli_query($conn, $sql2);
     $queryA = mysqli_query($conn, $sql3);
-    $isUserViewing = false ;
-    $isAdminViewing = false ;
+    $isUserViewing = false;
+    $isAdminViewing = false;
     $isARestaurantViewing = false;
     if (mysqli_num_rows($query6) > 0) {
-        $isARestaurantViewing=true;
+        $isARestaurantViewing = true;
     }
     if (mysqli_num_rows($queryU) > 0) {
-        $isUserViewing = true ;
+        $isUserViewing = true;
     }
     if (mysqli_num_rows($queryA) > 0) {
-        $isAdminViewing = true ;
+        $isAdminViewing = true;
     }
-    
-    if($isAdminViewing){
+
+    if ($isAdminViewing) {
         header('location:index.php');
     }
 }
@@ -33,33 +34,33 @@ if (isset($_SESSION['username'])) {
     <head>
         <meta charset="UTF-8">
     <title>SUPPORT PAGE</title>
-    
+
 
 </head>
 <body>
 <div class="container" id="fullC">
 
     <div class="top">
-<!--        ACCORDING TO USER TYPE, SEND TO ITS RELATED HOMEPAGE.-->
-        <?php if (isset($_SESSION['success'])): ?>
+        <!--        ACCORDING TO USER TYPE, SEND TO ITS RELATED HOMEPAGE.-->
+<?php if (isset($_SESSION['success'])): ?>
 
             <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
-            <?php if($isAdminViewing): ?>
-            <a href='Admin.php'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+            <?php if ($isAdminViewing): ?>
+                <a href='Admin.php'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
             <?php endif ?>
-            <?php if($isUserViewing): ?>
-            <a href='userProfile.php?varname=<?php echo $_SESSION['username']?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+            <?php if ($isUserViewing): ?>
+                <a href='userProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
             <?php endif ?>
-            <?php if($isARestaurantViewing):?>
-            <a href='restaurantProfile.php?varname=<?php echo $_SESSION['username']?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
-            <?php endif ?>
+            <?php if ($isARestaurantViewing): ?>
+                <a href='restaurantProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
+    <?php endif ?>
             <a href ="support.php"><button id ="support"> Support</button> </a>
             <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
 
-        <?php endif ?>
-<!--            END OF USER TYPE CHECK.-->
-<!--    IF THE SESSION IS UNSUCCESFUL, GO TO SHOW GUESTPAGE-->
-        <?php if (!isset($_SESSION['success'])): ?>
+<?php endif ?>
+        <!--            END OF USER TYPE CHECK.-->
+        <!--    IF THE SESSION IS UNSUCCESFUL, GO TO SHOW GUESTPAGE-->
+<?php if (!isset($_SESSION['success'])): ?>
 
             <a href="restSignUp.php"><button  id="rsignup">Restaurant Sign Up</button></a>
             <a href="signUp.php"><button id="signup" >Sign Up</button></a>
@@ -67,39 +68,41 @@ if (isset($_SESSION['username'])) {
             <a href ="support.php"><button class ="support"> Support</button> </a>
             <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
 
-        <?php endif ?>
-<!--            END OF GUESTPAGE-->
+<?php endif ?>
+        <!--            END OF GUESTPAGE-->
     </div>
-<!--    IF THE USER LOGGED IN, SHOW THE BUTTONS.-->
-    <?php if (isset($_SESSION['success'])): ?>
+    <!--    IF THE USER LOGGED IN, SHOW THE BUTTONS.-->
+<?php if (isset($_SESSION['success'])): ?>
         <div class ="buttonsQA">
             <a href ="viewMyTickets.php"><button id ="myrequest">My Request Tickets</button> </a>
             <a href="submitRequest.php"><button    id="subrequest" >Submit Request Ticket</button>   </a>
 
         </div>
-    <?php endif ?>
-<!--END OF THE LOGGED IN USER-->
+<?php endif ?>
+    <!--END OF THE LOGGED IN USER-->
     <h1 id ="supportHeader">F.A.Q</h1>
     <div class="supportQA">
-        <p id ="question1">Question 1: </p> <p id ="question">Sorumu sordum cevap bekliyorum.</p>
-        <br><br>
-        <p id ="answer1">Answer: </p> <p id ="answer"> Al kardeşim buyur sana cevap.</p>
-        <br><br>
-        <p id ="question1">Question 2: </p> <p id ="question">SDASCKJSHDFKCHASDCKFJHSAC</p>
-        <br><br>
-        <p id ="answer1">Answer: </p> <p id ="answer">ASDFCJHSADKFCSHDCKHAKCDHSAJKC</p>
-        <br><br>
-        <p id ="question1">Question 3: </p> <p id ="question">SDASCKJSHDFKCHASDCKFJHSAC</p>
-        <br><br>
-        <p id ="answer1">Answer: </p> <p id ="answer">ASDFCJHSADKFCSHDCKHAKCDHSAJKC</p>
-        <br><br>
-        <p id ="question1">Question 4: </p> <p id ="question">SDASCKJSHDFKCHASDCKFJHSAC</p>
-        <br><br>
-        <p id ="answer1">Answer: </p> <p id ="answer">ASDFCJHSADKFCSHDCKHAKCDHSAJKC</p>
-        <br><br>
-        <p id ="question1">Question 5: </p> <p id ="question">SDASCKJSHDFKCHASDCKFJHSAC</p>
-        <br><br>
-        <p id ="answer1">Answer: </p> <p id ="answer">ASDFCJHSADKFCSHDCKHAKCDHSAJKC</p>
+        <p id ="question1">Question 1: </p> <p id ="question">I'm not getting any emails.What's wrong?</p><br>
+
+        <p id ="answer1">Answer: </p> <p id ="answer">Your email should be a gmail as defined in sign up page. We will add e-mail feature for other email domains soon.</p><br>
+
+        <p id ="question1">Question 2: </p> <p id ="question">I sent an application for my restaurant but i can't sign in to my restaurant account.</p><br>
+
+        <p id ="answer1">Answer: </p> <p id ="answer">We inspect restaurant applications before accepting or declining them. When decision about your application is made you will get an email about the result. </p><br>
+
+        <p id ="question1">Question 3: </p> <p id ="question">Where can i change my password?</p><br>
+
+        <p id ="answer1">Answer: </p> <p id ="answer">You can change your password from your Account Settings. It's in profile for Regular Users and in restaurant panel for Restaurant Owners.</p><br>
+
+        <p id ="question1">Question 4: </p> <p id ="question">Where can i change my email?</p><br>
+
+        <p id ="answer1">Answer: </p> <p id ="answer">You can change your email from your Account Settings. It's in profile for Regular Users and in restaurant panel for Restaurant Owners.</p><br>
+
+        <p id ="question1">Question 4: </p> <p id ="question">Where can i change my username?</p><br>
+
+        <p id ="answer1">Answer: </p> <p id ="answer">You can not change your username for now. And we don't plan to add this feature in near future.</p><br>
+
+
     </div>
 
 </div>

@@ -1,10 +1,12 @@
 <?php
 
 session_start();
+
 //RANDOM STRING GENERATION FUNCTION (FOR RECCODE)
 function generateRandomString($length = 8) {
     return substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
 }
+
 //INITIALIZING VARIABLES
 $username = "";
 $email = "";
@@ -77,7 +79,7 @@ if (isset($_POST['reg_user'])) {
             array_push($errors, "email already exists");
         }
     }
-    //IF THERE IS NO ERRORS IN ERRORS ARRAY: INSERTS THE GIVEN DATA TO THE DATABASE AND PUSHES FEEDBACKS TO FEEDBACKS ARRAY
+    //IF THERE ARE NO ERRORS IN ERRORS ARRAY: INSERTS THE GIVEN DATA TO THE DATABASE AND PUSHES FEEDBACKS TO FEEDBACKS ARRAY
     if (count($errors) == 0) {
         $password = md5($password_1);
 
@@ -178,11 +180,10 @@ if (isset($_POST['login_user'])) {
     if (empty($password)) {
         array_push($errors, "Password is required");
     }
-    //IF THERE IS NO ERRORS
+    //IF THERE ARE NO ERRORS
     if (count($errors) == 0) {
 
         $password2 = md5($password); //ENCRYPTS THE PASSWORD
-
         //CHECKS IF USERNAME AND PASSWORD MATCHES
         $query1 = "SELECT * FROM user WHERE uname='$username' AND psw='$password2'";
         $query2 = "SELECT * FROM restaurant_owner WHERE uname='$username' AND psw='$password2'";
@@ -190,20 +191,35 @@ if (isset($_POST['login_user'])) {
         $results1 = mysqli_query($conn, $query1);
         $results2 = mysqli_query($conn, $query2);
         $results3 = mysqli_query($conn, $query3);
+        $arr1 = mysqli_fetch_array($results1,MYSQLI_ASSOC);
+        $arr2 = mysqli_fetch_array($results1,MYSQLI_ASSOC);
+        $arr3 = mysqli_fetch_array($results1,MYSQLI_ASSOC);
 
         //LOGS THE USER IN AND SETS THE SESSION VARIABLES
         if (mysqli_num_rows($results1) == 1) {
-            $_SESSION['username'] = $username;
-            $_SESSION['success'] = "You are now logged in";
-            header('location: index.php');
+            if ($arr1['isBanned'] == '0') {//CHECK IF USER IS BANNED
+                $_SESSION['username'] = $username;
+                $_SESSION['success'] = "You are now logged in";
+                header('location: index.php');
+            } else {
+                array_push($errors, "You are banned.");
+            }
         } else if (mysqli_num_rows($results2) == 1) {
-            $_SESSION['username'] = $username;
-            $_SESSION['success'] = "You are now logged in";
-            header('location: RestaurantOwner.php');
+            if ($arr2['isBanned'] == '0') {//CHECK IF USER IS BANNED
+                $_SESSION['username'] = $username;
+                $_SESSION['success'] = "You are now logged in";
+                header('location: RestaurantOwner.php');
+            } else {
+                array_push($errors, "You are banned.");
+            }
         } else if (mysqli_num_rows($results3) == 1) {
-            $_SESSION['username'] = $username;
-            $_SESSION['success'] = "You are now logged in";
-            header('location: Admin.php');
+            if ($arr3['isBanned'] == '0') {//CHECK IF USER IS BANNED
+                $_SESSION['username'] = $username;
+                $_SESSION['success'] = "You are now logged in";
+                header('location: Admin.php');
+            } else {
+                array_push($errors, "You are banned.");
+            }
         } else {
             array_push($errors, "Wrong username/password combination");
         }
@@ -285,7 +301,7 @@ if (isset($_POST['forgot2Send'])) {
         array_push($errors, "Re-Password is required");
     }
 
-    //IF THERE IS NO ERRORS
+    //IF THERE ARE NO ERRORS
     if (count($errors) == 0) {
 
 
@@ -361,7 +377,6 @@ if (isset($_POST['sub_request'])) { //STARTS WHEN CLICKING A BUTTON
         array_push($errors, "You must wait until one of your requests is responded.");
     }
     //END OF SHOWING UNRESPONDED ERROR.
-
 //IF THERE ARE NO ERROR, FIRST CHECK IF IT IS USER OR RESTAURANT OWNER AND ADD IT INTO VARIABLE.
     if (count($errors) == 0) {
         $variable = "";

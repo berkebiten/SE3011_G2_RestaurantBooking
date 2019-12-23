@@ -25,11 +25,11 @@ if (isset($_SESSION['username'])) {
         $isAdminViewing = true;
     }
     if($isAdminViewing){
-        header('location:index.php');
+        header('location:errorPage.php');
     }
 }
 else{
-    header('location:signIn.php');
+    header('location:errorPage.php');
 }
 //END OF RELATED HOMEPAGE.
 ?>

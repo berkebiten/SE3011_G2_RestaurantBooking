@@ -29,7 +29,7 @@ if (isset($_SESSION['success'])) {
         header('location:index.php');
     }
 } else {
-    header('location:signIn.php');
+    header('location:errorPage.php');
 }
 //END OF USER TYPE.
 ?>

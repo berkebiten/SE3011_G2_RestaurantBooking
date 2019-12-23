@@ -48,7 +48,7 @@ if (isset($_SESSION['username'])) {//REDIRECTS THE USER TO INDEX IF THE USER ALR
                     </div>
                     <div class="input-group">
                         <label>Email</label>
-                        <input placeholder="Your Restaurant's Email Address" type="email" name="email" value="<?php echo $email; ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+                        <input placeholder="Your Restaurant's Email Address" type="email" name="email" value="<?php echo $email; ?>" pattern="[a-z0-9._%+-]+@gmail\.com$" required/>
                     </div>
                     <div class="input-group">
                         <label>Capacity</label>

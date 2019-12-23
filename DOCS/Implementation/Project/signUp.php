@@ -1,27 +1,3 @@
-<?php /*
-  include("dbconnect.php");
-  function generateRandomString($length = 8) {
-  return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
-  }
-  $fname = filter_input(INPUT_POST, 'fname');
-  $lname = filter_input(INPUT_POST, 'lname');
-  $username = filter_input(INPUT_POST, 'uname');
-  $password = filter_input(INPUT_POST, 'psw');
-  $email = filter_input(INPUT_POST, 'email');
-  $recCode = generateRandomString();
-
-
-  $query = mysqli_query($conn, "select * from user where uname='$username' or email='$email'");
-  $count = mysqli_num_rows($query);
-  if ($count != 0) {
-  echo "<script> alert('Registration Completed.'); </script> ";
-  } else {
-  $password = md5($password);
-  $ekle = mysqli_query($conn, "insert into user values ('$username','$fname' , '$lname' ,'$email', '$password', '$recCode')");
-  header("location:returnHP.php");
-  } */
-?>
-
 <?php include('loginProcess.php') ?>
 <?php if (isset($_SESSION['username'])) {//REDIRECTS THE USER TO INDEX IF THE USER ALREADY LOGGED IN
     header('location:index.php');
@@ -64,7 +40,7 @@
                 </div>
                 <div class="input-group">
                     <label>Email</label>
-                    <input placeholder="Your Email Address" type="email" name="email" value="<?php echo $email; ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+                    <input placeholder="Your Email Address(must be gmail)" type="email" name="email" value="<?php echo $email; ?>" pattern="[a-z0-9._%+-]+@gmail\.com$" required/>
                 </div>
                 <div class="input-group">
                     <label>Password</label>
