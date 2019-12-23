@@ -296,8 +296,9 @@ if (isset($_POST['forgot2Send'])) {
 }
 
 //SUBMIT TICKET
-if (isset($_POST['sub_request'])) {
 
+if (isset($_POST['sub_request'])) { //STARTS WHEN CLICKING A BUTTON
+//CHECK THE VARIABLES IF THEY ARE EMPTY PUSH ERROR
     $textArea = mysqli_real_escape_string($conn, $_POST['description']);
     $category = mysqli_real_escape_string($conn, $_POST['category']);
     $username = $_SESSION['username'];
@@ -309,7 +310,8 @@ if (isset($_POST['sub_request'])) {
     if ($category == "Category") {
         array_push($errors, "You must choose a category.");
     }
-
+//END OF CHECK IF IT IS EMPTY OR NOT
+    //CHECKS THE USERS TYPE, AND SELECTS FROM DATABASE, IF THE THERE ARE MORE THAN 5 UNRESPONDED TICKETS, SHOW ERROR.
     $variable = "";
     $user_check = "SELECT uname FROM user WHERE uname='$username'";
     $rest_check = "SELECT uname FROM restaurant_owner where uname='$username'";
@@ -333,8 +335,9 @@ if (isset($_POST['sub_request'])) {
     if ($count >= 5) {
         array_push($errors, "You must wait until one of your requests is responded.");
     }
+    //END OF SHOWING UNRESPONDED ERROR.
 
-
+//IF THERE ARE NO ERROR, FIRST CHECK IF IT IS USER OR RESTAURANT OWNER AND ADD IT INTO VARIABLE.
     if (count($errors) == 0) {
         $variable = "";
         $user_check = "SELECT uname FROM user WHERE uname='$username'";
@@ -346,18 +349,20 @@ if (isset($_POST['sub_request'])) {
         } else if (mysqli_num_rows($query2) == 1) {
             $variable = "rest_uname";
         }
-
+// END OF CHECKING USER TYPE.
+        //IF IT IS USER, INSERT INTO TICKET WITH USER TYPE. ELSE INSERT INTO TICKET WITH RESTAURANT TYPE.
         if ($variable == "user_uname") {
             $query4 = "INSERT INTO ticket(user_uname,category, description, date, isResponded)  VALUES('$username','$category','$textArea','$date','0')";
             mysqli_query($conn, $query4);
         } else if ($variable == "rest_uname") {
             $query5 = "INSERT INTO ticket(rest_uname,category, description, date, isResponded)  VALUES('$username','$category','$textArea','$date','0')";
             mysqli_query($conn, $query5);
-        } else {
-            echo "sasa";
         }
+        //END OF INSERTING
+        //SHOWING FEEDBACK
         array_push($feedbacks, "Your ticket has been sent.");
         array_push($feedbacks, "You will be redirected to your Tickets screen when you click 'OK' button.");
+        //END OF FEEDBACK
     }
 }
     
