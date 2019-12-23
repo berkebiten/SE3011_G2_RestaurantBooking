@@ -5,19 +5,19 @@
 session_start();
 include("dbconnect.php");
 
-if (!isset($_SESSION['username'])) {
-    header('location:signIn.php');
+if (!isset($_SESSION['username'])) { // CHECKING IF THERE IS A USER THAT IS LOGGED IN OR NOT
+    header('location:signIn.php'); // IF THERE ARE NO USER LOGGED IN 
 } else {
-    $viewerUsername = $_SESSION['username'];
-    $sql_rest = "SELECT * FROM restaurant_owner WHERE uname='$viewerUsername'";
-    $sql_ad = "SELECT * FROM admin WHERE uname='$viewerUsername'";
+    $viewerUsername = $_SESSION['username']; // SESSION USERNAME
+    $sql_rest = "SELECT * FROM restaurant_owner WHERE uname='$viewerUsername'"; // SELECTING EVERYTING FROM RESTAURANT USER TABLE WHERE USERNAME IS THE SESSION USERNAME
+    $sql_ad = "SELECT * FROM admin WHERE uname='$viewerUsername'"; // SELECTING EVERYTING FROM ADMIN TABLE WHERE USERNAME IS THE SESSION USERNAME
     $query_rest = mysqli_query($conn, $sql_rest);
     $query_ad = mysqli_query($conn, $sql_ad);
-    if (mysqli_num_rows($query_rest) > 0 || mysqli_num_rows($query_ad) > 0) {
+    if (mysqli_num_rows($query_rest) > 0 || mysqli_num_rows($query_ad) > 0) { // CHECK IF THE VIEWER IS AN ADMIN OR RESTAURANT OWNER OR NOT
         header('location:index.php');
     }
 }
-
+// INITIALIZING THE VARIABLES 
 $c_username = "";
 $r_username = "";
 $date = "";
@@ -28,10 +28,8 @@ $fname = "";
 $lname = "";
 $email = "";
 $party = "";
-
 $feedbacks = array();
 $errors = array();
-
 $uname = $_GET['varname'];
 $sql = "SELECT * FROM restaurant_owner WHERE uname='$uname'";
 $query = mysqli_query($conn, $sql);
@@ -46,7 +44,9 @@ $start = $restArray['startTime'];
 $end = $restArray['endTime'];
 $cap = $restArray['cap'];
 
-if (isset($_POST['booking'])) {
+
+if (isset($_POST['booking'])) {// START OF THE INSERTION AFTER CLICKING THE BUTTON NAMES BOOKING
+    //TAKING THE VARIABLES FROM THE FORM AN SESSION
     $c_username = $_SESSION['username'];
     $r_username = $uname;
     $date = filter_input(INPUT_POST, 'date');
@@ -58,6 +58,7 @@ if (isset($_POST['booking'])) {
     $email = filter_input(INPUT_POST, 'email');
     $party = filter_input(INPUT_POST, 'party');
 
+    //INITIALIZING THE ERRORS FROM THE INSERTION OF THE FORM
     if (empty($fname)) {
         array_push($errors, "First Name is required");
     }
@@ -88,24 +89,24 @@ if (isset($_POST['booking'])) {
 
 
 
-    $query1 = mysqli_query($conn, "SELECT * FROM bookings WHERE restaurant_uname = '$r_username' AND date = '$date'");
-
+    $query1 = mysqli_query($conn, "SELECT * FROM bookings WHERE restaurant_uname = '$r_username' AND date = '$date'"); // CHECKING OF THERE IS A RESERVATION AT THE TIME AND DATE CHOOSEN
+    //INITIALIZING THE VARIABLES AND STARTING TO INSERTION OF THE BOOKING
     $partySize = 0;
     $i = 0;
     while ($array = mysqli_fetch_array($query1, MYSQLI_ASSOC)) {
-        if (!(strtotime($startTime) - strtotime($array['end_time']) >= 0 || strtotime($array['start_time']) - strtotime($endTime) >= 0)) {
+        if (!(strtotime($startTime) - strtotime($array['end_time']) >= 0 || strtotime($array['start_time']) - strtotime($endTime) >= 0)) { // SELECTING THE BOOKINGS THAT ARE BETWEEN THE SELECTED START TIME AND END TIME EVEN FOR AN HOUR 
             $partySize = $partySize + $array['party'];
         }
     }
-    $currentCap = $cap - $partySize;
+    $currentCap = $cap - $partySize; // INITIALIZING THE CURRENT CAPACITY OF THE RESTAURANT THAT IN BETWEEN START TIME AND END TIME OF THE BOOKING
 
 
-    if ($currentCap >= $party && count($errors) == 0) {
+    if ($currentCap >= $party && count($errors) == 0) {// INITIALIZING THE FEEDBACK THAT WILL BE GIVEN TO THE USER
         $query = mysqli_query($conn, "insert into bookings(customer_uname, restaurant_uname, party, start_time, end_time, fname, lname, email, phoneNo, date) VALUES('$c_username', '$r_username','$party','$startTime','$endTime','$fname','$lname','$email','$phone','$date')");
         array_push($feedbacks, "Your booking has been completed.");
         array_push($feedbacks, "You will be redirected to Your Bookings when you click 'OK' button.");
-    } else if (!($currentCap >= $party)) {
+    } else if (!($currentCap >= $party)) {// INITIALIZING THE ERROR IF CURRENT CAPACITY OF THE RESTAURANT IS NOT GREATER OR EQUAL TO THE CHOSEN PARTY SIZE
         array_push($errors, "There are no capacity in the restaurant that meets your party size at the selected hours.");
-    } 
+    }
 }
 ?>
