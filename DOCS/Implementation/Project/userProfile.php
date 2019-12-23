@@ -26,7 +26,7 @@ if ($user == $vname) {
 if (mysqli_num_rows($queryA) > 0) {
     $isAdminViewing = true;
 }
-//USER PROFILES CAN SHOWN ONLY OWNERS AND ADMINS
+//USER PROFILES CAN BE SHOWN ONLY OWNERS AND ADMINS
 if (!$isMyProfile && !$isAdminViewing) {
     header('location:errorPage.php');
 }
@@ -39,8 +39,9 @@ if (!$isMyProfile && !$isAdminViewing) {
 </head>
 <body>
 <div class="top">
+<!--    APPROPRIATE HEADER FOR THE VIEWER-->
     <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
-    <?php if ($isAdminViewing): ?>
+    <?php if ($isAdminViewing): ?> 
         <a href='Admin.php'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
     <?php else: ?>
         <a href='userProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
@@ -53,17 +54,17 @@ if (!$isMyProfile && !$isAdminViewing) {
 
 <div id="fullProfile">
     <div id="personalInfos">
+<!--        PRINT THE USER'S INFORMATIONS-->
         <p><?php echo $vname ?></p>
         <label>First Name: <?php echo $firstname ?> </label><br><br>
         <label>Last Name:  <?php echo $lastname ?></label> <br><br>
         <label>Email:  <?php echo $email ?></label>
     </div>
     <div id='profileButtons'>
-        <?php if ($isAdminViewing): ?>
+        <?php if ($isAdminViewing): //IF THE ADMIN VIEWS THE PAGE SHOW THE BAN AND WARN BUTTONS?>
             <button>Ban User</button> <br><br>
             <button>Warn User</button>
         <?php else: ?>
-            <button>Edit Profile</button> <br><br>
             <a href="accountSettings.php"<button>Account Settings</button></a>
         <?php endif ?>
     </div>
