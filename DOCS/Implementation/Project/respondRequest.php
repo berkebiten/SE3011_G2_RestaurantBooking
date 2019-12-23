@@ -3,6 +3,7 @@
 <?php 
 include('respondProcess.php'); 
 if (isset($_SESSION['username'])) {
+    //CHECKS IF THE USER IS ADMIN OR NOT, IF ADMIN GO TO ERROR PAGE.
     $usercheck2 = $_SESSION['username'];
      $sql3 = "select uname from admin where uname='$usercheck2'";
        $queryA = mysqli_query($conn, $sql3);
@@ -17,8 +18,10 @@ if (isset($_SESSION['username'])) {
 else{
     header('location:errorPage.php');
 }
+//END OF CHECK ADMIN
 ?>
     <?php
+    //GET TICKET ID AND ACCORDING TO THAT ID, SELECT ATTRIBUTES FROM DATABASE AND FILL THEM.
 $ticketId = $_GET['varname'];
 $sql = "SELECT * FROM ticket WHERE ticketId='$ticketId'";
 $query = mysqli_query($conn, $sql);
@@ -35,6 +38,7 @@ $count = mysqli_num_rows($query);
 if ($count == 0) {
     header('location:errorPage.php');
 }
+//END OF FILLING ATTRIBUTES
 ?>
 
 <html>
@@ -58,13 +62,13 @@ if ($count == 0) {
             <?php include('errors.php'); ?>
              <h3>Category : <?php echo $category ?></h3>
             <h3>Description</h3>
-            <textarea placeholder ="<?php echo $description ?>"rows="8" cols="50" class="tArea" name="description" readonly></textarea>
+<!--            <textarea placeholder ="<?php echo $description ?>"rows="8" cols="50" class="tArea" name="description" readonly></textarea> //SEE THE SUBMIT TICKET-->
             <h3>Answer</h3>
-        <?php if ($isResponded == 0): ?>
+<!--        <?php if ($isResponded == 0): ?> //IF IT IS NOT RESPONDED, ADD A BUTTON AND TEXTAREA-->
                 <textarea rows="8" cols="50" class="tArea" name="answer" required/></textarea>
                 <button type="submit" id="subsub" name="respond_request">Submit</button>
             <?php endif ?>
-            <?php if($isResponded == 1):?>
+<!--            <?php if($isResponded == 1):?> // IF IT IS RESPONDED, THEN JUST SEE THE ANSWER.-->
                 <textarea placeholder ="<?php echo $respond ?>"rows="8" cols="50" class="tArea" name="answer" readonly></textarea>
             <?php endif ?>
              
@@ -73,7 +77,9 @@ if ($count == 0) {
     </div>
     <div id="feedback">
         <?php include('feedbacks.php') ?>
+        
         <?php if (count($feedbacks) > 0) : ?>
+<!--        TAKES THE FEEDBACK AND GO TO SELECTED PAGE-->
             <script> openFeedback();</script>
             <button onclick="window.location.href = 'Admin.php'">OK</button>
         <?php endif ?>
