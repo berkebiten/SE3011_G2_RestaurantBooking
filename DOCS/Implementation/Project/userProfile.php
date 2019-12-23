@@ -3,6 +3,7 @@
 <?php
 session_start();
 include 'dbconnect.php';
+//VARIABLE INITALIZING AND QUERIES FOR AUTHENTICATION
 $vname = $_GET['varname'];
 $user = $_SESSION['username'];
 $sql = "select * from user where uname = '$vname'";
@@ -25,7 +26,7 @@ if ($user == $vname) {
 if (mysqli_num_rows($queryA) > 0) {
     $isAdminViewing = true;
 }
-
+//USER PROFILES CAN SHOWN ONLY OWNERS AND ADMINS
 if (!$isMyProfile && !$isAdminViewing) {
     header('location:errorPage.php');
 }
@@ -83,10 +84,14 @@ if (!$isMyProfile && !$isAdminViewing) {
                     $rest = $row['rest_uname'];
                     $favId = $row['favoritesId'];
                     $sqlRESTNAME = "select * from restaurant_owner where uname='$rest'";
-                    $queryRESTNAME = mysqli_query($conn,$sqlRESTNAME);
-                    $row2 =  mysqli_fetch_array($queryRESTNAME, MYSQLI_ASSOC);
-                    echo" <tr> <td>  <a href='restaurantProfile.php?varname=$rest'>". $row2['rest_name']."</a> </td>"
-                            . " <td> <a href='removeFavorite.php?varname=$favId'><button>Remove</button></a> </td></tr> ";
+                    $queryRESTNAME = mysqli_query($conn, $sqlRESTNAME);
+                    $row2 = mysqli_fetch_array($queryRESTNAME, MYSQLI_ASSOC);
+                    if (!$isAdminViewing) {
+                        echo" <tr> <td>  <a href='restaurantProfile.php?varname=$rest'>" . $row2['rest_name'] . "</a> </td>"
+                        . " <td> <a href='removeFavorite.php?varname=$favId'><button>Remove</button></a> </td></tr> ";
+                    }else {
+                        echo" <tr> <td>  <a href='restaurantProfile.php?varname=$rest'>" . $row2['rest_name'] . "</a> </td> <td></td></tr>";
+                    }
                 }
                 ?>
             </tbody>
