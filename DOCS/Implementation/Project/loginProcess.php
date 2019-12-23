@@ -119,6 +119,9 @@ if (isset($_POST['reg_rest'])) {
     if ($password_1 != $password_2) {
         array_push($errors, "The two passwords do not match");
     }
+    if ($rest_start > $rest_end) {
+        array_push($errors, "Opening time of the restaurant cannot be bigger than closing time.");
+    }
 
     $user_check_query = "SELECT * FROM user WHERE uname='$username' OR email='$email' LIMIT 1";
     $restaurant_check_query = "SELECT * FROM restaurant_owner WHERE uname='$username' OR email='$email' LIMIT 1";
@@ -140,8 +143,9 @@ if (isset($_POST['reg_rest'])) {
         }
     }
 
-$signUpId = null ;
+    $signUpId = null;
     if (count($errors) == 0) {
+        $signupId = null;
         $password = md5($password_1);
         $query = "INSERT INTO rest_signup VALUES('$signupId', '$username', '$fname', '$lname', '$rest_name', '$email', '$password', '$rest_loc', '$rest_phone', "
                 . "'$rest_address', '$rest_start', '$rest_end', '$rest_cap')";
@@ -206,46 +210,39 @@ if (isset($_POST['forgotSend'])) {
         $results2 = mysqli_query($conn, $query2);
         $results3 = mysqli_query($conn, $query3);
 
-        if ($results1) {
+        if (mysqli_num_rows($results1) == 1) {
             $count1 = mysqli_fetch_assoc($results1);
             $to_email = $email;
             $rec_code = $count1['recCode'];
             $subject = "Restaurant Sign Up";
-            $body = "Your Recovery Code is ". $rec_code . ":)";
+            $body = "Your Recovery Code is " . $rec_code . ":)";
             $headers = "From: Restaurant Booking System";
 
             if (mail($to_email, $subject, $body, $headers)) {
                 array_push($feedbacks, "Email successfully sent to " . $to_email . "");
             }
-            
-            header('location: forgotPswrd2.php');
-            
-        } else if ($results2) {
+        } else if (mysqli_num_rows($results2) == 1) {
             $count2 = mysqli_fetch_assoc($results2);
             $to_email = $email;
             $rec_code = $count2['recCode'];
             $subject = "Restaurant Sign Up";
-            $body = "Your Recovery Code is ". $rec_code . ":)";
+            $body = "Your Recovery Code is " . $rec_code . ":)";
             $headers = "From: Restaurant Booking System";
 
             if (mail($to_email, $subject, $body, $headers)) {
                 array_push($feedbacks, "Email successfully sent to " . $to_email . "");
             }
-
-            header('location: forgotPswrd2.php');
-        } else if ($results3) {
+        } else if (mysqli_num_rows($results3) == 1) {
             $count3 = mysqli_fetch_assoc($results3);
             $to_email = $email;
             $rec_code = $count3['recCode'];
             $subject = "Restaurant Sign Up";
-            $body = "Your Recovery Code is ". $rec_code . ":)";
+            $body = "Your Recovery Code is " . $rec_code . ":)";
             $headers = "From: Restaurant Booking System";
 
             if (mail($to_email, $subject, $body, $headers)) {
                 array_push($feedbacks, "Email successfully sent to " . $to_email . "");
             }
-
-            header('location: forgotPswrd2.php');
         }
     }
 }
@@ -266,17 +263,17 @@ if (isset($_POST['forgot2Send'])) {
 
     if (count($errors) == 0) {
 
-        $query1 = "SELECT * FROM user WHERE recCode='$recIn'";
-        $query2 = "SELECT * FROM restaurant_owner WHERE recCode='$recIn'";
-        $query3 = "SELECT * FROM admin WHERE recCode='$recIn'";
-        $results1 = mysqli_query($conn, $query1);
-        $results2 = mysqli_query($conn, $query2);
-        $results3 = mysqli_query($conn, $query3);
-        $recIn2 = generateRandomString();
+
         if ($password_1 != $password_2) {
             array_push($errors, "Password do not match.");
         } else {
-
+            $query1 = "SELECT * FROM user WHERE recCode='$recIn'";
+            $query2 = "SELECT * FROM restaurant_owner WHERE recCode='$recIn'";
+            $query3 = "SELECT * FROM admin WHERE recCode='$recIn'";
+            $results1 = mysqli_query($conn, $query1);
+            $results2 = mysqli_query($conn, $query2);
+            $results3 = mysqli_query($conn, $query3);
+            $recIn2 = generateRandomString();
             $password = md5($password_1);
             if (mysqli_num_rows($results1) == 1) {
                 $changeP = mysqli_query($conn, "UPDATE user SET psw = '$password', recCode = '$recIn2'  WHERE (recCode = '$recIn')");

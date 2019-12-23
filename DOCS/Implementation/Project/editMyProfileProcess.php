@@ -23,10 +23,26 @@ if (isset($_POST['editRestaurant'])) {
     $payment = mysqli_real_escape_string($conn, $_POST['payment']);
     $additional = mysqli_real_escape_string($conn, $_POST['additional']);
     $address = mysqli_real_escape_string($conn, $_POST['address']);
-    $startTime = mysqli_real_escape_string($conn, $_POST['startTime']);
-    $endTime = mysqli_real_escape_string($conn, $_POST['endTime']);
-    $cuisines = mysqli_real_escape_string($conn, $_POST['cuisines']);
-    $seatingOptions = mysqli_real_escape_string($conn, $_POST['seating_options']);
+    $startTime = filter_input(INPUT_POST, 'startTime');
+    $endTime = filter_input(INPUT_POST, 'endTime');
+    
+    $cuisinesarray = array();
+    if (isset($_POST['filter'])) { // filter isimli checkboxlardan hiçbiri dolu değil mi diye kontrol ediyor 
+        $cuisines = $_POST['filter'];
+        foreach ($_POST['filter'] as $cuisines) {
+            $cuisinearray[] = $cuisines ;
+        }
+        $cuisines = implode(", ", $cuisinearray);
+    }
+
+    $seatingarray = array();
+    if (isset($_POST['filter1'])) { 
+        $seating = $_POST['filter1'];
+        foreach ($_POST['filter1'] as $seating) {
+            $seatingarray[] = $seating;
+        }
+        $seatingOptions = implode(", ", $seatingarray);
+    }
 
     if (empty($fname)) {
         array_push($errors, "First Name is required");
@@ -52,31 +68,31 @@ if (isset($_POST['editRestaurant'])) {
     if (empty($payment)) {
         array_push($errors, "Payment is required");
     }
-     if (empty($additional)) {
+    if (empty($additional)) {
         array_push($errors, "Additional is required");
     }
-     if (empty($address)) {
+    if (empty($address)) {
         array_push($errors, "Address is required");
     }
-     if (empty($startTime)) {
+    if (empty($startTime)) {
         array_push($errors, "Start time is required");
     }
-     if (empty($endTime)) {
+    if (empty($endTime)) {
         array_push($errors, "End time is required");
     }
-     if (empty($cuisines)) {
+    if (empty($cuisines)) {
         array_push($errors, "Cuisine is required");
     }
-     if (empty($seatingOptions)) {
+    if (empty($seatingOptions)) {
         array_push($errors, "Seating option is required");
     }
 
 
 
     if (count($errors) == 0) {
-         $uname = $_SESSION['username'];
-       $queryEdit = "UPDATE restaurant_owner SET fname='$fname', lname='$lname', rest_name='$rest_name', location='$location', phoneNo='$phone', cap='$capacity', description='$description', payment='$payment', additional='$additional', address ='$address', startTime='$startTime', endTime='$endTime', cuisines='$cuisines', seating_options='$seatingOptions' WHERE uname='$uname' ";
-      mysqli_query($conn,$queryEdit);
+        $uname = $_SESSION['username'];
+        $queryEdit = "UPDATE restaurant_owner SET fname='$fname', lname='$lname', rest_name='$rest_name', location='$location', phoneNo='$phone', cap='$capacity', description='$description', payment='$payment', additional='$additional', address ='$address', startTime='$startTime', endTime='$endTime', cuisines='$cuisines', seating_options='$seatingOptions' WHERE uname='$uname' ";
+        mysqli_query($conn, $queryEdit);
         array_push($feedbacks, "Your restaurant has been editted.");
         array_push($feedbacks, "You will be redirected to Restaurant Page when you click 'OK' button.");
     } else {

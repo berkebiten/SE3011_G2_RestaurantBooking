@@ -21,8 +21,8 @@ $uname = $_GET['varname'];
 $sql = "SELECT * FROM restaurant_owner WHERE uname='$uname'";
 $query = mysqli_query($conn, $sql);
 $restArray = mysqli_fetch_assoc($query);
-$start = $restArray['startTime'];
-$end = $restArray['endTime'];
+$start1 = $restArray['startTime'];
+$end1 = $restArray['endTime'];
 ?>
 
 <html>
@@ -61,10 +61,10 @@ $end = $restArray['endTime'];
                 </div>
                 <div class="input-group">
                     <label for="time">Start Time</label>
-                    <select class="input" id="bookingsTime" type="time" name="startTime" >
+                    <select class="input" type="time" name="startTime" >
                         <?php
-                        $start_time = $start;
-                        $end_time = $end;
+                        $start_time = $start1;
+                        $end_time = $end1;
                         while (strtotime($start_time) <= strtotime($end_time)) {
                             echo "<option value=" . $start_time . ">" . $start_time . "</option>";
                             $start_time = date("H:i:s", strtotime('+1 hour', strtotime($start_time)));
@@ -74,10 +74,10 @@ $end = $restArray['endTime'];
                 </div>
                 <div class="input-group">
                     <label for="time">End Time</label>
-                    <select class="input" id="bookingsTime" type="time" name="endTime" >
+                    <select class="input" type="time" name="endTime" >
                         <?php
-                        $start_time1 = $start;
-                        $end_time1 = $end;
+                        $start_time1 = $start1;
+                        $end_time1 = $end1;
                         while (strtotime($start_time1) <= strtotime($end_time1)) {
                             echo "<option value=" . $start_time1 . ">" . $start_time1 . "</option>";
                             $start_time1 = date("H:i:s", strtotime('+1 hour', strtotime($start_time1)));

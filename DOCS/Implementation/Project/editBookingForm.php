@@ -47,14 +47,56 @@ $party = $row['party'];
                 <label for="date">Date</label>
                 <input onclick="dateConstraint()" class="input" id="bookingDate" type="date" name="date" value="<?php echo $date ?>" ></input>
             </div>
-            <div class="input-group">
-                <label for="time">Start Time</label>
-                <input class="input" id="bookingsTime" type="time" name="startTime" value="<?php echo $startTime ?>"> </input>
-            </div>
-            <div class="input-group">
-                <label for="time">End Time</label>
-                <input class="input" id="bookingeTime" type="time" name="endTime" value="<?php echo $endTime ?>"></input>
-            </div>
+                <div class="input-group">
+                    <label>Start Time</label>
+                    <select class="input" type="time" name="startTime" required>
+                        <option value="<?php echo $startTime ?>" selected hidden><?php echo $startTime ?></option>
+                        <option value="06:00:00">06:00</option>
+                        <option value="07:00:00">07:00</option>
+                        <option value="08:00:00">08:00</option>
+                        <option value="09:00:00">09:00</option>
+                        <option value="10:00:00">10:00</option>
+                        <option value="11:00:00">11:00</option>
+                        <option value="12:00:00">12:00</option>
+                        <option value="13:00:00">13:00</option>
+                        <option value="14:00:00">14:00</option>
+                        <option value="15:00:00">15:00</option>
+                        <option value="16:00:00">16:00</option>
+                        <option value="17:00:00">17:00</option>
+                        <option value="18:00:00">18:00</option>
+                        <option value="19:00:00">19:00</option>
+                        <option value="20:00:00">20:00</option>
+                        <option value="21:00:00">21:00</option>
+                        <option value="22:00:00">22:00</option>
+                        <option value="23:00:00">23:00</option>
+                        <option value="24:00:00">24:00</option>              
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>End Time</label>
+                    <select class="input" type="time" name="endTime" required>
+                        <option value="<?php echo $endTime ?>"selected hidden><?php echo $endTime ?></option>
+                        <option value="06:00:00">06:00</option>
+                        <option value="07:00:00">07:00</option>
+                        <option value="08:00:00">08:00</option>
+                        <option value="09:00:00">09:00</option>
+                        <option value="10:00:00">10:00</option>
+                        <option value="11:00:00">11:00</option>
+                        <option value="12:00:00">12:00</option>
+                        <option value="13:00:00">13:00</option>
+                        <option value="14:00:00">14:00</option>
+                        <option value="15:00:00">15:00</option>
+                        <option value="16:00:00">16:00</option>
+                        <option value="17:00:00">17:00</option>
+                        <option value="18:00:00">18:00</option>
+                        <option value="19:00:00">19:00</option>
+                        <option value="20:00:00">20:00</option>
+                        <option value="21:00:00">21:00</option>
+                        <option value="22:00:00">22:00</option>
+                        <option value="23:00:00">23:00</option>
+                        <option value="24:00:00">24:00</option> 
+                    </select>
+                </div>
             <div class="input-group">
                 <label for="lname">Party Size</label>
                 <input class="input" type="text" placeholder="Enter Party Size" name="party" value="<?php echo $party ?>"></input>

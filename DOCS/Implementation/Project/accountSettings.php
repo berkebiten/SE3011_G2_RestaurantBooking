@@ -56,7 +56,7 @@ if($isARestaurantViewing || $isAdminViewing){
                 <?php endif ?>
 
                 <?php if (!$isAdminViewing): ?>
-                    <a href ="support.php"><button id ="support"> Support</button> </a>
+                    <a href ="support.php"><button id ="support"> Support</button></a>
                 <?php endif ?>
                 <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
             </div>

@@ -47,7 +47,7 @@ $end = $restArray['endTime'];
 $cap = $restArray['cap'];
 
 $count = mysqli_num_rows($sqlBook);
-if($count == 0) {
+if ($count == 0) {
     header('location:errorPage.php');
 }
 
@@ -89,6 +89,9 @@ if (isset($_POST['editBooking'])) {
     if (empty($date)) {
         array_push($errors, "Booking date is required");
     }
+    if ($startTime > $endTime) {
+        array_push($errors, "Starting time of the booking cannot be bigger than ending time.");
+    }
 
     //FIND THE RESTAURANT
     $query1 = mysqli_query($conn, "SELECT * FROM bookings WHERE restaurant_uname = '$r_username' AND date = '$date'");
@@ -97,16 +100,16 @@ if (isset($_POST['editBooking'])) {
     //CALCULATE THE AVAILABLE CAPACITY OF THE RESTAURANT DURING THE RESERVATION 
     while ($array = mysqli_fetch_array($query1, MYSQLI_ASSOC)) {
         if (!(strtotime($startTime) - strtotime($array['end_time']) >= 0 || strtotime($array['start_time']) - strtotime($endTime) >= 0)) {
-            if($array['bookingId'] != $bookId){
-            $partySize = $partySize + $array['party'];    
+            if ($array['bookingId'] != $bookId) {
+                $partySize = $partySize + $array['party'];
             }
         }
     }
     $currentCap = $cap - $partySize;
 
-   //CHECK IF THE PARTY SIZE FITS IN AVAILABLE CAPACITY AND MAKE THE RESERVATION
+    //CHECK IF THE PARTY SIZE FITS IN AVAILABLE CAPACITY AND MAKE THE RESERVATION
     if ($currentCap >= $party && count($errors) == 0) {
-        $queryDelete = mysqli_query($conn,"delete from bookings where bookingId = '$bookId'");
+        $queryDelete = mysqli_query($conn, "delete from bookings where bookingId = '$bookId'");
         $queryInsert = mysqli_query($conn, "insert into bookings VALUES('$bookId', '$c_username', '$r_username','$party','$startTime','$endTime','$fname','$lname','$email','$phone','$date')");
         array_push($feedbacks, "Your booking has been editted.");
         array_push($feedbacks, "You will be redirected to Your Bookings when you click 'OK' button.");

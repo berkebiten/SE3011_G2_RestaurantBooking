@@ -67,7 +67,7 @@ if (isset($_SESSION['username'])) {
                             <tr><input type="checkbox" id="selectAll" onclick="checkAll('chk1')" name="filter1" value="All">All</input><br></tr>
                             <tr><input type="checkbox" id="chk1" name="filter1[]" value="Bar">Bar</input><br></tr>
                             <tr><input type="checkbox" id="chk1" name="filter1[]" value="High Top">High Top</input><br>  </tr>
-                            <tr><input type="checkbox" id="chk1" name="filter1[]" value="Standart">Standard</input><br></tr>
+                            <tr><input type="checkbox" id="chk1" name="filter1[]" value="Standard">Standard</input><br></tr>
                             <tr><input type="checkbox" id="chk1" name="filter1[]" value="Outdoor">Outdoor</input><br></tr>
                         </table>
                     </div>
@@ -84,8 +84,6 @@ if (isset($_SESSION['username'])) {
                         <table>
                             <tr><p>Rank Options</p></tr>
                             <tr><input type="checkbox" id="selectAll" onclick="checkAll('chk3')" name="filter3" value="All">All</input><br></tr>
-                            <tr><input type="checkbox" id="chk3" name="filter3[]" value="5">5</input><br></tr>
-                            <tr><input type="checkbox" id="chk3" name="filter3[]" value="4">4</input><br></tr>
                             <tr><input type="checkbox" id="chk3" name="filter3[]" value="3">3</input><br></tr>
                             <tr><input type="checkbox" id="chk3" name="filter3[]" value="2">2</input><br></tr>
                             <tr><input type="checkbox" id="chk3" name="filter3[]" value="1">1</input><br></tr>
