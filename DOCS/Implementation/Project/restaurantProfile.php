@@ -35,7 +35,6 @@ if (isset($_SESSION['username'])) {
         $isMyProfile = true;
     }
 }
-$customer_uname = $_SESSION['username'];
 $uname = $_GET['varname'];
 $sql = "SELECT * FROM restaurant_owner WHERE uname='$uname'";
 $query = mysqli_query($conn, $sql);
@@ -104,7 +103,7 @@ $count2 = mysqli_num_rows($restImg);
         <?php if (isset($_SESSION['success']) && $isARestaurantViewing == false && $isAdminViewing == false): ?>
             <?php echo "<a href='bookingForm.php?varname=$uname'><button>Make a Reservation</button></a>" ?>
             <?php
-            $sqlFavorites = "select * from favorites where customer_uname='$customer_uname' and rest_uname='$uname'";
+            $sqlFavorites = "select * from favorites where customer_uname='$usercheck2' and rest_uname='$uname'";
             $favoritesQ = mysqli_query($conn, $sqlFavorites);
             $countF = mysqli_num_rows($favoritesQ);
             if($countF>0){

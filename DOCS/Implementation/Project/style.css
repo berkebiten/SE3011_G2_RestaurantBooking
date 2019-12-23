@@ -995,7 +995,7 @@ body{
     overflow-y: auto;
 }
 
-#viewMyBookingsTable {
+#userProfileTable {
     border-collapse: collapse;
     max-width:100%;
     table-layout:fixed;
@@ -1006,27 +1006,27 @@ body{
     font-size: 18px;
 }
 
-#viewMyBookingsTable th, #viewMyBookingsTable td {
+#userProfileTable th, #userProfileTable td {
     text-align: left;
     padding: 12px;
 }
-#viewMyBookingsTable tr {
+#userProfileTable tr {
     background-color: darkgray;  
     border-bottom: 1px solid #ddd;
 
 }
-#viewMyBookingsTable tr.head  {
+#userProfileTable tr.head  {
     background-color: #f1f1f1;
 }
-#viewMyBookingsTable tr:hover{
+#userProfileTable tr:hover{
     background-color: #f1f1f1;
 }
 
-#viewMyBookingsTable tbody{
+#userProfileTable tbody{
     overflow:auto;
 }
 
-#viewMyBookingsTable th, #viewMyBookingsTable td {
+#userProfileTable th, #userProfileTable td {
     text-align: left;
     padding: 12px;
 }

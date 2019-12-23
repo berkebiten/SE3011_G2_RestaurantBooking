@@ -68,7 +68,7 @@ if (!$isMyProfile && !$isAdminViewing) {
     </div>
     <div class='stats' id="favRest">
         <h4>Favorite Restaurants</h4>
-        <table id="Favorites">
+        <table id="userProfileTable">
             <thead>
                 <tr class="head">
                     <th style="width:70%;">Restaurant Name</th>
@@ -81,11 +81,12 @@ if (!$isMyProfile && !$isAdminViewing) {
                 $queryF = mysqli_query($conn, $sqlF);
                 while ($row = mysqli_fetch_array($queryF, MYSQLI_ASSOC)) {
                     $rest = $row['rest_uname'];
+                    $favId = $row['favoritesId'];
                     $sqlRESTNAME = "select * from restaurant_owner where uname='$rest'";
                     $queryRESTNAME = mysqli_query($conn,$sqlRESTNAME);
                     $row2 =  mysqli_fetch_array($queryRESTNAME, MYSQLI_ASSOC);
                     echo" <tr> <td>  <a href='restaurantProfile.php?varname=$rest'>". $row2['rest_name']."</a> </td>"
-                            . " <td> <a href='removeFavorite.php?varname=$rest'><button>Remove</button></a> </td></tr> ";
+                            . " <td> <a href='removeFavorite.php?varname=$favId'><button>Remove</button></a> </td></tr> ";
                 }
                 ?>
             </tbody>
@@ -96,7 +97,7 @@ if (!$isMyProfile && !$isAdminViewing) {
         <?php if ($isMyProfile): ?>
             <a style ="float:right; margin-right:6%;" href='viewMyBookings.php?varname=<?php echo $vname ?>'>See all bookings</a><br>
         <?php endif ?> 
-        <table id="viewMyBookingsTable">
+        <table id="userProfileTable">
             <thead>
                 <tr class="head">
                     <th style="width:40%;">Restaurant Name</th>

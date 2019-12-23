@@ -9,8 +9,8 @@ if($row != 1){
     header('location:errorPage.php');
 }else {
     $id= $_GET['varname'];
-    $removeFavorite = "delete from favorites where favoriteId='$id')";
-
-    $addFQ = mysqli_query($conn,$addFavorite);
-    header('location:restaurantProfile.php?varname='. $rest);
+    $removeFavorite = "delete from favorites where favoritesId='$id'";
+    $removeFQ = mysqli_query($conn,$removeFavorite);
+    header('location:userProfile.php?varname='.$_SESSION['username']);
 }
+
