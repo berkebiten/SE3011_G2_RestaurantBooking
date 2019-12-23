@@ -2,6 +2,7 @@
 <?php
 include 'editMyProfileProcess.php';
 if (isset($_SESSION['username'])) {
+    //CHECK IF THE USER IS RESTAURANTOWNER, IF IT IS NOT GO TO ERROR PAGE.
     $usercheck2 = $_SESSION['username'];
     $sql3 = "select uname from restaurant_owner where uname='$usercheck2'";
     $queryR = mysqli_query($conn, $sql3);
@@ -11,8 +12,10 @@ if (isset($_SESSION['username'])) {
     }
     if (!$isOwnerViewing) {
         header('location:errorPage.php');
+        //END OF CHECKING.
     }
 }
+//GET THE USERNAME, AND FOR THAT USERNAME SELECT THE DATABASE ATTRIBUTES
 $uname = $_GET['varname'];
 $sql45 = "select * from restaurant_owner where uname='$uname'";
 $query2 = mysqli_query($conn, $sql45);
@@ -33,11 +36,13 @@ $cuisines = $editArray['cuisines'];
 $seating_options = $editArray['seating_options'];
 $price = $editArray['price'];
 $email = $editArray['email'];
-
+//END OF ATTRIBUTES
+//HOLD CUISINES AND SEATING OPTIONS IN VARIABLE TO REACH THEM LATER.
 $checkedQ = mysqli_query($conn, "SELECT * FROM restaurant_owner WHERE uname='$uname'");
 $checkedArray = mysqli_fetch_array($checkedQ, MYSQLI_ASSOC);
 $checked = $checkedArray['cuisines'];
 $checked1 = $checkedArray['seating_options'];
+//END OF HOLDING
 ?>
 <body>
     <div class="top">
@@ -150,10 +155,10 @@ $checked1 = $checkedArray['seating_options'];
                         <div class="input-group">
                             <tr><label>Cuisines</label></tr><br>
                         </div>
-
-                        <?php if (strpos($checked, "Mediterranean Food") !== false): ?>
+<!--MARKS THE CHECKBOX VALUES LIKE CUISINES AND SEATINGOPTIONS, IF THEY ARE NOT FALSE THEN SHOW IT WITH MARK, ELSE THEN DONT MARK IT-->
+                        <?php if (strpos($checked, "Mediterranean Food") !== false): ?> 
                             <tr><input type="checkbox" id="chk" name="filter[]" value="Mediterranean Food" checked>Mediterranean Food</input><br></tr>
-                        <?php else: ?>
+                      <?php else: ?>
                             <tr><input type="checkbox" id="chk" name="filter[]" value="Mediterranean Food">Mediterranean Food</input><br></tr>
                         <?php endif ?>
 
@@ -203,7 +208,8 @@ $checked1 = $checkedArray['seating_options'];
                             <tr><input type="checkbox" id="chk" name="filter[]" value="Middle East Food" checked>Middle East Food</input><br></tr>
                         <?php else: ?>
                             <tr><input type="checkbox" id="chk" name="filter[]" value="Middle East Food">Middle East Food</input><br></tr>
-                        <?php endif ?>                        
+                        <?php endif ?>     
+
                     </table>
                 </div>
 
@@ -233,15 +239,18 @@ $checked1 = $checkedArray['seating_options'];
                             <tr><input type="checkbox" id="chk1" name="filter1[]" value="Outdoor">Outdoor</input></tr>
                         <?php endif ?>
                     </table>
+<!--                    END OF MARKING-->
                 </div>
 
-
-                <a href='editMyProfileProcess.php?varname=<?php echo $uname ?>'><button type='submit' class='btn' name='editRestaurant'>Edit</button></a>
+<!--//PRESS THE BUTTON AND DO THE OPERATIONS ON HREF LINK-->
+                <a href='editMyProfileProcess.php?varname=<?php echo $uname ?>'><button type='submit' class='btn' name='editRestaurant'>Edit</button></a> 
+<!--                END OF OPERATION-->
             </form>   
         </div>
         <div  id="feedback">
             <?php include('feedbacks.php') ?>
             <?php if (count($feedbacks) > 0) : ?>
+<!--            //SHOW THE FEEDBACK AND GO TO RESTAURANT PROFILE PAGE-->
                 <script> openFeedback();</script>
                 <button onclick="window.location.href = 'restaurantProfile.php?varname=<?php echo $uname ?>'" >OK</button>
             <?php endif ?>

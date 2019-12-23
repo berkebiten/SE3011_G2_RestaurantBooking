@@ -11,7 +11,8 @@ $errors = array();
 //    header('location:errorPage.php');
 //}
 
-if (isset($_POST['editRestaurant'])) {
+if (isset($_POST['editRestaurant'])) { //STARTS WHEN PRESSING EDIT BUTTON
+    //GETS THE USERNAME AND GETS THE FULL ATTRIBUTES AND ADD THEM TO VARIABLES
     $uname = $_SESSION['username'];
     $fname = mysqli_real_escape_string($conn, $_POST['fname']);
     $lname = mysqli_real_escape_string($conn, $_POST['lname']);
@@ -25,16 +26,17 @@ if (isset($_POST['editRestaurant'])) {
     $address = mysqli_real_escape_string($conn, $_POST['address']);
     $startTime = filter_input(INPUT_POST, 'startTime');
     $endTime = filter_input(INPUT_POST, 'endTime');
+    //END OF ADDING
     
     $cuisinesarray = array();
-    if (isset($_POST['filter'])) { // filter isimli checkboxlardan hiçbiri dolu değil mi diye kontrol ediyor 
+    if (isset($_POST['filter'])) { // CHECKS IF THE CHECKBOX NAMED FILTER ARE FULL OR NOT.
         $cuisines = $_POST['filter'];
         foreach ($_POST['filter'] as $cuisines) {
             $cuisinearray[] = $cuisines ;
         }
         $cuisines = implode(", ", $cuisinearray);
     }
-
+//CHECKS IF THE CHECKBOX NAMED filter1 ARE FULL OR NOT.
     $seatingarray = array();
     if (isset($_POST['filter1'])) { 
         $seating = $_POST['filter1'];
@@ -43,6 +45,9 @@ if (isset($_POST['editRestaurant'])) {
         }
         $seatingOptions = implode(", ", $seatingarray);
     }
+    //END OF CHECKING
+    
+//CHECKS IF THE AREAS ARE EMPTY OR NOT
 
     if (empty($fname)) {
         array_push($errors, "First Name is required");
@@ -86,12 +91,10 @@ if (isset($_POST['editRestaurant'])) {
     if (empty($seatingOptions)) {
         array_push($errors, "Seating option is required");
     }
-    if ($startTime > $endTime) {
-        array_push($errors, "Starting time of the booking cannot be later than ending time.");
-    }
+    //END OF CHECKING AREAS
 
 
-
+//IF THERE IS NO ERROR, UPDATE RESTAURANTOWNER INFORMATIONS AND THEN SHOW FEEDBACK
     if (count($errors) == 0) {
         $uname = $_SESSION['username'];
         $queryEdit = "UPDATE restaurant_owner SET fname='$fname', lname='$lname', rest_name='$rest_name', location='$location', phoneNo='$phone', cap='$capacity', description='$description', payment='$payment', additional='$additional', address ='$address', startTime='$startTime', endTime='$endTime', cuisines='$cuisines', seating_options='$seatingOptions' WHERE uname='$uname' ";
