@@ -6,7 +6,7 @@ include('dbconnect.php');
 session_start();
 $isMyProfile = false;
 if (isset($_SESSION['username'])) {
-
+//CHECKS WHAT TYPE OF USER IT IS
     $usercheck2 = $_SESSION['username'];
     $sql = "select * from restaurant_owner where uname = '$usercheck2'";
     $sql2 = "select uname from user where uname='$usercheck2'";
@@ -34,7 +34,9 @@ if (isset($_SESSION['username'])) {
     if ($usercheck2 == $vuname) {
         $isMyProfile = true;
     }
+    //IF VARIABLE FROM QUERY EQUALS TO VARNAME RETURN TRUE
 }
+//GET ATTRIBUTES FROM DATABASE AND PUT THEM INTO VARIABLE
 $uname = $_GET['varname'];
 $sql = "SELECT * FROM restaurant_owner WHERE uname='$uname'";
 $query = mysqli_query($conn, $sql);
@@ -48,9 +50,12 @@ $address = $restArray['address'];
 $start = $restArray['startTime'];
 $end = $restArray['endTime'];
 $count = mysqli_num_rows($query);
+//END OF ADDING
+//IF THERE IS NO USER WITH THAT UNAME IN DATABASE GO TO ERROR PAGE.
 if ($count == 0) {
     header('location:errorPage.php');
 }
+//SELECTING REVIEW AND IMAGES FROM DATABASE
 $commentQuery = mysqli_query($conn, "select * from review where rest_uname='$uname'");
 $sqlB = "select * from image where rest_uname= '$uname'";
 $restImg = mysqli_query($conn, $sqlB);
@@ -89,7 +94,7 @@ $count2 = mysqli_num_rows($restImg);
             <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
         </div>
     <?php endif ?>
-    <?php if (!isset($_SESSION['success'])): ?>
+    <?php if (!isset($_SESSION['success'])): //IF USER IS NOT SIGNED IN GO TO GUEST HOMEPAGE?>
         <div class="top">
             <a href="restSignUp.php"><button  id="rsignup">Restaurant Sign Up</button></a>
             <a href="signUp.php"><button id="signup" >Sign Up</button></a>
@@ -101,8 +106,9 @@ $count2 = mysqli_num_rows($restImg);
     <div>
         <font  face="Century Gothic" size="8"><?php echo $rest_name ?></font>
         <?php if (isset($_SESSION['success']) && $isARestaurantViewing == false && $isAdminViewing == false): ?>
-            <?php echo "<a href='bookingForm.php?varname=$uname'><button>Make a Reservation</button></a>" ?>
+            <?php echo "<a href='bookingForm.php?varname=$uname'><button>Make a Reservation</button></a>" //IF THE USER IS CUSTOMER, THEN SHOW THE MAKE A RESERVATION BUTTON?>
             <?php
+//            IF THE FAVORITE TABLE HAS A ROW IN IT THEN PRINT A *, AND IF ITS NOT THEN ADD ADD FAVORITES BUTTON TO RESTAURANT
             $sqlFavorites = "select * from favorites where customer_uname='$usercheck2' and rest_uname='$uname'";
             $favoritesQ = mysqli_query($conn, $sqlFavorites);
             $countF = mysqli_num_rows($favoritesQ);
@@ -111,10 +117,11 @@ $count2 = mysqli_num_rows($restImg);
             }else {
                      echo "<a href='addFavorite.php?varname=$uname'><button>Add Favorites</button></a>";
                 }
+                //END OF ADDING
             ?>
         <?php endif ?>
 
-        <?php if (isset($_SESSION['success']) && $isMyProfile == true): ?>
+        <?php if (isset($_SESSION['success']) && $isMyProfile == true): //IF THE USER IS RESTAURANT OWNER THEN SHOW EDIT PROFILE BUTTON?>
             <?php echo "<a href='editMyProfile.php?varname=$uname'><button>EditProfile</button></a>" ?>
 <?php endif ?>
 
@@ -152,7 +159,7 @@ $count2 = mysqli_num_rows($restImg);
             </div>
 
             <?php
-            if ($isMyProfile) {
+            if ($isMyProfile)  {// IF THE USER IS RESTAURANT OWNER THEN SHOW UPLOAD A PHOTO LINK
                 echo "<a href='img.php?varname=$uname'>Upload a photo </a>";
             }
             ?>
@@ -198,16 +205,16 @@ $count2 = mysqli_num_rows($restImg);
                     ?>
                 </div>
                 <div class="comment">
-                    <p> <?php echo $row['customer_uname'] . ": " . $row['text']; ?> </p>
+                    <p> <?php echo $row['customer_uname'] . ": " . $row['text']; //SHOWS THE CUSTOMER UNAME AND WRITTEN TEXT?> </p>
                 </div>
 
     <?php if (!empty($row['reply'])): ?>
                     <div class="replyRest">
-                        <p> <?php echo $row['rest_uname'] . ": " . $row['reply']; ?> </p>
+                        <p> <?php echo $row['rest_uname'] . ": " . $row['reply']; //IF THERE IS AN ANSWER FROM RESTAURANTOWNER, SHOW RESTAURANTOWNER NAME AND ITS WRITTEN REPLY?> </p>
                     </div>
 
                 <?php endif ?>
-    <?php if (empty($row['reply']) && $isMyProfile): ?>
+    <?php if (empty($row['reply']) && $isMyProfile): //IF THE USER IS RESTAURANTOWNER AND THERE ISN'T ANY REPLY, THEN SHOW TEXTAREA AND SUBMIT BUTTON ?>
                     <form class="replyComment" method="post" action="restaurantProfile.php?varname=<?php echo $_GET['varname'] ?>">
                         <input type="number" class="invs" name='reviewId' value="<?php echo $row['reviewId'] ?>" />
                         <textarea rows="3" cols="50" class="rArea" name="reply" required></textarea>
