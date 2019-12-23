@@ -1,5 +1,6 @@
 <?php include('loginProcess.php') ?>
 <?php
+//REDIRECTS THE USER TO INDEX IF THE USER ALREADY LOGGED IN
 if (isset($_SESSION['success'])) {
     header('location:index.php');
 }

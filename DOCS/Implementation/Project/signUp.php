@@ -23,7 +23,7 @@
 ?>
 
 <?php include('loginProcess.php') ?>
-<?php if (isset($_SESSION['username'])) {
+<?php if (isset($_SESSION['username'])) {//REDIRECTS THE USER TO INDEX IF THE USER ALREADY LOGGED IN
     header('location:index.php');
 }
 ?>
