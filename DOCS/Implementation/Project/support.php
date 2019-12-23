@@ -4,6 +4,7 @@
 include 'dbconnect.php';
 if (isset($_SESSION['username'])) {
     $usercheck2 = $_SESSION['username'];
+    //We check the type of the user and if it is admin, we turn it back to index.php, if it is not, operation continues.
     $sql = "select * from restaurant_owner where uname = '$usercheck2'";
     $sql2 = "select uname from user where uname='$usercheck2'";
     $sql3 = "select uname from admin where uname='$usercheck2'";
@@ -39,6 +40,7 @@ if (isset($_SESSION['username'])) {
 <div class="container" id="fullC">
 
     <div class="top">
+<!--        ACCORDING TO USER TYPE, SEND TO ITS RELATED HOMEPAGE.-->
         <?php if (isset($_SESSION['success'])): ?>
 
             <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
@@ -55,6 +57,8 @@ if (isset($_SESSION['username'])) {
             <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
 
         <?php endif ?>
+<!--            END OF USER TYPE CHECK.-->
+<!--    IF THE SESSION IS UNSUCCESFUL, GO TO SHOW GUESTPAGE-->
         <?php if (!isset($_SESSION['success'])): ?>
 
             <a href="restSignUp.php"><button  id="rsignup">Restaurant Sign Up</button></a>
@@ -64,7 +68,9 @@ if (isset($_SESSION['username'])) {
             <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
 
         <?php endif ?>
+<!--            END OF GUESTPAGE-->
     </div>
+<!--    IF THE USER LOGGED IN, SHOW THE BUTTONS.-->
     <?php if (isset($_SESSION['success'])): ?>
         <div class ="buttonsQA">
             <a href ="viewMyTickets.php"><button id ="myrequest">My Request Tickets</button> </a>
@@ -72,6 +78,7 @@ if (isset($_SESSION['username'])) {
 
         </div>
     <?php endif ?>
+<!--END OF THE LOGGED IN USER-->
     <h1 id ="supportHeader">F.A.Q</h1>
     <div class="supportQA">
         <p id ="question1">Question 1: </p> <p id ="question">Sorumu sordum cevap bekliyorum.</p>
