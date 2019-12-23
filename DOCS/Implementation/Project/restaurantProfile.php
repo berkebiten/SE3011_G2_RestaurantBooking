@@ -104,13 +104,14 @@ $count2 = mysqli_num_rows($restImg);
         <?php if (isset($_SESSION['success']) && $isARestaurantViewing == false && $isAdminViewing == false): ?>
             <?php echo "<a href='bookingForm.php?varname=$uname'><button>Make a Reservation</button></a>" ?>
             <?php
-            $sqlFavorites = "select * from favorites where customer_uname=$customer_uname";
+            $sqlFavorites = "select * from favorites where customer_uname='$customer_uname' and rest_uname='$uname'";
             $favoritesQ = mysqli_query($conn, $sqlFavorites);
-            while ($rowF = mysqli_fetch_assoc($favoritesQ)) {
-                if ($rowF['rest_uname']==$_GET['varname']) {
-                    echo "<a href='addFavorite.php?varname=$uname'><button>Add Favorites ⭐ ☆</button></a>";
+            $countF = mysqli_num_rows($favoritesQ);
+            if($countF>0){
+                     echo '⭐';
+            }else {
+                     echo "<a href='addFavorite.php?varname=$uname'><button>Add Favorites</button></a>";
                 }
-            }
             ?>
         <?php endif ?>
 
