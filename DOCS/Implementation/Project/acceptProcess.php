@@ -38,15 +38,15 @@ if (mysqli_num_rows($queryA) > 0) { // CHECK IF THE VIEWER IS AN ADMIN OR NOT
     // START OF THE INSERTION OF A RESTAURANT APPLICATION TO THE RESTAURANT ACCOUNT TABLE
     $password = $rest_password;
     // INSERTING QUERY OF A RESTAURANT ACCOUNT
-    $query = "INSERT INTO restaurant_owner(uname, fname, lname, rest_name, email, psw, location, phoneNo, cap, address, startTime, endTime, isBanned, warnCount, recCode) VALUES('$rest_uname',"
+    $query = "INSERT INTO restaurant_owner(uname, fname, lname, rest_name, email, psw, location, phoneNo, cap, address, startTime, endTime,stars, price, isBanned, warnCount, recCode) VALUES('$rest_uname',"
             . "'$rest_fname','$rest_lname', '$rest_name', '$rest_email', '$password','$rest_loc','$rest_phone','$rest_cap', '$rest_address', '$rest_start','$rest_end', "
-            . "0,0,'$recCode')";
+            . "1,1,0,0,'$recCode')";
     $boolean = mysqli_query($conn, $query);
 
     
     // CHECKING OF THE INSERTION QUERY WORKED OR NOT
     if ($boolean) {
-        $query1 = "DELETE FROM rest_signup WHERE uname='$uname'"; // DELETING THE RESTAURANT APPLICATION THE TABLE
+        $query1 = "DELETE FROM rest_signup WHERE uname='$uname'"; // DELETING THE RESTAURANT APPLICATION FROM THE TABLE
         mysqli_query($conn, $query1);
         $subject = "Restaurant Sign Up";
         $body = "Welcome to our Restaurant Booking System. Your registration is accepted. :)";
