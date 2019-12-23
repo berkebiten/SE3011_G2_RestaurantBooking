@@ -2,18 +2,20 @@
 <?php
 include 'dbconnect.php';
 include 'editBook.php';
+//IF SESSION IS NOT EXIST REDIRECT TO ERROR PAGE
 if (!isset($_SESSION['username'])) {
     header('location:errorPage.php');
 }
 $username = $_SESSION['username'];
 $vname = $_GET['varname'];
-$sql = "select * from bookings where bookingId='$vname'";
+$sql = "select * from bookings where bookingId='$vname'";//FIND THE BOOKING
 $query = mysqli_query($conn, $sql);
 $row = mysqli_fetch_array($query, MYSQLI_ASSOC);
 $r_uname = $row['restaurant_uname'];
-$sql2 = "select * from restaurant_owner where uname='$r_uname'";
+$sql2 = "select * from restaurant_owner where uname='$r_uname'"; //FIND THE RESTAURANT
 $query2 = mysqli_query($conn, $sql2);
 $row2 = mysqli_fetch_array($query2, MYSQLI_ASSOC);
+//PULL THE BOOKING'S AND RESTAURANT'S INFORMATIONS 
 $restName = $row2['rest_name'];
 $fname = $row['fname'];
 $lname = $row['lname'];
@@ -28,14 +30,10 @@ $restEndTime = $row2['endTime'];
 ?>
 <body>
 <div class="top">
-
-
     <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
     <a href='userProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
     <a href ="support.php"><button id ="support"> Support</button> </a>
     <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
-
-
 </div>
 <div class="container" id="fullC">
     <div id='formArea'>
@@ -55,10 +53,10 @@ $restEndTime = $row2['endTime'];
                 <select class="input" type="time" name="startTime" required>
                     <option value="<?php echo $startTime ?>" selected hidden><?php echo $startTime ?></option>
                     <?php
+                    //LIST THE STARTING TIMES THAT USER CAN CHOOSE ACCORDING TO RESTAURANT OPERATION OF HOURS
                     $start_time = $restStartTime;
                     $end_time = $restEndTime;
                     while (strtotime($start_time) < strtotime($end_time)) {
-
                         if (strtotime($start_time) === strtotime("23:59:00")) {
                             echo "<option value=" . $start_time . ">" . "24:00:00" . "</option>";
                         } else {
@@ -81,6 +79,7 @@ $restEndTime = $row2['endTime'];
                 <select class="input" type="time" name="endTime" required>
                     <option value="<?php echo $endTime ?>"selected hidden><?php echo $endTime ?></option>
                     <?php
+                    //LIST THE END TIMES THAT USER CAN CHOOSE ACCORDING TO RESTAURANT OPERATION OF HOURS
                     $start_time2 = date("H:i:s", strtotime('+1 hour', strtotime($restStartTime)));
                     $end_time2 = $restEndTime;
                     while (strtotime($start_time2) <= strtotime($end_time2)) {
@@ -125,6 +124,7 @@ $restEndTime = $row2['endTime'];
             <a href='editBook.php?varname=<?php echo $vname ?>'><button type='submit' class='btn' name='editBooking'>Edit Booking</button></a>
         </form>   
     </div>
+<!--    FEEDBACK-->
     <div  id="feedback">
         <?php include('feedbacks.php') ?>
         <?php if (count($feedbacks) > 0) : ?>
