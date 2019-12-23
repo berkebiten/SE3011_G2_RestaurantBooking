@@ -78,6 +78,7 @@ if (!$isMyProfile && !$isAdminViewing) {
             </thead>
             <tbody>
                 <?php
+                //PRINT THE FAVORITE RESTAURANTS OF THE USER
                 $sqlF = "select * from favorites where customer_uname= '$vname'";
                 $queryF = mysqli_query($conn, $sqlF);
                 while ($row = mysqli_fetch_array($queryF, MYSQLI_ASSOC)) {
@@ -86,10 +87,10 @@ if (!$isMyProfile && !$isAdminViewing) {
                     $sqlRESTNAME = "select * from restaurant_owner where uname='$rest'";
                     $queryRESTNAME = mysqli_query($conn, $sqlRESTNAME);
                     $row2 = mysqli_fetch_array($queryRESTNAME, MYSQLI_ASSOC);
-                    if (!$isAdminViewing) {
+                    if (!$isAdminViewing) { //IF THE PROFILE OWNER VIEWS THE PAGE SHOW THE REMOVE BUTTON
                         echo" <tr> <td>  <a href='restaurantProfile.php?varname=$rest'>" . $row2['rest_name'] . "</a> </td>"
                         . " <td> <a href='removeFavorite.php?varname=$favId'><button>Remove</button></a> </td></tr> ";
-                    }else {
+                    }else {//IF THE ADMIN VIEWS THE PAGE SHOW THE ONLY RESTAURANT NAME
                         echo" <tr> <td>  <a href='restaurantProfile.php?varname=$rest'>" . $row2['rest_name'] . "</a> </td> <td></td></tr>";
                     }
                 }
@@ -112,9 +113,10 @@ if (!$isMyProfile && !$isAdminViewing) {
             </thead>
             <tbody>
                 <?php
+                //PRINT THE UPCOMING BOOKINGS
                 $date = date("Y-m-d");
                 $time = date("H:i:s");
-                $sqlB = "select * from bookings where customer_uname= '$vname' and date>='$date'";
+                $sqlB = "select * from bookings where customer_uname= '$vname' and date>='$date'";//DATE OF THE BOOKING MUST BE AFTER THE CURRENT TIME
                 $queryB = mysqli_query($conn, $sqlB);
                 while ($row = mysqli_fetch_array($queryB, MYSQLI_ASSOC)) {
                     $id = $row['bookingId'];
@@ -122,13 +124,13 @@ if (!$isMyProfile && !$isAdminViewing) {
                     $sqlR = "select * from restaurant_owner where uname='$rest_uname'";
                     $restName = mysqli_query($conn, $sqlR);
                     $rowR = mysqli_fetch_array($restName, MYSQLI_ASSOC);
-                    if (!$isAdminViewing) {
+                    if (!$isAdminViewing) { //IF THE PROFILE OWNER VIEWS THE PAGE SHOW THE EDIT AND CANCEL BUTTONS
                         if (($date == $row['date'] && $time < $row['start_time']) || $date < $row['date']) {
                             echo "<tr> <td>" . $rowR['rest_name'] . "</td>"
                             . "<td> " . $row['date'] . " </td> <td>  <a href='editBookingForm.php?varname=$id'><button>Edit</button></a> "
                             . "<br><br><button onclick=\"if (confirm('Are you sure want to cancel your booking?')) window.location.href='cancelBook.php?varname=$id';\">Cancel</button></td></tr>";
                         }
-                    } else {
+                    } else { //IF THE ADMIN VIEWS THE PAGE SHOW THE ONLY RESTAURANT NAME AND DATE
                         if (($date == $row['date'] && $time < $row['start_time']) || $date < $row['date']) {
                             echo "<tr> <td>" . $rowR['rest_name'] . "</td>"
                             . "<td> " . $row['date'] . " </td> <td> </tr>";
