@@ -54,7 +54,7 @@ INSERT INTO rest_signup VALUES(9,'pitbullsami','Sami','Tekinoglu','Tekinoglu Res
 INSERT INTO rest_signup VALUES(10,'salonburger','Volkan','Meydan','Salon Burger ','volkanabi@gmail.com','c48441e989575be5b9c68af087510134','Uskudar','12345','Uskudar Merkez','9:00:00','21:00:00',40);
 INSERT INTO rest_signup VALUES(11,'kebappe','Kylian','Mbappe','KebabLand','kylian@gmail.com','c48441e989575be5b9c68af087510134','Bahcesehir','12345','Bahcesehir Mahallesi Abant sokak','9:00:00','21:00:00',40);
 INSERT INTO rest_signup VALUES(12,'yuksel12','Yuksel','Meydan','Cay Ocagi','caycii@gmail.com','c48441e989575be5b9c68af087510134','Cekmekoy','12345','Cekmekoy Eczane','10:00:00','22:00:00',40);
-
+																				
 INSERT INTO `admin` VALUES ('aykut1907','aykut','kocaman','aykut54@gmail.com','e5a88636b50c779a7353c5c93bc36900','a63kuIWe');
 INSERT INTO `admin` VALUES ('drogba1905','didier','drogba','drogba@gmail.com','e5a88636b50c779a7353c5c93bc36900','YSjTZqDP');
 INSERT INTO `admin` VALUES ('deliibo','ibrahim','uzulmez','ibo1903@gmail.com','e5a88636b50c779a7353c5c93bc36900','90rlyjS8');
