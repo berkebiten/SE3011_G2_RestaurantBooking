@@ -90,10 +90,10 @@ if ($count == 0) {
             <h3>Description</h3>
             <textarea placeholder ="<?php echo $description ?>"rows="8" cols="50" class="tArea" name="description" readonly></textarea>
             <h3>Answer</h3>
-<!--            <?php if ($isResponded == 0): ?> IF IS RESPONDED 0, MEANS THERE IS NO ANSWER-->
+           <?php if ($isResponded == 0): ?> <!-- IF IS RESPONDED 0, MEANS THERE IS NO ANSWER-->
                 <p> This Ticket has not been answered yet.</p>
             <?php endif ?>
-<!--            <?php if ($isResponded == 1): ?> IF IS RESPONDED 1, MEANS THERE ARE ANSWER AND SHOWS IT.-->
+            <?php if ($isResponded == 1): ?> <!--IF IS RESPONDED 1, MEANS THERE ARE ANSWER AND SHOWS IT.-->
                 <textarea placeholder ="<?php echo $respond ?>"rows="8" cols="50" class="tArea" name="answer" readonly></textarea>
             <?php endif ?>
 
