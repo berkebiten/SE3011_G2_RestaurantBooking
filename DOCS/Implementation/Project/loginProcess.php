@@ -191,9 +191,9 @@ if (isset($_POST['login_user'])) {
         $results1 = mysqli_query($conn, $query1);
         $results2 = mysqli_query($conn, $query2);
         $results3 = mysqli_query($conn, $query3);
-        $arr1 = mysqli_fetch_array($results1,MYSQLI_ASSOC);
-        $arr2 = mysqli_fetch_array($results1,MYSQLI_ASSOC);
-        $arr3 = mysqli_fetch_array($results1,MYSQLI_ASSOC);
+        $arr1 = mysqli_fetch_array($results1, MYSQLI_ASSOC);
+        $arr2 = mysqli_fetch_array($results1, MYSQLI_ASSOC);
+        $arr3 = mysqli_fetch_array($results1, MYSQLI_ASSOC);
 
         //LOGS THE USER IN AND SETS THE SESSION VARIABLES
         if (mysqli_num_rows($results1) == 1) {
@@ -205,7 +205,7 @@ if (isset($_POST['login_user'])) {
                 array_push($errors, "You are banned.");
             }
         } else if (mysqli_num_rows($results2) == 1) {
-            if ($arr2['isBanned'] == '0') {//CHECK IF USER IS BANNED
+            if ($arr2['isBanned'] == 0) {//CHECK IF USER IS BANNED
                 $_SESSION['username'] = $username;
                 $_SESSION['success'] = "You are now logged in";
                 header('location: RestaurantOwner.php');
@@ -213,13 +213,10 @@ if (isset($_POST['login_user'])) {
                 array_push($errors, "You are banned.");
             }
         } else if (mysqli_num_rows($results3) == 1) {
-            if ($arr3['isBanned'] == '0') {//CHECK IF USER IS BANNED
-                $_SESSION['username'] = $username;
-                $_SESSION['success'] = "You are now logged in";
-                header('location: Admin.php');
-            } else {
-                array_push($errors, "You are banned.");
-            }
+
+            $_SESSION['username'] = $username;
+            $_SESSION['success'] = "You are now logged in";
+            header('location: Admin.php');
         } else {
             array_push($errors, "Wrong username/password combination");
         }
