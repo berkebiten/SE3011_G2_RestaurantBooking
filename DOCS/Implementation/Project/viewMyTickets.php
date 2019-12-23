@@ -45,10 +45,10 @@ if (isset($_SESSION['success'])) {
 
     <div class="top">
         <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
-<!--        <?php if ($isUserViewing): ?> IF IT IS USER, GO TO THAT USER HOMEPAGE-->
+       <?php if ($isUserViewing): ?><!--  IF IT IS USER, GO TO USER PROFILE-->
             <a href='userProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
         <?php endif ?>
-<!--        <?php if ($isARestaurantViewing): ?> IF IT IS RESTAURANTOWNER, GO TO THAT RESTAURANTOWNER HOMEPAGE-->
+       <?php if ($isARestaurantViewing): ?> <!-- IF IT IS RESTAURANTOWNER, GO TO RESTAURANTOWNER PANEL-->
             <a href='restaurantProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
         <?php endif ?>
         <a href ="support.php"><button id ="support"> Support</button> </a>
