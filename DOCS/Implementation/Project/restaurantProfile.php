@@ -4,7 +4,7 @@
 <?php
 include('dbconnect.php');
 session_start();
-$isMyProfile=false;
+$isMyProfile = false;
 if (isset($_SESSION['username'])) {
 
     $usercheck2 = $_SESSION['username'];
@@ -16,7 +16,7 @@ if (isset($_SESSION['username'])) {
     $queryA = mysqli_query($conn, $sql3);
     $isMyProfile = false;
     $isUserViewing = false;
-    $isAdminViewing = false;    
+    $isAdminViewing = false;
     $isARestaurantViewing = false;
 
     if (mysqli_num_rows($query6) > 0) {
@@ -35,6 +35,7 @@ if (isset($_SESSION['username'])) {
         $isMyProfile = true;
     }
 }
+$customer_uname = $_SESSION['username'];
 $uname = $_GET['varname'];
 $sql = "SELECT * FROM restaurant_owner WHERE uname='$uname'";
 $query = mysqli_query($conn, $sql);
@@ -100,13 +101,23 @@ $count2 = mysqli_num_rows($restImg);
     <?php endif ?>
     <div>
         <font  face="Century Gothic" size="8"><?php echo $rest_name ?></font>
-        <?php if (isset($_SESSION['success']) && $isARestaurantViewing == false): ?>
+        <?php if (isset($_SESSION['success']) && $isARestaurantViewing == false && $isAdminViewing == false): ?>
             <?php echo "<a href='bookingForm.php?varname=$uname'><button>Make a Reservation</button></a>" ?>
+            <?php
+            $sqlFavorites = "select * from favorites where customer_uname=$customer_uname";
+            $favoritesQ = mysqli_query($conn, $sqlFavorites);
+            while ($rowF = mysqli_fetch_assoc($favoritesQ)) {
+                if ($rowF['rest_uname']==$_GET['varname']) {
+                    echo "<a href='addFavorite.php?varname=$uname'><button>Add Favorites ⭐ ☆</button></a>";
+                }
+            }
+            ?>
         <?php endif ?>
 
         <?php if (isset($_SESSION['success']) && $isMyProfile == true): ?>
             <?php echo "<a href='editMyProfile.php?varname=$uname'><button>EditProfile</button></a>" ?>
-        <?php endif ?>
+<?php endif ?>
+
     </div>
     <div id="full">
         <div id="firstPart">
@@ -124,12 +135,12 @@ $count2 = mysqli_num_rows($restImg);
         </div>
         <div id="secondPart">
             <div class="slideshow-container">
-                <?php while ($imgArr = mysqli_fetch_array($restImg, MYSQLI_ASSOC)) : ?>
+<?php while ($imgArr = mysqli_fetch_array($restImg, MYSQLI_ASSOC)) : ?>
                     <div class="mySlides fade">
                         <img class="restPics" src="restaurantImages/<?php echo $_GET['varname'] ?>/<?php echo $imgArr['name'] ?>">
-                            
+
                     </div>
-                <?php endwhile; ?> 
+<?php endwhile; ?> 
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                 <a class="next" onclick="plusSlides(1)">&#10095;</a>
             </div>
@@ -153,7 +164,7 @@ $count2 = mysqli_num_rows($restImg);
 
 
     <div class="reviews">
-        <?php while ($row = mysqli_fetch_array($commentQuery, MYSQLI_ASSOC)): ?>
+<?php while ($row = mysqli_fetch_array($commentQuery, MYSQLI_ASSOC)): ?>
             <div class="commentCard">
                 <div class='starNPrice'>
                     <?php
@@ -190,21 +201,21 @@ $count2 = mysqli_num_rows($restImg);
                     <p> <?php echo $row['customer_uname'] . ": " . $row['text']; ?> </p>
                 </div>
 
-                <?php if (!empty($row['reply'])): ?>
+    <?php if (!empty($row['reply'])): ?>
                     <div class="replyRest">
                         <p> <?php echo $row['rest_uname'] . ": " . $row['reply']; ?> </p>
                     </div>
 
                 <?php endif ?>
-                <?php if (empty($row['reply']) && $isMyProfile): ?>
+    <?php if (empty($row['reply']) && $isMyProfile): ?>
                     <form class="replyComment" method="post" action="restaurantProfile.php?varname=<?php echo $_GET['varname'] ?>">
                         <input type="number" class="invs" name='reviewId' value="<?php echo $row['reviewId'] ?>" />
                         <textarea rows="3" cols="50" class="rArea" name="reply" required></textarea>
                         <button type="submit" class="btn" name="drop_reply">Submit</button>
                     </form>
-                <?php endif ?>
+            <?php endif ?>
             </div>
-        <?php endwhile ?>
+<?php endwhile ?>
     </div>
 </div>
 </body>

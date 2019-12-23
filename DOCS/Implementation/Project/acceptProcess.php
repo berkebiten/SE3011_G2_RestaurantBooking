@@ -1,7 +1,11 @@
 <?php
 session_start();
 include("dbconnect.php");
+$usercheck2 = $_SESSION['username'];
+$sql3 = "select uname from admin where uname='$usercheck2'";
+$queryA = mysqli_query($conn, $sql3);
 
+if (mysqli_num_rows($queryA) > 0) {
 function generateRandomString($length = 8) {
     return substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
 }
@@ -27,7 +31,7 @@ $rest_end = $restArray['endTime'];
 $rest_cap = $restArray['cap'];
 $recCode = generateRandomString();
 
-$password = md5($rest_password);
+$password = $rest_password;
 $query = "INSERT INTO restaurant_owner(uname, fname, lname, rest_name, email, psw, location, phoneNo, cap, address, startTime, endTime, isBanned, warnCount, recCode) VALUES('$rest_uname',"
         . "'$rest_fname','$rest_lname', '$rest_name', '$rest_email', '$password','$rest_loc','$rest_phone','$rest_cap', '$rest_address', '$rest_start','$rest_end', "
         . "0,0,'$recCode')";
@@ -45,6 +49,8 @@ if ($boolean) {
     }
 
     header('location: Admin.php');
+}}else{
+    header('location:errorPage.php');
 }
 ?>
 
