@@ -4,22 +4,27 @@
 <?php
 session_start();
 include('dbconnect.php');
-if (isset($_SESSION['username'])) {
+
+if (isset($_SESSION['username'])) {//IF THE VIEWER IS NOT A GUEST
     $usercheck = $_SESSION['username'];
+    //QUERY THAT CHECKS IF THE VIEWER IS A RESTAURANT OWNER
     $sql = "select * from restaurant_owner where uname = '$usercheck'";
     $query = mysqli_query($conn, $sql);
+    //QUERY THAT CHECKS IF THE VIEWER IS AN ADMIN
     $sql2 = "select * from admin where uname = '$usercheck'";
     $query2 = mysqli_query($conn, $sql2);
 
+    //IF THE VIEWER IS AN ADMIN
     if (mysqli_num_rows($query2) > 0) {
-        header('location:Admin.php');
+        header('location:Admin.php');//REDIRECTS THE ADMIN TO THE ADMIN PANEL
     }
+    //IF THE VIEWER IS A RESTAURANT OWNER
     if (mysqli_num_rows($query) > 0) {
-        header('location:RestaurantOwner.php');
+        header('location:RestaurantOwner.php');//REDIRECTS THE RESTAURANT TO THE RESTAURANT PANEL
     }
 }
 
-
+//CALCULATES THE 3 MOST BOOKED RESTAURANTS 
 $sqlMost = "SELECT restaurant_uname, COUNT(*) FROM bookings GROUP BY restaurant_uname ORDER BY COUNT(*) DESC LIMIT 3";
 $queryMost = mysqli_query($conn, $sqlMost);
 ?>
@@ -66,6 +71,7 @@ $queryMost = mysqli_query($conn, $sqlMost);
 
     <div class="mostpopular">
         <?php $count = 0; ?>
+        <!-- PUTS THE 3 MOST BOOKED RESTAURANT'S CARDS IN HOMEPAGE!-->
         <?php while ($arrMost = mysqli_fetch_array($queryMost, MYSQLI_ASSOC)): ?>
             <div class="cardPlace" > 
                 <?php
