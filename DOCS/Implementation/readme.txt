@@ -1,11 +1,5 @@
 RESTAURANT BOOKING SYSTEM
 -------------------------
-Installation Steps:
-- Create a database connection named "rbs" via MySQL Workbench.
-- Run 'createtables.sql' and 'insertdata.sql' in that order via MySQL Workbench.
-- Open 'Project' folder via Netbeans (version must be 8.2, PHP 7.0) as Project.
-- You are ready to go.
--------------------------
 ADMIN ACCOUNTS
 -------------------------
 username: aykut1907
