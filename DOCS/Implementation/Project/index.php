@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <link rel="stylesheet" href="style.css"></link>
 <script src="scripts.js"></script>
+<?php include('bootstrapinclude.php') ?>
 <?php
 session_start();
 include('dbconnect.php');
@@ -16,11 +17,11 @@ if (isset($_SESSION['username'])) {//IF THE VIEWER IS NOT A GUEST
 
     //IF THE VIEWER IS AN ADMIN
     if (mysqli_num_rows($query2) > 0) {
-        header('location:Admin.php');//REDIRECTS THE ADMIN TO THE ADMIN PANEL
+        header('location:Admin.php'); //REDIRECTS THE ADMIN TO THE ADMIN PANEL
     }
     //IF THE VIEWER IS A RESTAURANT OWNER
     if (mysqli_num_rows($query) > 0) {
-        header('location:RestaurantOwner.php');//REDIRECTS THE RESTAURANT TO THE RESTAURANT PANEL
+        header('location:RestaurantOwner.php'); //REDIRECTS THE RESTAURANT TO THE RESTAURANT PANEL
     }
 }
 
@@ -44,7 +45,7 @@ $queryMost = mysqli_query($conn, $sqlMost);
             <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
             <a href='userProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
             <a href ="support.php"><button id ="support"> Support</button> </a>
-            <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
+            <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px;"></a>
 
         <?php endif ?>
         <?php if (!isset($_SESSION['success'])): ?>
@@ -52,8 +53,8 @@ $queryMost = mysqli_query($conn, $sqlMost);
             <a href="restSignUp.php"><button  id="rsignup">Restaurant Sign Up</button></a>
             <a href="signUp.php"><button id="signup" >Sign Up</button></a>
             <a href="signIn.php"><button    id="signin" >Sign In</button>   </a>
-            <a href ="support.php"><button class ="support"> Support</button> </a>
-            <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
+            <a href ="support.php"><button id ="support"> Support</button> </a>
+            <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px;"></a>
 
         <?php endif ?>
     </div>
@@ -89,12 +90,12 @@ $queryMost = mysqli_query($conn, $sqlMost);
                     <a href="restaurantProfile.php?varname=<?php echo $arrMost['restaurant_uname'] ?>"><h2><?php echo $restaurantName ?></h2></a>
                     <div class="cardContainer">
                         <h4><?php echo $description ?></h4>
-                        <h4>Location: <?php echo $location ?></h4>
-                        <h4>Phone: <?php echo $phoneNo ?></h4>
+                        <h4><b>Location:</b> <?php echo $location ?></h4>
+                        <h4><b>Phone:</b> <?php echo $phoneNo ?></h4>
                     </div>
                 </div>
 
-                
+
             </div>
         <?php endwhile ?>
 

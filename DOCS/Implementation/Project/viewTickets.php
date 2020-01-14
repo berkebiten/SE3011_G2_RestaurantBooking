@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="style.css"></link>
 <script src="scripts.js"></script>
+<?php include('bootstrapinclude.php') ?>
 <?php
 session_start();
 //IF THERE IS NO SESSION, ERROR PAGE.
@@ -87,9 +88,9 @@ if ($count == 0) {
     </div>
     <div id="formArea">
         <form class="formX" method="post" action="viewTickets.php?varname=<?php echo $ticketId ?>">
-            <h1>My Tickets</h1>
+            <h1 style="color:#388CF2;">Ticket #<?php echo $_GET['varname'];?></h1>
 
-            <h3>Category : <?php echo $category ?></h3>
+            <h3>Category: <?php echo $category ?></h3>
             <h3>Description</h3>
             <textarea placeholder ="<?php echo $description ?>"rows="8" cols="50" class="tArea" name="description" readonly></textarea>
             <h3>Answer</h3>

@@ -23,6 +23,7 @@ if (isset($_SESSION['username'])) {
 
     <link rel="stylesheet" type="text/css" href="style.css"></link>
     <script src="scripts.js"></script>
+    <?php include('bootstrapinclude.php') ?>
     <body>
     <div class="container" id="fullC">
 

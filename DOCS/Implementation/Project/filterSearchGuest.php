@@ -100,6 +100,7 @@ $result = mysqli_query($conn, $sql); // WORKS THE QUERY THAT HAS BEEN SET
 
     <link rel="stylesheet" type="text/css" href="style.css"></link>
     <script src="scripts.js"></script>
+    <?php include('bootstrapinclude.php') ?>
     <body>
         <div class="container" id="fullC">
 

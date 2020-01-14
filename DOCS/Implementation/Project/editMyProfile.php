@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="style.css"></link>
+<?php include('bootstrapinclude.php') ?>
 <?php
 include 'editMyProfileProcess.php';
 if (isset($_SESSION['username'])) {
@@ -59,6 +60,7 @@ $checked1 = $checkedArray['seating_options'];
         <div id='formArea'>
             <form class='formX' method='post' action='editMyProfile.php?varname=<?php echo $uname ?>'>
             <?php include('errors.php'); ?>
+                <h1>Edit Profile</h1>
                 <div class="input-group">
                     <label for="fname">First Name</label>
                     <input class="input" type="text" placeholder="Enter First Name"name="fname" value="<?php echo $fname ?>"></input>
@@ -83,10 +85,10 @@ $checked1 = $checkedArray['seating_options'];
                     <label for="capacity">Capacity</label>
                     <input class="input" type="text" value="<?php echo $cap ?>" name="capacity"></input>
                 </div>
-                <div class="input-group">
+                
                     <label for="description">Description</label>
                     <textarea rows="8" cols="50" class="tArea" name="description"><?php echo $description ?></textarea>
-                </div>
+                
                 <div class="input-group">
                     <label for="payment">Payment</label>
                     <input class="input" type="text" value="<?php echo $payment ?>" name="payment"></input>
@@ -241,7 +243,7 @@ $checked1 = $checkedArray['seating_options'];
                     </table>
 <!--                    END OF MARKING-->
                 </div>
-
+                    <br></br>
 <!--//PRESS THE BUTTON AND DO THE OPERATIONS ON HREF LINK-->
                 <a href='editMyProfileProcess.php?varname=<?php echo $uname ?>'><button type='submit' class='btn' name='editRestaurant'>Edit</button></a> 
 <!--                END OF OPERATION-->

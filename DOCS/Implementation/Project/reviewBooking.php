@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="style.css"></link>
+<?php include('bootstrapinclude.php') ?>
 <script src="scripts.js"></script>
 <?php
 session_start();
@@ -53,36 +54,31 @@ if (!$isMyBooking) {
             </div>
 
             <?php include('errors.php'); ?>
-            <div class="input-group">
-                <label>Rate this restaurant</label>
-                <select class="select-css" name ="starRate" required>
-                    <option>Bad</option>
-                    <option>Average</option>
-                    <option>Good</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>Rate this restaurant's prices</label>
-                <select class="select-css" name ="priceRate" required>
-                    <option>Cheap</option>
-                    <option>Average</option>
-                    <option>Expensive</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>Write your review here:</label>
-                <textarea placeholder="Your review text.." class="tArea" rows="8" cols="50" name="text" ></textarea>
-            </div>
-            <div class="input-group">
-                <button type="submit" class="btn" name="drop_review">Submit</button>
-            </div>
+
+            <label>Rate this restaurant</label>
+            <select class="select-css" name ="starRate" required>
+                <option>Bad</option>
+                <option>Average</option>
+                <option>Good</option>
+            </select>
+            <label>Rate this restaurant's prices</label>
+            <select class="select-css" name ="priceRate" required>
+                <option>Cheap</option>
+                <option>Average</option>
+                <option>Expensive</option>
+            </select>
+            <label>Your review:</label>
+            <textarea placeholder="Your review text.." class="tArea" rows="8" cols="50" name="text" required></textarea>
+            <br></br>
+            <button type="submit" class="btn" name="drop_review">Submit</button>
+
         </form>
     </div>
     <div  id="feedback">
         <?php include('feedbacks.php') ?>
         <?php if (count($feedbacks) > 0) : ?>
             <script> openFeedback();</script>
-            <button onclick="window.location.href = 'viewMyBookings.php?varname=<?php echo $_SESSION['username']?>'">OK</button>
+            <button onclick="window.location.href = 'viewMyBookings.php?varname=<?php echo $_SESSION['username'] ?>'">OK</button>
         <?php endif ?>
     </div>
 </div>

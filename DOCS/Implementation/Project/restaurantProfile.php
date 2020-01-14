@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="style.css"></link>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+<link rel="stylesheet" href="style.css"/>
+<?php include('bootstrapinclude.php') ?>
 <script src="scripts.js"></script>
 <?php
 include('dbconnect.php');
@@ -103,10 +103,10 @@ $count2 = mysqli_num_rows($restImg);
             <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
         </div>
     <?php endif ?>
-    <div>
+    <div class="topprofile">
         <font  face="Century Gothic" size="8"><?php echo $rest_name ?></font>
         <?php if (isset($_SESSION['success']) && $isARestaurantViewing == false && $isAdminViewing == false): ?>
-            <?php echo "<a href='bookingForm.php?varname=$uname'><button>Make a Reservation</button></a>" //IF THE USER IS CUSTOMER, THEN SHOW THE MAKE A RESERVATION BUTTON?>
+            <?php echo "<a href='bookingForm.php?varname=$uname'><button>Reservation</button></a>" //IF THE USER IS CUSTOMER, THEN SHOW THE MAKE A RESERVATION BUTTON?>
             <?php
 //            IF THE FAVORITE TABLE HAS A ROW IN IT THEN PRINT A *, AND IF ITS NOT THEN ADD ADD FAVORITES BUTTON TO RESTAURANT
             $sqlFavorites = "select * from favorites where customer_uname='$usercheck2' and rest_uname='$uname'";
@@ -115,7 +115,7 @@ $count2 = mysqli_num_rows($restImg);
             if($countF>0){
                      echo '⭐';
             }else {
-                     echo "<a href='addFavorite.php?varname=$uname'><button>Add Favorites</button></a>";
+                     echo "<a href='addFavorite.php?varname=$uname'><button>Add to Favorites</button></a>";
                 }
                 //END OF ADDING
             ?>
@@ -126,7 +126,7 @@ $count2 = mysqli_num_rows($restImg);
 <?php endif ?>
 
     </div>
-    <div id="full">
+    <div id="full" style="background-color:#D1D1D1">
         <div id="firstPart">
             <div id="description">
                 <br>
@@ -134,14 +134,14 @@ $count2 = mysqli_num_rows($restImg);
             </div>
             <div id="infos">
                 <font face="Century Gothic" size="4"><h3>Address</h3> <?php echo $address ?></font>
-                <font face="Century Gothic" size="4"><h3>Hours of operation</h3> <?php echo date('g:i A', strtotime($start)), '-', date('g:i A', strtotime($end)) ?></font>>
+                <font face="Century Gothic" size="4"><h3>Hours of operation</h3> <?php echo date('g:i A', strtotime($start)), '-', date('g:i A', strtotime($end)) ?></font>
                 <font face="Century Gothic" size="4"><h3>Payment Options </h3> <?php echo $payment ?></font>
                 <font face="Century Gothic" size="4"><h3>Additional </h3> <?php echo $additional ?></font>
                 <font face="Century Gothic" size="4"><h3>Phone number </h3> <?php echo $phoneNo ?> </font>
             </div>
         </div>
         <div id="secondPart">
-            <div class="slideshow-container">
+            <div class="slideshow-container13">
 <?php while ($imgArr = mysqli_fetch_array($restImg, MYSQLI_ASSOC)) : ?>
                     <div class="mySlides fade">
                         <img class="restPics" src="restaurantImages/<?php echo $_GET['varname'] ?>/<?php echo $imgArr['name'] ?>">
@@ -157,12 +157,13 @@ $count2 = mysqli_num_rows($restImg);
                 <span class="dot" onclick="currentSlide(2)"></span>
                 <span class="dot" onclick="currentSlide(3)"></span>
             </div>
-
+            <div class="uploadImageButton">
             <?php
             if ($isMyProfile)  {// IF THE USER IS RESTAURANT OWNER THEN SHOW UPLOAD A PHOTO LINK
-                echo "<a href='img.php?varname=$uname'>Upload a photo </a>";
+                echo "<a href='img.php?varname=$uname'><button>upload photo</button> </a>";
             }
             ?>
+            </div>
         </div>
     </div>
     <div class="reviewHeader">
@@ -212,7 +213,10 @@ $count2 = mysqli_num_rows($restImg);
                     <div class="replyRest">
                         <p> <?php echo $row['rest_uname'] . ": " . $row['reply']; //IF THERE IS AN ANSWER FROM RESTAURANTOWNER, SHOW RESTAURANTOWNER NAME AND ITS WRITTEN REPLY?> </p>
                     </div>
-
+                <?php else: ?>
+                <div class="replyRest">
+                    <br>
+                    </div>
                 <?php endif ?>
     <?php if (empty($row['reply']) && $isMyProfile): //IF THE USER IS RESTAURANTOWNER AND THERE ISN'T ANY REPLY, THEN SHOW TEXTAREA AND SUBMIT BUTTON ?>
                     <form class="replyComment" method="post" action="restaurantProfile.php?varname=<?php echo $_GET['varname'] ?>">

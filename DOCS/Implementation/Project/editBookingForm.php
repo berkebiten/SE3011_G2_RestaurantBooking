@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="style.css"></link>
+<?php include('bootstrapinclude.php') ?>
 <?php
 include 'dbconnect.php';
 include 'editBook.php';

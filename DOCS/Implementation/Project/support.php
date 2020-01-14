@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="style.css"></link>
 <script src="scripts.js"></script>
+<?php include('bootstrapinclude.php') ?>
 <?php
 session_start();
 include 'dbconnect.php';
@@ -65,7 +66,7 @@ if (isset($_SESSION['username'])) {
             <a href="restSignUp.php"><button  id="rsignup">Restaurant Sign Up</button></a>
             <a href="signUp.php"><button id="signup" >Sign Up</button></a>
             <a href="signIn.php"><button    id="signin" >Sign In</button>   </a>
-            <a href ="support.php"><button class ="support"> Support</button> </a>
+            <a href ="support.php"><button id ="support"> Support</button> </a>
             <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
 
 <?php endif ?>
@@ -74,9 +75,8 @@ if (isset($_SESSION['username'])) {
     <!--    IF THE USER LOGGED IN, SHOW THE BUTTONS.-->
 <?php if (isset($_SESSION['success'])): ?>
         <div class ="buttonsQA">
-            <a href ="viewMyTickets.php"><button id ="myrequest">My Request Tickets</button> </a>
-            <a href="submitRequest.php"><button    id="subrequest" >Submit Request Ticket</button>   </a>
-
+            <a href ="viewMyTickets.php"><button id ="myrequest">My Request Tickets</button></a><br>
+            <a href="submitRequest.php"><button id="subrequest" >Submit Request Ticket</button></a>
         </div>
 <?php endif ?>
     <!--END OF THE LOGGED IN USER-->

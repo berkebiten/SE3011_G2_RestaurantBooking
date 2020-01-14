@@ -10,10 +10,12 @@
     <title>Sign Up</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="scripts.js"></script>
+    <?php include('bootstrapinclude.php') ?>
     </head>
 
 
     <body>
+        
     <div class="container" id="fullC">
         <div class="top">
             <a href="restSignUp.php"><button  id="rsignup">Restaurant Sign Up</button></a>

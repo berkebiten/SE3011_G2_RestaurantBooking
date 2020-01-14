@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <link href="style.css" rel="stylesheet" ></link>
+<?php include('bootstrapinclude.php') ?>
 <script src="scripts.js" type="text/javascript"></script>
 <?php
 include('accountsProcess.php');
@@ -81,10 +82,10 @@ if (!isset($_SESSION['success'])) {
                     <table id="viewTicketsTable">
                         <thead>
                             <tr class="head">
-                                <th style="width:40%;">Username</th>
-                                <th style="width:30%">Category</th>
-                                <th style="width:15%">Date</th>
-                                <th style="width:15%">Is Responded</th>
+                                <th>Username</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                <th>Is Responded</th>
                             </tr>
                         </thead>
                         <tbody>

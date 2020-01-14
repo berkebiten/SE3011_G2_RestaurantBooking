@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="style.css"></link>
 <script src="scripts.js"></script>
+<?php include('bootstrapinclude.php') ?>
 <?php
 include("dbconnect.php");
 include('loginProcess.php');
@@ -59,7 +60,7 @@ else{
     </div>
     <div id="formArea">
         <form class="formX" method="post" action="submitRequest.php">
-            <h1>Submit a Request</h1>
+            <h1 style="color:#388CF2;">Submit a Request</h1>
             <?php include('errors.php'); ?>
             <select class="select-css" name ="category">
                 <option>Category</option>

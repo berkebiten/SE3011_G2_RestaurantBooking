@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <link href="style.css" rel="stylesheet" ></link>
-
+<?php include('bootstrapinclude.php') ?>
 <script src="scripts.js" type="text/javascript"></script>
 <?php
 include('accountsProcess.php');
@@ -24,6 +24,7 @@ if (!isset($_SESSION['success'])) {
     <head>
         <meta charset="UTF-8">
         <title>RESTAURANT OWNER</title>
+        
     </head>
     <body>
         <div class=container id="fullC">
@@ -37,7 +38,7 @@ if (!isset($_SESSION['success'])) {
             <div class="wholepanel">
                 <div class="adminpanel">
                     <ul>
-                        <h1> Restaurant Menu </h1>
+                        <h1> Panel </h1>
                         <li><a onclick="openBookings()">View Bookings of My Restaurant</a></li>
                         <li><a onclick="openAccountSettings()">Account Settings</a></li>
                     </ul>
@@ -50,14 +51,14 @@ if (!isset($_SESSION['success'])) {
                             <table id="adminSearchTable">
                                 <thead>
                                     <tr class="head">
-                                        <th style="width:15%;">Customer</th>
-                                        <th style="width:9%;">Party Size</th>
-                                        <th style="width:15%;">Date</th>
-                                        <th style="width:12%;">Start</th>
-                                        <th style="width:12%;">End</th>
-                                        <th style="width:13%;">Name</th>
-                                        <th style="width:13%;">Surname</th>
-                                        <th style="width:14%;">Phone</th>
+                                        <th>Customer</th>
+                                        <th>Party Size</th>
+                                        <th>Date</th>
+                                        <th>Start</th>
+                                        <th>End</th>
+                                        <th>Name</th>
+                                        <th>Surname</th>
+                                        <th>Phone</th>
                                     </tr>
                                 </thead>
                                 <tbody>

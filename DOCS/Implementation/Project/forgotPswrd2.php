@@ -11,6 +11,7 @@ if (isset($_SESSION['success'])) {
     <title>Forgot Password</title>
     <link rel="stylesheet" type="text/css" href="style.css">
         <script src="scripts.js"></script>
+        <?php include('bootstrapinclude.php') ?>
     </head>
 
 

@@ -14,6 +14,7 @@ if (isset($_SESSION['username'])) {//REDIRECTS THE USER TO INDEX IF THE USER ALR
         <title>Restaurant Sign Up</title>
         <link rel="stylesheet" type="text/css" href="style.css">
         <script src="scripts.js"></script>
+        <?php include('bootstrapinclude.php') ?>
     </head>
 
 

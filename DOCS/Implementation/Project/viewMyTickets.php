@@ -1,5 +1,6 @@
 <link href="style.css" rel="stylesheet" ></link>
 <script src="scripts.js" type="text/javascript"></script>
+<?php include('bootstrapinclude.php') ?>
 
 <?php
 session_start();

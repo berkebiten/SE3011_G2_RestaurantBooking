@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="style.css"></link>
 <script src="scripts.js"></script>
+<?php include('bootstrapinclude.php') ?>
 <?php 
 include('respondProcess.php'); 
 if (isset($_SESSION['username'])) {

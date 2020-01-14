@@ -39,6 +39,7 @@ if($isARestaurantViewing || $isAdminViewing){// REDIRECTS THE VIEWER TO THE ERRO
         <title>Change Password</title>
         <link rel="stylesheet" type="text/css" href="style.css">
         <script src="scripts.js"></script>
+        <?php include('bootstrapinclude.php') ?>
     </head>
 
 
@@ -63,6 +64,7 @@ if($isARestaurantViewing || $isAdminViewing){// REDIRECTS THE VIEWER TO THE ERRO
                 <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
             </div>
             <div id="formArea">
+                <h1>ACCOUNT SETTINGS</h1>
                 <div class="changePassword" id="formArea" >
                     <form class="formX1" method="post" action="accountSettings.php">
                         <h1>Change Password</h1>

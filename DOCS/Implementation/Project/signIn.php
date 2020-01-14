@@ -33,7 +33,8 @@
  */ ?>
 <?php include('loginProcess.php') ?>
 
-<?php if (isset($_SESSION['username'])) {//REDIRECTS THE USER TO INDEX IF THE USER ALREADY LOGGED IN
+<?php
+if (isset($_SESSION['username'])) {//REDIRECTS THE USER TO INDEX IF THE USER ALREADY LOGGED IN
     header('location:index.php');
 }
 ?>
@@ -43,6 +44,7 @@
     <head>
     <title>Sign In</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+<?php include('bootstrapinclude.php') ?>
     </head>
     <body>
     <div class="container" id="fullC">
@@ -56,7 +58,7 @@
         <div class="formArea">
             <form class="formX" method="post" action="signIn.php">
                 <h1>Sign In</h1>
-                <?php include('errors.php'); ?>
+<?php include('errors.php'); ?>
                 <div class="input-group">
                     <label>Username</label>
                     <input placeholder="Username" type="text" name="username" >
