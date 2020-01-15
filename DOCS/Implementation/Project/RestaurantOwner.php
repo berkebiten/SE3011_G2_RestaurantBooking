@@ -24,7 +24,7 @@ if (!isset($_SESSION['success'])) {
     <head>
         <meta charset="UTF-8">
         <title>RESTAURANT OWNER</title>
-        
+
     </head>
     <body>
         <div class=container id="fullC">
@@ -41,6 +41,7 @@ if (!isset($_SESSION['success'])) {
                         <h1> Panel </h1>
                         <li><a onclick="openBookings()">View Bookings of My Restaurant</a></li>
                         <li><a onclick="openAccountSettings()">Account Settings</a></li>
+                        <li><a onclick="openRestShutdown()">Restaurant Shutdown</a></li>
                     </ul>
                 </div>
 
@@ -65,9 +66,6 @@ if (!isset($_SESSION['success'])) {
                                     <?php
                                     $vari = $_SESSION['username'];
                                     $query1 = mysqli_query($conn, "select * from bookings where restaurant_uname = '$vari'");
-
-
-
                                     while ($bookArr = mysqli_fetch_array($query1, MYSQLI_ASSOC)) {
 
                                         echo "<tr> <td>" . $bookArr['customer_uname'] . "</td>"
@@ -131,6 +129,19 @@ if (!isset($_SESSION['success'])) {
                                 </div>
                                 <div class="input-group">
                                     <button type="submit" class="btn" name="changeEmail">Confirm</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="adminsearchpart" id="restaurantShutdown">
+                        <div class="changePassword" id="formArea" >
+                            <form class="formX1" method="post" action="RestaurantOwner.php">
+                                <h1>Restaurant Shutdown</h1>
+                                <p>Do you really want to shutdown your restaurant?</p>
+                                <?php include('errors.php'); ?>
+                                <div class="input-group">
+                                    <button type="submit" class="btn" name="restShutdown">Yes</button>
+                                    <a href="RestaurantOwner.php"><button type="button" class="btn">No</button></a>
                                 </div>
                             </form>
                         </div>

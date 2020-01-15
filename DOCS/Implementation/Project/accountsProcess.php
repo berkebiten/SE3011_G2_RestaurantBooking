@@ -48,14 +48,12 @@ if (isset($_POST['changePassword'])) {
             $array = mysqli_fetch_array($results3, MYSQLI_ASSOC);
         }
 
-        $current_password2 = md5($current_password);//PASSWORD ENCRYPTION
+        $current_password2 = md5($current_password); //PASSWORD ENCRYPTION
         if ($current_password2 == $array['psw']) {//CHECKING IF GIVEN CURRENT PASSWORD IS CORRECT
-
             if ($password_1 != $password_2) {
                 array_push($errors, "Password do not match."); //PUSHING AN ERROR IF TWO GIVEN NEW PASSWORDS ARE NOT MATCHING
             } else {//IF PASSWORDS MATCH
-
-                $password = md5($password_1);//ENCRYPTING THE NEW PASSWORD
+                $password = md5($password_1); //ENCRYPTING THE NEW PASSWORD
                 if (mysqli_num_rows($results1) == 1) {//IF ACCOUNT TYPE IS USER
                     $changeP = mysqli_query($conn, "UPDATE user SET psw = '$password'  WHERE (uname = '$uname')");
                     array_push($feedbacks, "Your password has been changed.");
@@ -68,10 +66,10 @@ if (isset($_POST['changePassword'])) {
                     $changeP = mysqli_query($conn, "UPDATE admin SET psw = '$password'  WHERE (uname = '$uname')");
                     array_push($feedbacks, "Your password has been changed.");
                     array_push($feedbacks, "You will be redirected to the Sign In screen when you click 'OK' button.");
-                } 
+                }
             }
         } else {
-            array_push($errors, "Your current password is wrong.");//IF CURRENT PASSWORD IS WRONG, PUSHING AN ERROR
+            array_push($errors, "Your current password is wrong."); //IF CURRENT PASSWORD IS WRONG, PUSHING AN ERROR
         }
     }
 }
@@ -111,11 +109,9 @@ if (isset($_POST['changeEmail'])) {
         }
 
         if ($current_email == $array['email']) {//CHECKING IF GIVEN CURRENT EMAIL IS CORRECT
-
             if ($email_1 != $email_2) {
                 array_push($errors, "Emails do not match."); //PUSHING AN ERROR IF TWO GIVEN NEW EMAILS ARE NOT MATCHING
             } else {//IF EMAILS MATCH
-
                 if (mysqli_num_rows($results1) == 1) {//IF ACCOUNT TYPE IS USER
                     $changeP = mysqli_query($conn, "UPDATE user SET email = '$email_1'  WHERE (uname = '$uname')");
                     array_push($feedbacks, "Your email has been changed.");
@@ -128,10 +124,43 @@ if (isset($_POST['changeEmail'])) {
                     $changeP = mysqli_query($conn, "UPDATE admin SET email = '$email_1'  WHERE (uname = '$uname')");
                     array_push($feedbacks, "Your email has been changed.");
                     array_push($feedbacks, "You will be redirected to the Sign In screen when you click 'OK' button.");
-                } 
+                }
             }
         } else {
-            array_push($errors, "Your current email is wrong.");//IF CURRENT EMAIL IS WRONG, PUSHING AN ERROR
+            array_push($errors, "Your current email is wrong."); //IF CURRENT EMAIL IS WRONG, PUSHING AN ERROR
+        }
+    }
+}
+
+if (isset($_POST['restShutdown'])) {
+    //GET INPUTS FROM THE FORM
+    $rest_uname = $_SESSION['username'];
+
+    //CHECKING FIELDS' EMPTYNESS AND PUSHING ERRORS
+    if (empty($rest_uname)) {
+        array_push($errors, "Username is not defined..");
+    }
+
+    if (count($errors) == 0) {//IF THERE ARE NO ERRORS
+        //DETERMINING THE USER TYPE
+        $query2 = "SELECT * FROM restaurant_owner WHERE uname='$uname'";
+        $results2 = mysqli_query($conn, $query2);
+        $array = array();
+
+        //FILLING THE ARRAY RELATED TO USER TYPE
+        if (mysqli_num_rows($results2) > 0) {
+            $array = mysqli_fetch_array($results2, MYSQLI_ASSOC);
+        }
+
+        if ($rest_uname == $array['uname']) {
+            if (mysqli_num_rows($results2) == 1) {//IF ACCOUNT TYPE IS RESTAURANT OWNER
+                $shutdown = mysqli_query($conn, "UPDATE restaurant_owner SET shutdown = 1  WHERE (uname = '$rest_uname')");
+                session_destroy();
+                array_push($feedbacks, "Your restaurant has been shutdown.");
+                array_push($feedbacks, "You will be redirected to the homepage when you click 'OK' button.");
+            }
+        } else {
+            array_push($errors, "Your username is not a restaurant owner username."); //IF CURRENT PASSWORD IS WRONG, PUSHING AN ERROR
         }
     }
 }

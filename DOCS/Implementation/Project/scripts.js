@@ -27,7 +27,10 @@ function openAccountSettings(){
     closeForm2();
     document.getElementById("accountSettings").style.display = "block";
 }
-
+function openRestShutdown(){
+    closeForm2();
+    document.getElementById("restaurantShutdown").style.display = "block";
+}
 function openAccountSettings2(){
     closeForm();
     document.getElementById("accountSettings").style.display = "block";
@@ -70,6 +73,7 @@ function closeForm() {
 function closeForm2(){
     document.getElementById("viewBookings").style.display = "none";
     document.getElementById("accountSettings").style.display = "none";
+    document.getElementById("restaurantShutdown").style.display = "none";
 }
 
 function closeBookingForm() { // close booking form pop up
