@@ -59,6 +59,11 @@ $count = mysqli_num_rows($query);
 if ($count == 0) {
     header('location:errorPage.php');
 }
+
+$isBanned = $restArray['isBanned'];
+if($isBanned == 1){
+    header('location:banned.php');
+}
 //SELECTING REVIEW AND IMAGES FROM DATABASE
 $commentQuery = mysqli_query($conn, "select * from review where rest_uname='$uname'");
 $sqlB = "select * from image where rest_uname= '$uname'";

@@ -35,7 +35,7 @@ if (mysqli_num_rows($queryA) > 0) {
                 </div>
                 <div class="input-group">
                     <label>Reason</label><br>
-                    <textarea class="input" name="reason"></textarea>
+                    <textarea class="input" name="reason" style="width:155%;"></textarea>
                 </div>
                 <div class="input-group">
                     <select class="input" name="type">

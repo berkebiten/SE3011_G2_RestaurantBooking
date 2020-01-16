@@ -31,6 +31,11 @@ if (mysqli_num_rows($queryA) > 0) {
 if (!$isMyProfile && !$isAdminViewing) {
     header('location:errorPage.php');
 }
+
+$isBanned = $arr['isBanned'];
+if($isBanned == 1){
+    header('location:banned.php');
+}
 ?>
 <html>
     <head>
