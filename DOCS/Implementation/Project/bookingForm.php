@@ -129,7 +129,19 @@ $end1 = $restArray['endTime'];
             </div>
             <div class="input-group">
                 <label>Email</label>
-                <input placeholder="Your Email Address" type="email" name="email" value="<?php echo $email ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+                <input placeholder="Your Email Address" type="email" name="email" value="<?php echo $email ?>" pattern="[a-z0-9._%+-]+@gmail\.com$" title="Your email must be gmail type." />
+                          <div class="help_text">
+                    <style>
+                        .fa-info-circle a{
+                          color:#E0AE43;
+                        }
+                        .fa-info-circle a:hover{
+                            color:darksalmon;
+                        }
+                    </style>
+                    <i class="fa fa-info-circle" style="color:black;" aria-hidden="true">  Your e-mail must be gmail type. </i>
+                    
+                </div>
             </div>
             <div class="input-group">
                 <label for="lname">Party Size</label>

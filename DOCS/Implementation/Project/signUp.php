@@ -42,13 +42,37 @@
                 </div>
                 <div class="input-group">
                     <label>Email</label>
-                    <input placeholder="Your Email Address(must be gmail)" type="email" name="email" value="<?php echo $email; ?>" pattern="[a-z0-9._%+-]+@gmail\.com$" required/>
+                    <input placeholder="Your Email Address" type="email" name="email" value="<?php echo $email; ?>" pattern="[a-z0-9._%+-]+@gmail\.com$"  title="Your email must be gmail type." required/>
+                                 <div class="help_text">
+                    <style>
+                        .fa-info-circle a{
+                          color:#E0AE43;
+                        }
+                        .fa-info-circle a:hover{
+                            color:darksalmon;
+                        }
+                    </style>
+                    <i class="fa fa-info-circle" style="color:black;" aria-hidden="true">  Your e-mail must be gmail type. </i>
+                    
+                </div>
                 </div>
                 <div class="input-group">
                     <label>Password</label>
                     <input placeholder="Enter Your Password" type="password" name="password_1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}" 
                            title="Must contain at least one number and one uppercase and lowercase letter, and between 8-50 characters" 
                            required/>
+                               <div class="help_text">
+                    <style>
+                        .fa-info-circle a{
+                          color:#E0AE43;
+                        }
+                        .fa-info-circle a:hover{
+                            color:darksalmon;
+                        }
+                    </style>
+                    <i class="fa fa-info-circle" style="color:black;" aria-hidden="true">  Your password must contain atleast one number and one uppercase and lowercase letter, and between 8-50 characters. </i>
+                    
+                </div>
                 </div>
                 <div class="input-group">
                     <label>Confirm password</label>

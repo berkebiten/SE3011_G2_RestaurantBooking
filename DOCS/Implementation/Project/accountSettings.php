@@ -75,9 +75,21 @@ if($isARestaurantViewing || $isAdminViewing){// REDIRECTS THE VIEWER TO THE ERRO
                             <br><br>
                         </div>
                         <div class="input-group">    
-                            <label><b>Password</b></label>
-                            <input placeholder="Your new password" type="password"  name="password_1" required/>
-
+                            <label><b>New Password</b></label>
+                            <input placeholder="Your new password" type="password"  name="password_1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}" 
+                           title="Must contain at least one number and one uppercase and lowercase letter, and between 8-50 characters" required/>
+                                    <div class="help_text">
+                    <style>
+                        .fa-info-circle a{
+                          color:#E0AE43;
+                        }
+                        .fa-info-circle a:hover{
+                            color:darksalmon;
+                        }
+                    </style>
+                    <i class="fa fa-info-circle" style="color:black;" aria-hidden="true">  Your new password must contain atleast one number and one uppercase and lowercase letter, and between 8-50 characters. </i>
+                    
+                </div>
                         </div>
                         <div class="input-group">    
                             <label><b>Confirm Password</b></label>
@@ -95,17 +107,29 @@ if($isARestaurantViewing || $isAdminViewing){// REDIRECTS THE VIEWER TO THE ERRO
                         <?php include('errors.php'); ?>
                         <div class="input-group">
                             <label>Current Email</label>
-                            <input placeholder="Current email" type="email" name="current_email" value="<?php echo $current_email ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+                            <input placeholder="Current email" type="email" name="current_email" value="<?php echo $current_email ?>" pattern="[a-z0-9._%+-]+@gmail\.com$"  title="Your email must be gmail type."  required/>
+                       
                             <br><br>
                         </div>
                         <div class="input-group">    
-                            <label><b>Password</b></label>
-                            <input placeholder="Your new email" type="email"  name="email_1" value="<?php echo $email_1 ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
-
+                            <label><b>New Email</b></label>
+                            <input placeholder="Your new email" type="email"  name="email_1" value="<?php echo $email_1 ?>"  pattern="[a-z0-9._%+-]+@gmail\.com$"  title="Your email must be gmail type."  required/>
+                                        <div class="help_text">
+                    <style>
+                        .fa-info-circle a{
+                          color:#E0AE43;
+                        }
+                        .fa-info-circle a:hover{
+                            color:darksalmon;
+                        }
+                    </style>
+                    <i class="fa fa-info-circle" style="color:black;" aria-hidden="true">  Your new e-mail must be gmail type. </i>
+                    
+                </div>
                         </div>
                         <div class="input-group">    
-                            <label><b>Confirm Password</b></label>
-                            <input placeholder="Re-enter your new Email" type="email"  name="email_2" value="<?php echo $email_2 ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+                            <label><b>Confirm Email</b></label>
+                            <input placeholder="Re-enter your new Email" type="email"  name="email_2" value="<?php echo $email_2 ?>"  pattern="[a-z0-9._%+-]+@gmail\.com$"  title="Your email must be gmail type."   required/>
                         </div>
                         <div class="input-group">
                             <button type="submit" class="btn" name="changeEmail">Confirm</button>

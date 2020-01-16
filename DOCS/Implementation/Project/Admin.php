@@ -190,17 +190,32 @@ if (!isset($_SESSION['success'])) {
                         <?php include('errors.php'); ?>
                         <div class="input-group">
                             <label>Current Password</label>
-                            <input placeholder="Current Password" type="password" name="current_password" required/>
+                            <input placeholder="Current Password" type="password" name="current_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}" 
+                                   title="Must contain at least one number and one uppercase and lowercase letter, and between 8-50 characters" required/>
                             <br><br>
                         </div>
                         <div class="input-group">    
-                            <label><b>Password</b></label>
-                            <input placeholder="Your new password" type="password"  name="password_1" required/>
+                            <label><b>New Password</b></label>
+                            <input placeholder="Your new password" type="password"  name="password_1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}" 
+                                   title="Must contain at least one number and one uppercase and lowercase letter, and between 8-50 characters" required/>
+     <div class="help_text">
+                                <style>
+                                    .fa-info-circle a{
+                                        color:#E0AE43;
+                                    }
+                                    .fa-info-circle a:hover{
+                                        color:darksalmon;
+                                    }
+                                </style>
+                                <i class="fa fa-info-circle" style="color:black;" aria-hidden="true">  Your new password must contain atleast one number and one uppercase and lowercase letter, and between 8-50 characters. </i>
+
+                            </div>
 
                         </div>
                         <div class="input-group">    
                             <label><b>Confirm Password</b></label>
-                            <input placeholder="Re-enter your new password" type="password"  name="password_2" required/>
+                            <input placeholder="Re-enter your new password" type="password"  name="password_2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,50}" 
+                                   title="Must contain at least one number and one uppercase and lowercase letter, and between 8-50 characters" required/>
                         </div>
                         <div class="input-group">
                             <button type="submit" class="btn" name="changePassword">Confirm</button>
@@ -218,12 +233,24 @@ if (!isset($_SESSION['success'])) {
                             <br><br>
                         </div>
                         <div class="input-group">    
-                            <label><b>Password</b></label>
+                            <label><b>New Email</b></label>
                             <input placeholder="Your new email" type="email"  name="email_1" value="<?php echo $email_1 ?>" pattern="[a-z0-9._%+-]+@gmail\.com$" required/>
+                  <div class="help_text">
+                    <style>
+                        .fa-info-circle a{
+                          color:#E0AE43;
+                        }
+                        .fa-info-circle a:hover{
+                            color:darksalmon;
+                        }
+                    </style>
+                    <i class="fa fa-info-circle" style="color:black;" aria-hidden="true">  Your e-mail must be gmail type.</i>
+                    
+                </div>
 
                         </div>
                         <div class="input-group">    
-                            <label><b>Confirm Password</b></label>
+                            <label><b>Confirm Email</b></label>
                             <input placeholder="Re-enter your new Email" type="email"  name="email_2" value="<?php echo $email_2 ?>" pattern="[a-z0-9._%+-]+@gmail\.com$" required/>
                         </div>
                         <div class="input-group">
