@@ -64,8 +64,7 @@ if (!$isMyProfile && !$isAdminViewing) {
         </div>
         <div id='profileButtons'>
             <?php if ($isAdminViewing): //IF THE ADMIN VIEWS THE PAGE SHOW THE BAN AND WARN BUTTONS?>
-                <button>Ban User</button> <br><br>
-                <button>Warn User</button>
+                <?php echo "<a href='banWarnForm.php?varname=$vname'><button>Ban/Warn User</button></a>" ?>
             <?php else: ?>
                 <a href="accountSettings.php"<button>Account Settings</button></a>
             <?php endif ?>

@@ -112,18 +112,20 @@ $count2 = mysqli_num_rows($restImg);
             $sqlFavorites = "select * from favorites where customer_uname='$usercheck2' and rest_uname='$uname'";
             $favoritesQ = mysqli_query($conn, $sqlFavorites);
             $countF = mysqli_num_rows($favoritesQ);
-            if($countF>0){
-                     echo '⭐';
-            }else {
-                     echo "<a href='addFavorite.php?varname=$uname'><button>Add to Favorites</button></a>";
-                }
-                //END OF ADDING
+            if ($countF > 0) {
+                echo '⭐';
+            } else {
+                echo "<a href='addFavorite.php?varname=$uname'><button>Add to Favorites</button></a>";
+            }
+            //END OF ADDING
             ?>
         <?php endif ?>
-
+        <?php if ($isAdminViewing):  ?>
+        <?php echo "<a href='banWarnForm.php?varname=$uname'><button>Ban/Warn Restaurant</button></a>" ?>
+         <?php endif ?>
         <?php if (isset($_SESSION['success']) && $isMyProfile == true): //IF THE USER IS RESTAURANT OWNER THEN SHOW EDIT PROFILE BUTTON?>
             <?php echo "<a href='editMyProfile.php?varname=$uname'><button>EditProfile</button></a>" ?>
-<?php endif ?>
+        <?php endif ?>
 
     </div>
     <div id="full" style="background-color:#D1D1D1">
@@ -142,12 +144,12 @@ $count2 = mysqli_num_rows($restImg);
         </div>
         <div id="secondPart">
             <div class="slideshow-container13">
-<?php while ($imgArr = mysqli_fetch_array($restImg, MYSQLI_ASSOC)) : ?>
+                <?php while ($imgArr = mysqli_fetch_array($restImg, MYSQLI_ASSOC)) : ?>
                     <div class="mySlides fade">
                         <img class="restPics" src="restaurantImages/<?php echo $_GET['varname'] ?>/<?php echo $imgArr['name'] ?>">
 
                     </div>
-<?php endwhile; ?> 
+                <?php endwhile; ?> 
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                 <a class="next" onclick="plusSlides(1)">&#10095;</a>
             </div>
@@ -158,11 +160,11 @@ $count2 = mysqli_num_rows($restImg);
                 <span class="dot" onclick="currentSlide(3)"></span>
             </div>
             <div class="uploadImageButton">
-            <?php
-            if ($isMyProfile)  {// IF THE USER IS RESTAURANT OWNER THEN SHOW UPLOAD A PHOTO LINK
-                echo "<a href='img.php?varname=$uname'><button>upload photo</button> </a>";
-            }
-            ?>
+                <?php
+                if ($isMyProfile) {// IF THE USER IS RESTAURANT OWNER THEN SHOW UPLOAD A PHOTO LINK
+                    echo "<a href='img.php?varname=$uname'><button>upload photo</button> </a>";
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -172,7 +174,7 @@ $count2 = mysqli_num_rows($restImg);
 
 
     <div class="reviews">
-<?php while ($row = mysqli_fetch_array($commentQuery, MYSQLI_ASSOC)): ?>
+        <?php while ($row = mysqli_fetch_array($commentQuery, MYSQLI_ASSOC)): ?>
             <div class="commentCard">
                 <div class='starNPrice'>
                     <?php
@@ -206,27 +208,27 @@ $count2 = mysqli_num_rows($restImg);
                     ?>
                 </div>
                 <div class="comment">
-                    <p> <?php echo $row['customer_uname'] . ": " . $row['text']; //SHOWS THE CUSTOMER UNAME AND WRITTEN TEXT?> </p>
+                    <p> <?php echo $row['customer_uname'] . ": " . $row['text']; //SHOWS THE CUSTOMER UNAME AND WRITTEN TEXT ?> </p>
                 </div>
 
-    <?php if (!empty($row['reply'])): ?>
+                <?php if (!empty($row['reply'])): ?>
                     <div class="replyRest">
-                        <p> <?php echo $row['rest_uname'] . ": " . $row['reply']; //IF THERE IS AN ANSWER FROM RESTAURANTOWNER, SHOW RESTAURANTOWNER NAME AND ITS WRITTEN REPLY?> </p>
+                        <p> <?php echo $row['rest_uname'] . ": " . $row['reply']; //IF THERE IS AN ANSWER FROM RESTAURANTOWNER, SHOW RESTAURANTOWNER NAME AND ITS WRITTEN REPLY ?> </p>
                     </div>
                 <?php else: ?>
-                <div class="replyRest">
-                    <br>
+                    <div class="replyRest">
+                        <br>
                     </div>
                 <?php endif ?>
-    <?php if (empty($row['reply']) && $isMyProfile): //IF THE USER IS RESTAURANTOWNER AND THERE ISN'T ANY REPLY, THEN SHOW TEXTAREA AND SUBMIT BUTTON ?>
+                <?php if (empty($row['reply']) && $isMyProfile): //IF THE USER IS RESTAURANTOWNER AND THERE ISN'T ANY REPLY, THEN SHOW TEXTAREA AND SUBMIT BUTTON ?>
                     <form class="replyComment" method="post" action="restaurantProfile.php?varname=<?php echo $_GET['varname'] ?>">
                         <input type="number" class="invs" name='reviewId' value="<?php echo $row['reviewId'] ?>" />
                         <textarea rows="3" cols="50" class="rArea" name="reply" required></textarea>
                         <button type="submit" class="btn" name="drop_reply">Submit</button>
                     </form>
-            <?php endif ?>
+                <?php endif ?>
             </div>
-<?php endwhile ?>
+        <?php endwhile ?>
     </div>
 </div>
 </body>
