@@ -1,5 +1,4 @@
 <?php
-
 include('dbconnect.php');
 session_start();
 
@@ -13,6 +12,7 @@ $uname = $_SESSION['username'];
 $current_email = "";
 $email_1 = "";
 $email_2 = "";
+$restuname = "";
 
 //CHANGE PASSWORD PROCESS START
 if (isset($_POST['changePassword'])) {
@@ -153,7 +153,7 @@ if (isset($_POST['restShutdown'])) {
         if (mysqli_num_rows($results2) > 0) {
             $array = mysqli_fetch_array($results2, MYSQLI_ASSOC);
         }
-        if(mysqli_num_rows($results3) > 0){
+        if (mysqli_num_rows($results3) > 0) {
             $array1 = mysqli_fetch_array($results3, MYSQLI_ASSOC);
         }
 
@@ -192,7 +192,7 @@ if (isset($_POST['undoShutdown'])) {
         if (mysqli_num_rows($results2) > 0) {
             $array = mysqli_fetch_array($results2, MYSQLI_ASSOC);
         }
-        if(mysqli_num_rows($results3) > 0){
+        if (mysqli_num_rows($results3) > 0) {
             $array1 = mysqli_fetch_array($results3, MYSQLI_ASSOC);
         }
 
@@ -206,6 +206,84 @@ if (isset($_POST['undoShutdown'])) {
             }
         } else {
             array_push($errors, "Your username is not a restaurant owner username.");
+        }
+    }
+}
+
+if (isset($_POST['acceptBooking'])) {
+
+
+    // GENERATING A RANDOM RECOVERY CODE FUNCTION
+
+    function generateRandomString($length = 8) {
+        return substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length / strlen($x)))), 1, $length);
+    }
+
+    // INITIALIZING THE VARIABLES AND GETTING THEM FROM THE FORMS 
+    $restuname = $_GET['varname'];
+    $sql = "SELECT * FROM rest_signup WHERE uname='$restuname'";
+    $query = mysqli_query($conn, $sql);
+    $restArray = mysqli_fetch_assoc($query);
+    $rest_uname = $restArray['uname'];
+    $rest_fname = $restArray['fname'];
+    $rest_lname = $restArray['lname'];
+    $rest_name = $restArray['rest_name'];
+    $rest_email = $restArray['email'];
+    $rest_password = $restArray['psw'];
+    $rest_loc = $restArray['location'];
+    $rest_phone = $restArray['phoneNo'];
+    $rest_address = $restArray['address'];
+    $rest_start = $restArray['startTime'];
+    $rest_end = $restArray['endTime'];
+    $rest_cap = $restArray['cap'];
+    $shutdown = 0;
+    $recCode = generateRandomString();
+
+
+    // START OF THE INSERTION OF A RESTAURANT APPLICATION TO THE RESTAURANT ACCOUNT TABLE
+    $password = $rest_password;
+    // INSERTING QUERY OF A RESTAURANT ACCOUNT
+    $query = "INSERT INTO restaurant_owner(uname, fname, lname, rest_name, email, psw, location, phoneNo, cap, address, startTime, endTime,stars, price, isBanned, warnCount, recCode, shutdown) VALUES('$rest_uname',"
+            . "'$rest_fname','$rest_lname', '$rest_name', '$rest_email', '$password','$rest_loc','$rest_phone','$rest_cap', '$rest_address', '$rest_start','$rest_end', "
+            . "1,1,0,0,'$recCode', '$shutdown')";
+    $boolean = mysqli_query($conn, $query);
+
+
+    // CHECKING OF THE INSERTION QUERY WORKED OR NOT
+    if ($boolean) {
+        $query1 = "DELETE FROM rest_signup WHERE uname='$restuname'"; // DELETING THE RESTAURANT APPLICATION FROM THE TABLE
+        mysqli_query($conn, $query1);
+        $subject = "Restaurant Sign Up";
+        $body = "Welcome to our Restaurant Booking System. Your registration is accepted. :)";
+        $headers = "From: Restaurant Booking System";
+
+        if (mail($rest_email, $subject, $body, $headers)) { // SENDING MAIL TO THE OWNER OF THE RESTAURANT THAT ACCEPTED TO THE SITE
+            array_push($feedbacks, "Email successfully sent to " . $rest_email . ". About being accepted."); // INITIALIZING FEEDBACK THAT SAYS MAIL IS SENT
+        }
+    }
+}
+
+if (isset($_POST['declineBooking'])) {
+
+    //STARTING THE DELETE PROCESS OF THE RESTAURANT APPLICATION THAT IS DECLINED TO REGISTER
+    $restuname = $_GET['varname'];
+    $sql = "SELECT * FROM rest_signup WHERE uname='$restuname'";
+    $restmail = mysqli_query($conn, $sql);
+    $restArray = mysqli_fetch_assoc($restmail);
+    $rest_email = $restArray['email']; // GETTING THE EMAIL OF THE RESTAURANT THAT APPLIED
+
+    $query1 = "DELETE FROM rest_signup WHERE uname='$restuname'"; // QUERY FOR DELETING
+    $boolean = mysqli_query($conn, $query1);
+
+
+    // CHECKING IF THE QUERY FOR DELETION WORKED OR NOT
+    if ($boolean) {
+        $subject = "Restaurant Sign Up";
+        $body = "Sorry.. Your registration is not accepted. :)";
+        $headers = "From: Restaurant Booking System";
+
+        if (mail($rest_email, $subject, $body, $headers)) { // SENDING MAIL TO THE OWNER OF THE RESTAURANT THAT ACCEPTED TO THE SITE
+            array_push($feedbacks, "Email successfully sent to " . $rest_email . ". About being denied."); // INITIALIZING FEEDBACK THAT SAYS MAIL IS SENT
         }
     }
 }
