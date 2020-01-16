@@ -34,12 +34,12 @@ INSERT INTO `user` VALUES ('tugbakoc','tugba','koc','tugba@gmail.com','d370b5a1a
 INSERT INTO `user` VALUES ('utheneras','sukru','senturk','uthenera@gmail.com','d370b5a1ae62abeddb97ac4c91b6cae0','AOuHSK5T',0,0);
 INSERT INTO `user` VALUES ('zeitnotdunya','berkay','asikuzun','zeitnot@gmail.com','d370b5a1ae62abeddb97ac4c91b6cae0','Ke3TCxA2',0,0);
 
-INSERT INTO `restaurant_owner` VALUES('lapulga', 'Lionel', 'Messi','Arjantin Midye','messigoat@gmail.com','c48441e989575be5b9c68af087510134','Umraniye','33724442',60,'Arjantinin temiz denizlerinden çıkmış midyeler su fiyatına gidiyor(Brezilyada daha pahalı)','AMEX, Diners Club, MasterCard, Visa','Midyeler denizden yeni cikma','Asagi Dudullu','8:00:00','24:00:00',3,'Fish, Turkish Food, Internation','Outdoor',1,0,0,'3iTIbwVA');
-INSERT INTO `restaurant_owner` VALUES('kingjames', 'Lebron', 'James','Taco Tuesday','lalakers@gmail.com','c48441e989575be5b9c68af087510134','Uskudar','33727742',100,'Yo whatup these tacos are so yummy and cheap','MasterCard, Visa','Tacolar cok guzeldi','Fistikagaci','10:00:00','22:00:00','2','Grid&Steak, International','Standard, Outdoor, High Top',2,0,0,'yDMXlcVE');
-INSERT INTO `restaurant_owner` VALUES('allfather', 'Odin', 'Borson','Iskandinav Kebap','valhalla@gmail.com','c48441e989575be5b9c68af087510134','Bagcilar','33728742',20,'Iskandinav lezzeti bir baska oluyor.','MasterCard, Visa','Iskandinav kebabı, yemezsen üzülürüm hesabı','Bagcilar Merkez','10:00:00','22:00:00','2','Fish, Grid&Steak','Standard, Outdoor',2,0,0,'tZSnxfBc');
-INSERT INTO `restaurant_owner` VALUES('cumpir', 'ahmet', 'dursun','KumPIr','cumpirci@gmail.com','d370b5a1ae62abeddb97ac4c91b6cae0','Ortakoy','22554782',25,'Ortakoyun en iyisi, yani dunyanin','VISA, MASTERCARD, Cash','boyle kumpir gorulmedi','Sahil','15:00:00','23:00:00',1,'Turkish Food','Standard',1,0,0,'3iTabwVA');
-INSERT INTO `restaurant_owner` VALUES('bybado', 'galip', 'dervis','ByBado','bybado@gmail.com','e5a88636b50c779a7353c5c93bc36900','Sile','221231231',20,'Isik buradan yiyor','VISA, MASTERCARD, Cash','kori durumun en iyisi bizde','Isik Uni','11:00:00','22:00:00',2,'Turkish Food, International, Grid&Steak','Standard',2,0,0,'6iKazwVA');
-INSERT INTO `restaurant_owner` VALUES('lemankadikoy', 'murat', 'okus','Leman','lemankadikoy@gmail.com','d370b5a1ae62abeddb97ac4c91b6cae0','Kadikoy','12366234',150,'Genclerin en sevdigi mekan','VISA, MASTERCARD, Cash','butun gencleri bekliyoruz','Barlar Sokagi','17:00:00','24:00:00',2,'Turkish Food, International, Grid&Steak, Fish, French Food','Standard, Bar, High Top, Outdoor',3,0,0,'B1toq3qA');
+INSERT INTO `restaurant_owner` VALUES('lapulga', 'Lionel', 'Messi','Arjantin Midye','messigoat@gmail.com','c48441e989575be5b9c68af087510134','Umraniye','33724442',60,'Arjantinin temiz denizlerinden çıkmış midyeler su fiyatına gidiyor(Brezilyada daha pahalı)','AMEX, Diners Club, MasterCard, Visa','Midyeler denizden yeni cikma','Asagi Dudullu','8:00:00','24:00:00',3,'Fish, Turkish Food, Internation','Outdoor',1,0,0,'3iTIbwVA','0');
+INSERT INTO `restaurant_owner` VALUES('kingjames', 'Lebron', 'James','Taco Tuesday','lalakers@gmail.com','c48441e989575be5b9c68af087510134','Uskudar','33727742',100,'Yo whatup these tacos are so yummy and cheap','MasterCard, Visa','Tacolar cok guzeldi','Fistikagaci','10:00:00','22:00:00','2','Grid&Steak, International','Standard, Outdoor, High Top',2,0,0,'yDMXlcVE','0');
+INSERT INTO `restaurant_owner` VALUES('allfather', 'Odin', 'Borson','Iskandinav Kebap','valhalla@gmail.com','c48441e989575be5b9c68af087510134','Bagcilar','33728742',20,'Iskandinav lezzeti bir baska oluyor.','MasterCard, Visa','Iskandinav kebabı, yemezsen üzülürüm hesabı','Bagcilar Merkez','10:00:00','22:00:00','2','Fish, Grid&Steak','Standard, Outdoor',2,0,0,'tZSnxfBc','0');
+INSERT INTO `restaurant_owner` VALUES('cumpir', 'ahmet', 'dursun','KumPIr','cumpirci@gmail.com','d370b5a1ae62abeddb97ac4c91b6cae0','Ortakoy','22554782',25,'Ortakoyun en iyisi, yani dunyanin','VISA, MASTERCARD, Cash','boyle kumpir gorulmedi','Sahil','15:00:00','23:00:00',1,'Turkish Food','Standard',1,0,0,'3iTabwVA','0');
+INSERT INTO `restaurant_owner` VALUES('bybado', 'galip', 'dervis','ByBado','bybado@gmail.com','e5a88636b50c779a7353c5c93bc36900','Sile','221231231',20,'Isik buradan yiyor','VISA, MASTERCARD, Cash','kori durumun en iyisi bizde','Isik Uni','11:00:00','22:00:00',2,'Turkish Food, International, Grid&Steak','Standard',2,0,0,'6iKazwVA','0');
+INSERT INTO `restaurant_owner` VALUES('lemankadikoy', 'murat', 'okus','Leman','lemankadikoy@gmail.com','d370b5a1ae62abeddb97ac4c91b6cae0','Kadikoy','12366234',150,'Genclerin en sevdigi mekan','VISA, MASTERCARD, Cash','butun gencleri bekliyoruz','Barlar Sokagi','17:00:00','24:00:00',2,'Turkish Food, International, Grid&Steak, Fish, French Food','Standard, Bar, High Top, Outdoor',3,0,0,'B1toq3qA','0');
 
 
 INSERT INTO `rest_signup` VALUES(1,'lucashood','Lucas','Hood','Hood to Shoot','hood@gmail.com','c48441e989575be5b9c68af087510134','Bebek','12345','Bebek Merkez','11:00:00','21:00:00',50);
@@ -60,16 +60,16 @@ INSERT INTO `admin` VALUES ('drogba1905','didier','drogba','drogba@gmail.com','e
 INSERT INTO `admin` VALUES ('deliibo','ibrahim','uzulmez','ibo1903@gmail.com','e5a88636b50c779a7353c5c93bc36900','90rlyjS8');
 INSERT INTO `admin` VALUES ('madridli','sergio','ramos','ramos_madrid@gmail.com','e5a88636b50c779a7353c5c93bc36900','jF4Z9HOT');
 
-INSERT INTO `bookings` VALUES (1,'kelbero','lapulga',5,'20:00:00','22:00:00','Berat','Karacalar','berat54@gmail.com',05379235986,'2019-12-15');
-INSERT INTO `bookings` VALUES (2,'berbuser','kingjames',1,'15:00:00','16:00:00','Berke','Biten','beko@gmail.com',05373215346,'2019-12-26');
-INSERT INTO `bookings` VALUES (3,'berbuser','bybado',2,'15:00:00','16:00:00','Berke','Biten','beko@gmail.com',05373215346,'2019-12-13');
-INSERT INTO `bookings` VALUES (4,'kelbero','allfather',3,'10:00:00','12:00:00','Berat','Karacalar','berat54@gmail.com',05379235986,'2019-12-20');
-INSERT INTO `bookings` VALUES (5,'kelbero','lapulga',2,'20:00:00','23:00:00','Berat','Karacalar','berat54@gmail.com',05379235986,'2019-12-24');
-INSERT INTO `bookings` VALUES (6,'grayson34','cumpir',4,'19:00:00','20:00:00','Atakan','Unlu','grayson34@gmail.com',05359235986,'2019-12-11');
-INSERT INTO `bookings` VALUES (7,'grayson34','lemankadikoy',7,'19:00:00','23:00:00','Atakan','Unlu','grayson34@gmail.com',05359235986,'2019-12-26');
-INSERT INTO `bookings` VALUES (8,'grayson34','lemankadikoy',5,'19:00:00','23:00:00','Atakan','Unlu','grayson34@gmail.com',05359235986,'2019-12-20');
-INSERT INTO `bookings` VALUES (9,'grayson34','lemankadikoy',5,'18:00:00','22:00:00','Atakan','Unlu','grayson34@gmail.com',05359235986,'2019-12-12');
-INSERT INTO `bookings` VALUES (10,'elifdeniz','allfather',3,'17:00:00','20:00:00','Elif','Deniz','elifdeniz4@gmail.com',05359123986,'2019-12-24');
+INSERT INTO `bookings` VALUES (1,'kelbero','lapulga',5,'20:00:00','22:00:00','Berat','Karacalar','berat54@gmail.com',05379235986,'2019-12-15','0');
+INSERT INTO `bookings` VALUES (2,'berbuser','kingjames',1,'15:00:00','16:00:00','Berke','Biten','beko@gmail.com',05373215346,'2019-12-26','0');
+INSERT INTO `bookings` VALUES (3,'berbuser','bybado',2,'15:00:00','16:00:00','Berke','Biten','beko@gmail.com',05373215346,'2019-12-13','0');
+INSERT INTO `bookings` VALUES (4,'kelbero','allfather',3,'10:00:00','12:00:00','Berat','Karacalar','berat54@gmail.com',05379235986,'2019-12-20','0');
+INSERT INTO `bookings` VALUES (5,'kelbero','lapulga',2,'20:00:00','23:00:00','Berat','Karacalar','berat54@gmail.com',05379235986,'2019-12-24','0');
+INSERT INTO `bookings` VALUES (6,'grayson34','cumpir',4,'19:00:00','20:00:00','Atakan','Unlu','grayson34@gmail.com',05359235986,'2019-12-11','0');
+INSERT INTO `bookings` VALUES (7,'grayson34','lemankadikoy',7,'19:00:00','23:00:00','Atakan','Unlu','grayson34@gmail.com',05359235986,'2019-12-26','0');
+INSERT INTO `bookings` VALUES (8,'grayson34','lemankadikoy',5,'19:00:00','23:00:00','Atakan','Unlu','grayson34@gmail.com',05359235986,'2019-12-20','0');
+INSERT INTO `bookings` VALUES (9,'grayson34','lemankadikoy',5,'18:00:00','22:00:00','Atakan','Unlu','grayson34@gmail.com',05359235986,'2019-12-12','0');
+INSERT INTO `bookings` VALUES (10,'elifdeniz','allfather',3,'17:00:00','20:00:00','Elif','Deniz','elifdeniz4@gmail.com',05359123986,'2019-12-24','0');
 
 INSERT INTO `review` VALUES (1,'kelbero','lapulga','Cok guzel bir aksam gecirdim harika bi mekan burası.',3,2,'Tesekkurler.');
 INSERT INTO `review` VALUES (2,'kelbero','allfather','Dunyanin en guzel restorani olabilir.Tatlilarini ozellikle tavsiye ederim.',2,1,'Yine bekleriz.');

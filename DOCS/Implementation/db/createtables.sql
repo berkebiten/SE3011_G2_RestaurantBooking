@@ -45,6 +45,7 @@ CREATE TABLE `restaurant_owner` (
   `isBanned` tinyint(4) DEFAULT NULL,
   `warnCount` int(11) DEFAULT NULL,
   `recCode` varchar(45) NOT NULL,
+  `shutdown` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (`uname`)
 );
 
@@ -60,6 +61,7 @@ CREATE TABLE `bookings` (
   `email` varchar(45) NOT NULL,
   `phoneNo` varchar(45) NOT NULL,
   `date` date NOT NULL,
+  `is_suspended` tinyint(4) NOT NULL DEFAULT 0,
   PRIMARY KEY (bookingId),
   FOREIGN KEY (customer_uname) REFERENCES user(uname),
   FOREIGN KEY (restaurant_uname) REFERENCES restaurant_owner(uname)
