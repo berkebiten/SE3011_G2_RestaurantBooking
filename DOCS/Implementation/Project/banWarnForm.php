@@ -27,7 +27,7 @@ if (mysqli_num_rows($queryA) > 0) {
                 <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
             </div>
             <div id="formArea">
-                <?php echo "<form class='formX' method='post' action='banProcess.php?varname=$varname'>" ?>
+                <?php echo "<form class='formX' method='post' action='banWarnForm.php?varname=$varname'>" ?>
                 <?php include('errors.php') ?>
                 <div class="input-group">
                     <label>Username</label>

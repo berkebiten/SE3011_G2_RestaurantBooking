@@ -63,7 +63,7 @@ if (!isset($_SESSION['success'])) {
                                         $rest_uname = $row['uname'];
                                         if ($row['isBanned'] == 1) {
                                             echo "<tr> <td><a href='restaurantProfile.php?varname=$rest_uname'> " . $row["uname"] . "</a></td>"
-                                            . "<td> " . "Restaurant Owner" . "</td><td>" . "<a href='banWarnForm.php?varname=$rest_uname'><button>Unban</button></a>" . " </td> </tr>";
+                                            . "<td> " . "Restaurant Owner" . "</td><td>" . "<a href='unbanProcess.php?varname=$rest_uname'><button name='unban'>Unban</button></a>" . " </td> </tr>";
                                         } else {
                                             echo "<tr> <td><a href='restaurantProfile.php?varname=$rest_uname'> " . $row["uname"] . "</a></td>"
                                             . "<td> " . "Restaurant Owner" . "</td><td>" . "<a href='banWarnForm.php?varname=$rest_uname'><button>Ban/Warn</button></a>" . " </td> </tr>";
@@ -73,7 +73,7 @@ if (!isset($_SESSION['success'])) {
                                         $user_uname = $row2['uname'];
                                         if ($row2['isBanned'] == 1) {
                                             echo "<tr> <td><a href='userProfile.php?varname=$user_uname'> " . $row2["uname"] . "</a></td>"
-                                            . "<td> " . "User" . " </td> <td>" . "<a href='banWarnForm.php?varname=$user_uname'><button>Unban</button></a>" . "</td></tr>";
+                                            . "<td> " . "User" . " </td> <td>" . "<a href='unbanProcess.php?varname=$user_uname'><button name='unban'>Unban</button></a>" . "</td></tr>";
                                         } else {
                                             echo "<tr> <td><a href='userProfile.php?varname=$user_uname'> " . $row2["uname"] . "</a></td>"
                                             . "<td> " . "User" . " </td> <td>" . "<a href='banWarnForm.php?varname=$user_uname'><button>Ban/Warn</button></a>" . "</td></tr>";

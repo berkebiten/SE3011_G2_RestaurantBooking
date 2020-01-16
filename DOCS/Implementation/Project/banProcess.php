@@ -47,7 +47,7 @@ if ($isAdminViewing) { // CHECK IF THE VIEWER IS AN ADMIN OR NOT
                 $query5 = mysqli_query($conn, $sql5);
                 if ($type == 'Ban') {
                     $sql58 = "UPDATE user SET isBanned = '1' WHERE (uname = '$uname')";
-                    $query58 = mysqli_query($conn,$sql58);
+                    $query58 = mysqli_query($conn, $sql58);
                     array_push($feedbacks, "The user has been banned.");
                 } else {
                     array_push($feedbacks, "The user has been warned.");
@@ -71,7 +71,7 @@ if ($isAdminViewing) { // CHECK IF THE VIEWER IS AN ADMIN OR NOT
                 $query5 = mysqli_query($conn, $sql5);
                 if ($type == 'Ban') {
                     $sql58 = "UPDATE restaurant_owner SET isBanned = '1' WHERE (uname = '$uname')";
-                    $query58 = mysqli_query($conn,$sql58);
+                    $query58 = mysqli_query($conn, $sql58);
                     array_push($feedbacks, "The user has been banned.");
                 } else {
                     array_push($feedbacks, "The user has been warned.");
@@ -85,7 +85,9 @@ if ($isAdminViewing) { // CHECK IF THE VIEWER IS AN ADMIN OR NOT
                 }
             }
         } else {
-            
+            header('location:errorPage.php');
         }
     }
+} else {
+    header('location:errorPage.php');
 }
