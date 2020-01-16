@@ -1,6 +1,6 @@
 html{
     height:100%;
-    
+
 }
 body{
     height:100%;
@@ -75,14 +75,75 @@ body{
 }
 
 .container{
-    
+    min-height:900px;
     width:100%;
     height:auto;
     background:#D0D2D9;
+    border-left: 2px solid #828282;
+    border-right: 2px solid #828282;
+    border-bottom : 2px solid #828282;
 }
+
 #fullC{
-    
+
     height:auto;
+}
+
+.dropdown {
+    float:right;
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {    
+    border-radius:5px;
+    text-align:center;
+    top:55px;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 400px;
+    max-height:400px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    overflow-y:auto;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.notification {
+    float:right;
+    margin-top : 20px;
+    margin-right : 15px;
+    color:#ffffff;
+    text-decoration: none;
+    padding: 6px 12px;
+    position: relative;
+    display: inline-block;
+    box-shadow:inset 0px 1px 0px 0px #8EB9F5;
+    background:linear-gradient(to bottom, #388CF2 5%, #2068C7 100%);
+    background-color:#388CF2;
+    border-radius:6px;
+    border:1px solid #1953D1;
+    font-size:15px;
+    font-weight:bold;
+    text-shadow:0px 1px 0px #052482;
+}
+
+.notification:hover{
+    text-decoration:none;
+    color:#ffffff;
+}
+
+.notification .badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background-color: white;
+    color: black;
 }
 
 #support, .support{
@@ -101,6 +162,7 @@ body{
     text-decoration:none;
     text-shadow:0px 1px 0px #052482;
 }
+
 .container h1{
     text-align:center ;
     font-size:40px;
@@ -134,9 +196,8 @@ body{
 }
 
 .supportQA{
-    
+
     text-align:center;
-    background-color:white;
     margin:auto;
     width:50%;
     height:100%;
@@ -520,9 +581,9 @@ body{
 }
 
 table a{
-   text-decoration: underline;
-   color:black;
-   
+    text-decoration: underline;
+    color:black;
+
 }
 #viewTicketsTable tr {
     background-color: #8EB9F5;  
@@ -878,11 +939,13 @@ table a{
 
 .input-group {
     margin: 10px 0px 10px 0px;
+    text-align:left;
 }
-.input-group label {
-    display: block;
-    text-align: left;
-    margin: 3px;
+
+.input-group label{
+    letter-spacing: 0px;
+    word-spacing: 0px;
+    font-weight: bold;
 }
 .input-group input {
     height: 30px;
@@ -897,10 +960,10 @@ table a{
     text-align:center;
 }
 .uploadImageButton a{
-    
+
 }
 .formX button {
-   box-shadow:inset 0px 1px 0px 0px #f5978e;
+    box-shadow:inset 0px 1px 0px 0px #f5978e;
     background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
     background-color:#f24537;
     border-radius:6px;
@@ -1124,4 +1187,41 @@ table a{
     font-weight:bold;
     text-decoration:none;
     text-shadow:0px 1px 0px #810e05;
+}
+.myNotifications{
+    width:80%;
+    margin-top:40px;
+    margin-bottom:40px;
+    margin-left:auto;
+    margin-right:auto;
+    max-height:600px;
+    overflow-y:auto;
+}
+
+.myNotifications a:hover{
+    text-decoration:none;
+}
+.notificationBar{
+    width:90%;
+}
+.notificationCard{
+    width:80%;
+    margin:auto;
+    text-align:center;
+    background-color:white;
+    border-top:2px solid #388CF2;
+    border-bottom:2px solid #388CF2;
+    font-weight:bold;
+    color:#388CF2;
+}
+.notificationCard p{
+    font-size:17px;
+    margin:auto;
+    width:90%;
+    letter-spacing:1px;
+}
+.notificationCard:hover, .notificationCard a:hover{
+    color:white;
+    text-decoration:none;
+    background-color:#388CF2;
 }

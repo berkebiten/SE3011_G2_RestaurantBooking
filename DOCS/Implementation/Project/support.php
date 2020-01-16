@@ -80,7 +80,7 @@ if (isset($_SESSION['username'])) {
         </div>
 <?php endif ?>
     <!--END OF THE LOGGED IN USER-->
-    <h1 id ="supportHeader">F.A.Q</h1>
+    <h1 style="color:#388CF2;">F.A.Q</h1>
     <div class="supportQA">
         <p id ="question1">Question 1: </p> <p id ="question">I'm not getting any emails.What's wrong?</p><br>
 
