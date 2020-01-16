@@ -123,6 +123,7 @@ if($isBanned == 1){
                     //PRINT THE UPCOMING BOOKINGS
                     $date = date("Y-m-d");
                     $time = date("H:i:s");
+                    $time2 = date("H:i:s", strtotime('+4 hours', strtotime($time)));
                     $sqlB = "select * from bookings where customer_uname= '$vname' and date>='$date'"; //DATE OF THE BOOKING MUST BE AFTER THE CURRENT TIME
                     $queryB = mysqli_query($conn, $sqlB);
                     while ($row = mysqli_fetch_array($queryB, MYSQLI_ASSOC)) {
@@ -132,7 +133,7 @@ if($isBanned == 1){
                         $restName = mysqli_query($conn, $sqlR);
                         $rowR = mysqli_fetch_array($restName, MYSQLI_ASSOC);
                         if (!$isAdminViewing) { //IF THE PROFILE OWNER VIEWS THE PAGE SHOW THE EDIT AND CANCEL BUTTONS
-                            if (($date == $row['date'] && $time < $row['start_time']) || $date < $row['date']) {
+                            if (($date == $row['date'] && $time2 < $row['start_time']) || $date < $row['date']) {
                                 echo "<tr> <td>" . $rowR['rest_name'] . "</td>"
                                 . "<td> " . $row['date'] . " </td> <td>  <a href='editBookingForm.php?varname=$id'><button>Edit</button></a> "
                                 . "<br><br><button onclick=\"if (confirm('Are you sure want to cancel your booking?')) window.location.href='cancelBook.php?varname=$id';\">Cancel</button></td></tr>";

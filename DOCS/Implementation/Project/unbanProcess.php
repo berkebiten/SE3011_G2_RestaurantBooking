@@ -40,6 +40,7 @@ if ($isAdminViewing) { // CHECK IF THE VIEWER IS AN ADMIN OR NOT
             $queryU = mysqli_query($conn, $sqlU);
             $sql58 = "UPDATE restaurant_owner SET isBanned = '0' WHERE (uname = '$uname')";
             $query58 = mysqli_query($conn, $sql58);
+            header('location:Admin.php');
         }else {
             header('location:errorPage.php');
         }

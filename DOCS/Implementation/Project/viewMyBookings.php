@@ -37,6 +37,7 @@ if (!$isMyProfile) {
             <?php
             $date = date("Y-m-d");//CHANGE THE DATE FORMAT FOR THE COMPARISON 
             $time = date("H:i:s");//CHANGE THE TIME FORMAT FOR THE COMPARISON 
+            $time2 = date("H:i:s", strtotime('+4 hours', strtotime($time)));
             $sqlB = "select * from bookings where customer_uname= '$vname'"; //FIND THE USER'S BOOKINGS
             $queryB = mysqli_query($conn, $sqlB);
             while ($row = mysqli_fetch_array($queryB, MYSQLI_ASSOC)) {
@@ -45,13 +46,16 @@ if (!$isMyProfile) {
                 $restName = mysqli_query($conn, $sqlR);
                 $rowR = mysqli_fetch_array($restName, MYSQLI_ASSOC);
                 $id = $row['bookingId'];
-                if (($date == $row['date'] && $time < $row['start_time']) || $date < $row['date']) { //IF THE BOOKING IS NOT FINISHED SHOW THE EDIT AND CANCEL BUTTONS
+                if (($date == $row['date'] && $time2 < $row['start_time']) || $date < $row['date']) { //IF THE BOOKING IS NOT FINISHED SHOW THE EDIT AND CANCEL BUTTONS
                     echo "<tr> <td>" . $rowR['rest_name'] . "</td>"
                     . "<td> " . $row['date'] . " </td> <td> <a href='editBookingForm.php?varname=$id'><button>Edit</button></a> "
                     . "<br><br><button onclick=\"if (confirm('Are you sure want to cancel your booking?')) window.location.href='cancelBook.php?varname=$id';\">Cancel</button></td></tr>";
-                } else {
+                } else if (($date == $row['date'] && $time > $row['end_time']) || $date > $row['date']) {
                     echo "<tr> <td>" . $rowR['rest_name'] . "</td>" ////IF THE BOOKING IS FINISHED SHOW THE REVIEW BUTTON
                     . "<td> " . $row['date'] . " </td><td> <a href='reviewBooking.php?varname=$id'><button>Review</button> </a></td></tr>";
+                }else {
+                                      echo "<tr> <td>" . $rowR['rest_name'] . "</td>" ////IF THE BOOKING IS FINISHED SHOW THE REVIEW BUTTON
+                    . "<td> " . $row['date'] . " </td><td></td> </tr>";
                 }
             }
             ?>
