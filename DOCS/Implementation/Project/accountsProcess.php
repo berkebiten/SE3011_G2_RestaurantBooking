@@ -144,23 +144,68 @@ if (isset($_POST['restShutdown'])) {
     if (count($errors) == 0) {//IF THERE ARE NO ERRORS
         //DETERMINING THE USER TYPE
         $query2 = "SELECT * FROM restaurant_owner WHERE uname='$uname'";
+        $query3 = "SELECT * FROM bookings WHERE restaurant_uname='$uname'";
         $results2 = mysqli_query($conn, $query2);
+        $results3 = mysqli_query($conn, $query3);
         $array = array();
-
+        $array1 = array();
         //FILLING THE ARRAY RELATED TO USER TYPE
         if (mysqli_num_rows($results2) > 0) {
             $array = mysqli_fetch_array($results2, MYSQLI_ASSOC);
+        }
+        if(mysqli_num_rows($results3) > 0){
+            $array1 = mysqli_fetch_array($results3, MYSQLI_ASSOC);
         }
 
         if ($rest_uname == $array['uname']) {
             if (mysqli_num_rows($results2) == 1) {//IF ACCOUNT TYPE IS RESTAURANT OWNER
                 $shutdown = mysqli_query($conn, "UPDATE restaurant_owner SET shutdown = 1  WHERE (uname = '$rest_uname')");
-                session_destroy();
+                $suspend_bookings = mysqli_query($conn, "UPDATE bookings SET is_suspended = 1 WHERE (restaurant_uname = '$rest_uname')");
                 array_push($feedbacks, "Your restaurant has been shutdown.");
+                array_push($feedbacks, "All of the bookings made to your restaurant has been suspended.");
                 array_push($feedbacks, "You will be redirected to the homepage when you click 'OK' button.");
             }
         } else {
             array_push($errors, "Your username is not a restaurant owner username."); //IF CURRENT PASSWORD IS WRONG, PUSHING AN ERROR
+        }
+    }
+}
+
+if (isset($_POST['undoShutdown'])) {
+    //GET INPUTS FROM THE FORM
+    $rest_uname = $_SESSION['username'];
+
+    //CHECKING FIELDS' EMPTYNESS AND PUSHING ERRORS
+    if (empty($rest_uname)) {
+        array_push($errors, "Username is not defined..");
+    }
+
+    if (count($errors) == 0) {//IF THERE ARE NO ERRORS
+        //DETERMINING THE USER TYPE
+        $query2 = "SELECT * FROM restaurant_owner WHERE uname='$uname'";
+        $query3 = "SELECT * FROM bookings WHERE restaurant_uname='$uname'";
+        $results2 = mysqli_query($conn, $query2);
+        $results3 = mysqli_query($conn, $query3);
+        $array = array();
+        $array1 = array();
+        //FILLING THE ARRAY RELATED TO USER TYPE
+        if (mysqli_num_rows($results2) > 0) {
+            $array = mysqli_fetch_array($results2, MYSQLI_ASSOC);
+        }
+        if(mysqli_num_rows($results3) > 0){
+            $array1 = mysqli_fetch_array($results3, MYSQLI_ASSOC);
+        }
+
+        if ($rest_uname == $array['uname']) {
+            if (mysqli_num_rows($results2) == 1) {//IF ACCOUNT TYPE IS RESTAURANT OWNER
+                $shutdown = mysqli_query($conn, "UPDATE restaurant_owner SET shutdown = 0  WHERE (uname = '$rest_uname')");
+                $suspend_bookings = mysqli_query($conn, "UPDATE bookings SET is_suspended = 0 WHERE (restaurant_uname = '$rest_uname')");
+                array_push($feedbacks, "Your restaurant has been opened again.");
+                array_push($feedbacks, "All of the booking made to your restaurant are not suspended anymore.");
+                array_push($feedbacks, "You will be redirected to the homepage when you click 'OK' button.");
+            }
+        } else {
+            array_push($errors, "Your username is not a restaurant owner username.");
         }
     }
 }

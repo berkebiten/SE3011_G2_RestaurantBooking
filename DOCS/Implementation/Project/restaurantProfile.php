@@ -31,6 +31,10 @@ if (isset($_SESSION['username'])) {
 
 
     $vuname = $_GET['varname'];
+    $restsql = "select * from restaurant_owner where uname = '$vuname'";
+    $array = array();
+    $restquery = mysqli_query($conn, $restsql);
+    $array = mysqli_fetch_array($restquery, MYSQLI_ASSOC);
     if ($usercheck2 == $vuname) {
         $isMyProfile = true;
     }
@@ -106,7 +110,11 @@ $count2 = mysqli_num_rows($restImg);
     <div class="topprofile">
         <font  face="Century Gothic" size="8"><?php echo $rest_name ?></font>
         <?php if (isset($_SESSION['success']) && $isARestaurantViewing == false && $isAdminViewing == false): ?>
-            <?php echo "<a href='bookingForm.php?varname=$uname'><button>Reservation</button></a>" //IF THE USER IS CUSTOMER, THEN SHOW THE MAKE A RESERVATION BUTTON?>
+            <?php if ($array['shutdown'] == '0'): ?>
+                <?php echo "<a href='bookingForm.php?varname=$uname'><button>Reservation</button></a>" //IF THE USER IS CUSTOMER, THEN SHOW THE MAKE A RESERVATION BUTTON?>
+            <?php else : ?>
+                <?php echo "<a href='bookingForm.php?varname=$uname'><button disabled>This restaurant is suspended.</button></a>" //IF THE USER IS CUSTOMER, THEN SHOW THE MAKE A RESERVATION BUTTON?>
+            <?php endif ?>
             <?php
 //            IF THE FAVORITE TABLE HAS A ROW IN IT THEN PRINT A *, AND IF ITS NOT THEN ADD ADD FAVORITES BUTTON TO RESTAURANT
             $sqlFavorites = "select * from favorites where customer_uname='$usercheck2' and rest_uname='$uname'";

@@ -41,7 +41,11 @@ if (!isset($_SESSION['success'])) {
                         <h1> Panel </h1>
                         <li><a onclick="openBookings()">View Bookings of My Restaurant</a></li>
                         <li><a onclick="openAccountSettings()">Account Settings</a></li>
-                        <li><a onclick="openRestShutdown()">Restaurant Shutdown</a></li>
+                        <?php if ($restArray['shutdown'] == '0'): ?>
+                            <li><a onclick="openRestShutdown()">Restaurant Shutdown</a></li>
+                        <?php else : ?>
+                            <li><a onclick="openRestShutdown()">Restaurant Reopen</a></li>
+                        <?php endif ?>
                     </ul>
                 </div>
 
@@ -60,6 +64,7 @@ if (!isset($_SESSION['success'])) {
                                         <th>Name</th>
                                         <th>Surname</th>
                                         <th>Phone</th>
+                                        <th>Suspended</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -68,14 +73,17 @@ if (!isset($_SESSION['success'])) {
                                     $query1 = mysqli_query($conn, "select * from bookings where restaurant_uname = '$vari'");
                                     while ($bookArr = mysqli_fetch_array($query1, MYSQLI_ASSOC)) {
 
-                                        echo "<tr> <td>" . $bookArr['customer_uname'] . "</td>"
+                                        echo "<tr>"
+                                        . " <td>" . $bookArr['customer_uname'] . "</td>"
                                         . "<td> " . $bookArr['party'] . " </td> "
                                         . "<td> " . $bookArr['date'] . "</td>"
                                         . "<td> " . $bookArr['start_time'] . "</td>"
                                         . "<td> " . $bookArr['end_time'] . " </td> "
                                         . "<td> " . $bookArr['fname'] . "</td>"
                                         . "<td> " . $bookArr['lname'] . "</td>"
-                                        . "<td> " . $bookArr['phoneNo'] . "</td> </tr>";
+                                        . "<td> " . $bookArr['phoneNo'] . "</td> "
+                                        . "<td> " . $bookArr['is_suspended'] . "</td> "
+                                        . "</tr>";
                                     }
                                     ?>
 
@@ -134,17 +142,31 @@ if (!isset($_SESSION['success'])) {
                         </div>
                     </div>
                     <div class="adminsearchpart" id="restaurantShutdown">
-                        <div class="changePassword" id="formArea" >
-                            <form class="formX1" method="post" action="RestaurantOwner.php">
-                                <h1>Restaurant Shutdown</h1>
-                                <p>Do you really want to shutdown your restaurant?</p>
-                                <?php include('errors.php'); ?>
-                                <div class="input-group">
-                                    <button type="submit" class="btn" name="restShutdown">Yes</button>
-                                    <a href="RestaurantOwner.php"><button type="button" class="btn">No</button></a>
-                                </div>
-                            </form>
-                        </div>
+                        <?php if ($restArray['shutdown'] == '0'): ?>
+                            <div class="changePassword" id="formArea" >
+                                <form class="formX1" method="post" action="RestaurantOwner.php">
+                                    <h1>Restaurant Shutdown</h1>
+                                    <p>Do you really want to shutdown your restaurant?</p>
+                                    <?php include('errors.php'); ?>
+                                    <div class="input-group">
+                                        <button type="submit" class="btn" name="restShutdown">Yes</button>
+                                        <a href="RestaurantOwner.php"><button type="button" class="btn">No</button></a>
+                                    </div>
+                                </form>
+                            </div>
+                        <?php else : ?>
+                            <div class="changePassword" id="formArea" >
+                                <form class="formX1" method="post" action="RestaurantOwner.php">
+                                    <h1>Restaurant Shutdown</h1>
+                                    <p>Do you really want to open your restaurant again?</p>
+                                    <?php include('errors.php'); ?>
+                                    <div class="input-group">
+                                        <button type="submit" class="btn" name="undoShutdown">Yes</button>
+                                        <a href="RestaurantOwner.php"><button type="button" class="btn">No</button></a>
+                                    </div>
+                                </form>
+                            </div>
+                        <?php endif ?>
                     </div>
                     <div id="feedback">
                         <?php include('feedbacks.php') ?>
