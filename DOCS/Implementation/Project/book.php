@@ -44,6 +44,11 @@ $address = $restArray['address'];
 $start = $restArray['startTime'];
 $end = $restArray['endTime'];
 $cap = $restArray['cap'];
+$shutdown = $restArray['shutdown'];
+
+if($shutdown == '1'){
+    header('location:errorPage.php');
+}
 
 
 if (isset($_POST['booking'])) {// START OF THE INSERTION AFTER CLICKING THE BUTTON NAMES BOOKING

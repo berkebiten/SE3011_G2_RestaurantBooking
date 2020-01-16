@@ -1,4 +1,5 @@
 <?php
+include('bootstrapinclude.php');
 $dbname = "rbsdb"; // database name
 $conn = mysqli_connect("localhost", "root",""); //establishing connection with the database 
 if (!$conn) {

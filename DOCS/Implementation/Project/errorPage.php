@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="style.css"></link>
 <script src="scripts.js"></script>
 <?php
+include('bootstrapinclude.php');
 include('dbconnect.php');
 session_start();
 if (isset($_SESSION['username'])) {
