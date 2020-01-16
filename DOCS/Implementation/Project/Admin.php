@@ -57,17 +57,27 @@ if (!isset($_SESSION['success'])) {
                         <tbody>
                             <?php
                             //PRINTS ALL THE REGISTERED USERS 
-                            $query = mysqli_query($conn, "select uname from restaurant_owner ");
-                            $query2 = mysqli_query($conn, "select uname from user ");
+                            $query = mysqli_query($conn, "select * from restaurant_owner ");
+                            $query2 = mysqli_query($conn, "select * from user ");
                             while ($row = mysqli_fetch_array($query, MYSQLI_ASSOC)) {
                                 $rest_uname = $row['uname'];
-                                echo "<tr> <td><a href='restaurantProfile.php?varname=$rest_uname'> " . $row["uname"] . "</a></td>"
-                                . "<td> " . "Restaurant Owner" . " </td> </tr>";
+                                if ($row['isBanned'] == 1) {
+                                    echo "<tr> <td><a href='restaurantProfile.php?varname=$rest_uname'> " . $row["uname"] . "</a></td>"
+                                    . "<td> " . "Restaurant Owner" ."</td><td>". "<a href='banWarnForm.php?varname=$rest_uname'><button>Unban</button></a>" . " </td> </tr>";
+                                } else {
+                                    echo "<tr> <td><a href='restaurantProfile.php?varname=$rest_uname'> " . $row["uname"] . "</a></td>"
+                                    . "<td> " . "Restaurant Owner" ."</td><td>". "<a href='banWarnForm.php?varname=$rest_uname'><button>Ban/Warn</button></a>" . " </td> </tr>";
+                                }
                             }
                             while ($row2 = mysqli_fetch_array($query2, MYSQLI_ASSOC)) {
                                 $user_uname = $row2['uname'];
-                                echo "<tr> <td><a href='userProfile.php?varname=$user_uname'> " . $row2["uname"] . "</a></td>"
-                                . "<td> " . "User" . " </td> </tr>";
+                                if ($row2['isBanned'] == 1) {
+                                    echo "<tr> <td><a href='userProfile.php?varname=$user_uname'> " . $row2["uname"] . "</a></td>"
+                                    . "<td> " . "User" . " </td> <td>" . "<a href='banWarnForm.php?varname=$user_uname'><button>Unban</button></a>" . "</td></tr>";
+                                } else {
+                                    echo "<tr> <td><a href='userProfile.php?varname=$user_uname'> " . $row2["uname"] . "</a></td>"
+                                    . "<td> " . "User" . " </td> <td>" . "<a href='banWarnForm.php?varname=$user_uname'><button>Ban/Warn</button></a>" . "</td></tr>";
+                                }
                             }
                             ?>
 
@@ -259,7 +269,7 @@ if (!isset($_SESSION['success'])) {
                     </form>
                 </div>
             </div>
-<!--            FEEDBACKS-->
+            <!--            FEEDBACKS-->
             <div id="feedback">
                 <?php include('feedbacks.php') ?>
                 <?php if (count($feedbacks) > 0) : ?>
