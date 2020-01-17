@@ -111,7 +111,7 @@ if (isset($_POST['editBooking'])) {
     //CHECK IF THE PARTY SIZE FITS IN AVAILABLE CAPACITY AND MAKE THE RESERVATION
     if ($currentCap >= $party && count($errors) == 0) {
         $queryDelete = mysqli_query($conn, "delete from bookings where bookingId = '$bookId'");
-        $queryInsert = mysqli_query($conn, "insert into bookings VALUES('$bookId', '$c_username', '$r_username','$party','$startTime','$endTime','$fname','$lname','$email','$phone','$date')");
+        $queryInsert = mysqli_query($conn, "insert into bookings(customer_uname,restaurant_uname,party,start_time,end_time,fname,lname,email,phoneNo,date,is_suspended) VALUES('$c_username', '$r_username','$party','$startTime','$endTime','$fname','$lname','$email','$phone','$date',0)");
         $notification1SQL = "insert into notification(toName,text,link,isRead) values('$r_username','A Booking for your restaurant has been editted. Click to go to Restaurant Panel' ,'RestaurantOwner.php' ,0)";
         $notification2SQL = "insert into notification(toName,text,link,isRead) values('$c_username','You editted one of your bookings. Click to view Your Bookings' ,'viewMyBookings.php?varname=$c_username' ,0)";
         $queryNoti1 = mysqli_query($conn, $notification1SQL);

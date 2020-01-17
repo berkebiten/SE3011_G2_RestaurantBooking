@@ -70,7 +70,8 @@ if (isset($_SESSION['username'])) {
                                 </div>
                             </a>
 
-                            <?php $whilecount++;
+                            <?php
+                            $whilecount++;
                         endwhile
                         ?>
                         <?php
@@ -86,7 +87,8 @@ if (isset($_SESSION['username'])) {
 
                             </a>
 
-                            <?php $whilecount++;
+                            <?php
+                            $whilecount++;
                         endwhile
                         ?>
                         <a style="font-weight:bold;" href="notifications.php">See All</a>
@@ -94,8 +96,8 @@ if (isset($_SESSION['username'])) {
                 </div>
                 <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
 
-<?php endif ?>
-<?php if (!isset($_SESSION['success'])): //IF USER NOT LOGGED IN, SHOW GUEST HEADER   ?>
+            <?php endif ?>
+            <?php if (!isset($_SESSION['success'])): //IF USER NOT LOGGED IN, SHOW GUEST HEADER    ?>
 
                 <a href="restSignUp.php"><button  id="rsignup">Restaurant Sign Up</button></a>
                 <a href="signUp.php"><button id="signup" >Sign Up</button></a>
@@ -108,10 +110,10 @@ if (isset($_SESSION['username'])) {
         <div id="formArea">
             <?php echo "<form class='formX' method='post' action='bookingForm.php?varname=$uname'>" ?>
             <h1>Booking</h1>
-<?php include('errors.php') ?>
+            <?php include('errors.php') ?>
             <div class="input-group">
                 <label for="rName">Restaurant Name</label>
-                <input class="input" type="text" value="<?php echo $rest_name ?>" placeholder="<?php echo $rest_name //SEE THE RESTAURANT NAME BUT CAN ONLY READ   ?>" name="rName" readonly></input>
+                <input class="input" type="text" value="<?php echo $rest_name ?>" placeholder="<?php echo $rest_name //SEE THE RESTAURANT NAME BUT CAN ONLY READ     ?>" name="rName" readonly></input>
             </div>
             <div class="input-group">
                 <label for="date">Date</label>
@@ -170,8 +172,21 @@ if (isset($_SESSION['username'])) {
             </div>
             <div class="input-group">
                 <label for="phoneNo">Phone</label>
-                <input class="input" type="text" placeholder="Enter Phone Number" name="phoneNo" value="<?php echo $phone ?>" ></input>
+                <input class="input" type="tel" placeholder="Enter Phone Number" name="phoneNo" value="<?php echo $phone ?>" pattern="[0-9]{10}"></input>
+                <div class="help_text">
+                    <style>
+                        .fa-info-circle a{
+                            color:#E0AE43;
+                        }
+                        .fa-info-circle a:hover{
+                            color:darksalmon;
+                        }
+                    </style>
+                    <i class="fa fa-info-circle" style="color:black;" aria-hidden="true">  Write your phone number without zero(0) at the beginning and spaces. Ex: 5354023791 </i>
+
+                </div>
             </div>
+
             <div class="input-group">
                 <label for="fname">First Name</label>
                 <input class="input" type="text" placeholder="Enter First Name"name="fname" value="<?php echo $fname ?>"></input>
@@ -211,11 +226,11 @@ if (isset($_SESSION['username'])) {
         </div>
         <!--        GIVING FEEDBACK TO THE USER-->
         <div id="feedback">
-<?php include('feedbacks.php') ?>
+            <?php include('feedbacks.php') ?>
             <?php if (count($feedbacks) > 0) : ?>
                 <script> openFeedback();</script>
                 <button onclick="window.location.href = 'viewMyBookings.php?varname=<?php echo $_SESSION['username'] ?>'">OK</button>
-<?php endif ?>
+            <?php endif ?>
         </div>
     </div>
 </div>

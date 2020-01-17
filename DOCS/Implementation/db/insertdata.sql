@@ -41,7 +41,6 @@ INSERT INTO `restaurant_owner` VALUES('cumpir', 'ahmet', 'dursun','KumPIr','cump
 INSERT INTO `restaurant_owner` VALUES('bybado', 'galip', 'dervis','ByBado','bybado@gmail.com','e5a88636b50c779a7353c5c93bc36900','Sile','221231231',20,'Isik buradan yiyor','VISA, MASTERCARD, Cash','kori durumun en iyisi bizde','Isik Uni','11:00:00','22:00:00',2,'Turkish Food, International, Grid&Steak','Standard',2,0,0,'6iKazwVA','0');
 INSERT INTO `restaurant_owner` VALUES('lemankadikoy', 'murat', 'okus','Leman','lemankadikoy@gmail.com','d370b5a1ae62abeddb97ac4c91b6cae0','Kadikoy','12366234',150,'Genclerin en sevdigi mekan','VISA, MASTERCARD, Cash','butun gencleri bekliyoruz','Barlar Sokagi','17:00:00','24:00:00',2,'Turkish Food, International, Grid&Steak, Fish, French Food','Standard, Bar, High Top, Outdoor',3,0,0,'B1toq3qA','0');
 
-
 INSERT INTO `rest_signup` VALUES(1,'lucashood','Lucas','Hood','Hood to Shoot','hood@gmail.com','c48441e989575be5b9c68af087510134','Bebek','12345','Bebek Merkez','11:00:00','21:00:00',50);
 INSERT INTO `rest_signup` VALUES(2,'pankyrest','Ugur','Tas','Pankys Hall','ayibear@hotmail.com','c48441e989575be5b9c68af087510134','Eminonu','12345','Eminonu Pazari','11:00:00','21:00:00',670);
 INSERT INTO `rest_signup` VALUES(3, 'sinopmanti','Ali','Atahan','Meshur Sinop Manticisi','57sinob@gmail.com','c48441e989575be5b9c68af087510134','Sultanbeyli','12345','Sultanbeyli Merkez','11:00:00','21:00:00',150);
@@ -129,3 +128,45 @@ INSERT INTO favorites VALUES ('44','shakzy414','lemankadikoy');
 INSERT INTO favorites VALUES ('45','potwor13','lemankadikoy');
 INSERT INTO favorites VALUES ('46','stoppers45','allfather');
 INSERT INTO favorites VALUES ('47','utheneras','lemankadikoy');
+
+
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (1,'kelbero','Your restaurant application #1 has been approved','userProfile.php?varname=kelbero',1,'2020-01-16 06:43:00');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (2,'kelbero','SelamınaAleyküm','#',1,'2020-01-16 06:43:00');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (3,'kelbero','kolaygelsin','#',0,'2020-01-16 06:43:35');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (4,'kelbero','merhabakardess','#',1,'2020-01-16 06:43:35');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (5,'kelbero','ahahahahahahaha','#',0,'2020-01-16 06:43:51');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (6,'kelbero','adhsadasdhadadadhasudhasuhdhasuh','#',1,'2020-01-16 06:43:51');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (7,'lapulga','A booking has been made for your restaurant. Click to go to Restaurant Panel','RestaurantOwner.php',1,'2020-01-16 23:43:36');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (8,'kelbero','You made a booking. Click to view Your Bookings','viewMyBookings.php?varname=kelbero',1,'2020-01-16 23:43:36');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (9,'bitenov','You have been warned. Reason: warn','#',0,'2020-01-17 01:32:23');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (10,'darthali','You have been warned. Reason: im warning you','#',0,'2020-01-17 01:38:51');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (11,'bluffist43','You have been warned. Reason: warnnnn','#',0,'2020-01-17 01:40:09');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (12,'bitenov','You have been warned. Reason: warrrrr','#',0,'2020-01-17 01:41:27');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (13,'bitenov','You have been warned. Reason: wrrrr','#',0,'2020-01-17 01:43:27');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (14,'bitenov','You have been warned. Reason: wewewewew','#',0,'2020-01-17 01:43:32');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (15,'bitenov','You have been warned. Reason: ','#',0,'2020-01-17 01:43:35');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (16,'bitenov','You have been warned. Reason: ewewewew','#',0,'2020-01-17 01:43:38');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (17,'bitenov','You have been warned. Reason: trtwtwt','#',0,'2020-01-17 01:43:48');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (18,'bitenov','You have been warned. Reason: twtwtw','#',0,'2020-01-17 01:43:51');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (19,'bitenov','You have been warned. Reason: wtwtwtw','#',0,'2020-01-17 01:43:54');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (20,'bitenov','You have been warned. Reason: wtwtwtwtwtw','#',0,'2020-01-17 01:44:04');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (21,'bitenov','You have been warned. Reason: wtwtwtwtwtw','#',0,'2020-01-17 01:44:08');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (22,'bitenov','You have been warned. Reason: wtwtwtwtw','#',0,'2020-01-17 01:44:18');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (23,'bitenov','You have been warned. Reason: 1','#',0,'2020-01-17 01:46:56');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (24,'bitenov','You have been warned. Reason: 1','#',0,'2020-01-17 01:47:35');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (25,'kelbero','You submitted a request ticket. Click to view your request tickets.','viewMyTickets.php',1,'2020-01-17 03:47:04');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (30,'kelbero','You submitted a request ticket. Click to view your request tickets.','viewMyTickets.php',0,'2020-01-17 03:47:39');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (31,'aykut1907','A Request Ticket has been submitted. Click to go to Admin Panel.','Admin.php',0,'2020-01-17 03:47:40');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (32,'deliibo','A Request Ticket has been submitted. Click to go to Admin Panel.','Admin.php',0,'2020-01-17 03:47:40');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (33,'drogba1905','A Request Ticket has been submitted. Click to go to Admin Panel.','Admin.php',1,'2020-01-17 03:47:40');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (34,'madridli','A Request Ticket has been submitted. Click to go to Admin Panel.','Admin.php',0,'2020-01-17 03:47:40');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (35,'kelbero','Your RequestTicket#6 has been answered. Click to see the ticket.','viewTickets.php?varname=6',1,'2020-01-17 03:55:28');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (36,'lapulga','You submitted a request ticket. Click to view your request tickets.','viewMyTickets.php',0,'2020-01-17 03:56:11');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (37,'aykut1907','A Request Ticket has been submitted. Click to go to Admin Panel.','Admin.php',0,'2020-01-17 03:56:11');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (38,'deliibo','A Request Ticket has been submitted. Click to go to Admin Panel.','Admin.php',0,'2020-01-17 03:56:12');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (39,'drogba1905','A Request Ticket has been submitted. Click to go to Admin Panel.','Admin.php',0,'2020-01-17 03:56:12');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (40,'madridli','A Request Ticket has been submitted. Click to go to Admin Panel.','Admin.php',0,'2020-01-17 03:56:12');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (41,'lapulga','Your RequestTicket#8 has been answered. Click to see the ticket.','viewTickets.php?varname=8',1,'2020-01-17 03:56:31');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (42,'lapulga','A review has been made to your restaurant. Click to see your Reviews via your profile.','restaurantProfile.php?varname=lapulga',0,'2020-01-17 03:59:31');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (43,'lapulga','A review has been made to your restaurant. Click to see your Reviews via your profile.','restaurantProfile.php?varname=lapulga',1,'2020-01-17 04:01:01');
+INSERT INTO notification (`id`,`toName`,`text`,`link`,`isRead`,`date_sent`) VALUES (46,'kelbero','One of your Reviews has been answered by lapulga. Click to see the reviews via lapulga s Profile.','restaurantProfile.php?varname=lapulga',1,'2020-01-17 04:08:17');

@@ -18,8 +18,8 @@ if (!isset($_SESSION['username'])) {
         } else {
             $sql = "delete from bookings where bookingId='$vname'"; //DELETE THE BOOKING FROM DATABASE
             $query = mysqli_query($conn, $sql);
-            $notification1SQL = "insert into notification(toName,text,link,isRead) values('$r_username','A Booking for your restaurant has been canceled. Click to go to Restaurant Panel' ,'RestaurantOwner.php' ,0)";
-            $notification2SQL = "insert into notification(toName,text,link,isRead) values('$c_username','You canceled one of your bookings. Click to view Your Bookings' ,'viewMyBookings.php?varname=$c_username' ,0)";
+            $notification1SQL = "insert into notification(toName,text,link,isRead) values('$restaurant_uname','A Booking for your restaurant has been canceled. Click to go to Restaurant Panel' ,'RestaurantOwner.php' ,0)";
+            $notification2SQL = "insert into notification(toName,text,link,isRead) values('$customer_uname','You canceled one of your bookings. Click to view Your Bookings' ,'viewMyBookings.php?varname=$customer_uname' ,0)";
             $queryNoti1 = mysqli_query($conn, $notification1SQL);
             $queryNoti2 = mysqli_query($conn, $notification2SQL);
             header("location: viewMyBookings.php?varname=$uname");

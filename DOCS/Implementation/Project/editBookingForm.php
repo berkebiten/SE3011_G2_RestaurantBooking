@@ -66,7 +66,8 @@ if (isset($_SESSION['username'])) {
                     </a>
 
                     <?php $whilecount++;
-                endwhile ?>
+                endwhile
+                ?>
                 <?php
                 while ($row = mysqli_fetch_array($queryRead, MYSQLI_ASSOC)):
                     $text = $row['text'];
@@ -80,8 +81,9 @@ if (isset($_SESSION['username'])) {
 
                     </a>
 
-    <?php $whilecount++;
-endwhile ?>
+                    <?php $whilecount++;
+                endwhile
+                ?>
                 <a style="font-weight:bold;" href="notifications.php">See All</a>
             </div>
         </div>
@@ -168,11 +170,35 @@ endwhile ?>
                 </div>
                 <div class="input-group">
                     <label>Email</label>
-                    <input placeholder="Your Email Address" type="email" name="email" value="<?php echo $email ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+                    <input placeholder="Your Email Address" type="email" name="email" value="<?php echo $email ?>" pattern="[a-z0-9._%+-]+@gmail\.com$" title="Your email must be gmail type." />
+                    <div class="help_text">
+                        <style>
+                            .fa-info-circle a{
+                                color:#E0AE43;
+                            }
+                            .fa-info-circle a:hover{
+                                color:darksalmon;
+                            }
+                        </style>
+                        <i class="fa fa-info-circle" style="color:black;" aria-hidden="true">  Your e-mail must be gmail type. </i>
+
+                    </div>
                 </div>
                 <div class="input-group">
                     <label for="phoneNo">Phone</label>
-                    <input class="input" type="text" placeholder="Enter Phone Number" name="phoneNo" value="<?php echo $phone ?>" ></input>
+                    <input class="input" type="tel" placeholder="Enter Phone Number" name="phoneNo" value="<?php echo $phone ?>" pattern="[0-9]{10}"></input>
+                    <div class="help_text">
+                        <style>
+                            .fa-info-circle a{
+                                color:#E0AE43;
+                            }
+                            .fa-info-circle a:hover{
+                                color:darksalmon;
+                            }
+                        </style>
+                        <i class="fa fa-info-circle" style="color:black;" aria-hidden="true">  Write your phone number without zero(0) at the beginning and spaces. Ex: 5354023791 </i>
+
+                    </div>
                 </div>
                 <a href='editBook.php?varname=<?php echo $vname ?>'><button type='submit' class='btn' name='editBooking'>Edit Booking</button></a>
             </form>   

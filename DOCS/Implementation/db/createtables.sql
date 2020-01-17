@@ -145,3 +145,12 @@ FOREIGN KEY (customer_uname) REFERENCES user(uname),
 FOREIGN KEY (rest_uname) REFERENCES restaurant_owner(uname)
 );
 
+CREATE TABLE notification (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `toName` varchar(45) NOT NULL,
+  `text` longtext DEFAULT NULL,
+  `link` longtext DEFAULT NULL,
+  `isRead` tinyint(4) DEFAULT NULL,
+  `date_sent` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+);

@@ -402,7 +402,7 @@ if (isset($_POST['sub_request'])) { //STARTS WHEN CLICKING A BUTTON
         }
         //END OF INSERTING
         //SHOWING FEEDBACK
-        $adminnamesSQL = "SELECT uname FROM admin";
+        $adminnamesSQL = "SELECT * FROM admin";
         $queryAdminNames = mysqli_query($conn, $adminnamesSQL);
         while ($row = mysqli_fetch_array($queryAdminNames, MYSQLI_ASSOC)) {
             $uname45 = $row['uname'];
