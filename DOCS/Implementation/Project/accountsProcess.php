@@ -1,4 +1,5 @@
 <?php
+
 include('dbconnect.php');
 session_start();
 
@@ -160,7 +161,14 @@ if (isset($_POST['restShutdown'])) {
         if ($rest_uname == $array['uname']) {
             if (mysqli_num_rows($results2) == 1) {//IF ACCOUNT TYPE IS RESTAURANT OWNER
                 $shutdown = mysqli_query($conn, "UPDATE restaurant_owner SET shutdown = 1  WHERE (uname = '$rest_uname')");
-                $suspend_bookings = mysqli_query($conn, "UPDATE bookings SET is_suspended = 1 WHERE (restaurant_uname = '$rest_uname')");
+                $now = date("Y-m-d");
+                $suspend_bookings = mysqli_query($conn, "UPDATE bookings SET is_suspended = 1 WHERE restaurant_uname = '$rest_uname' and date>=$now");
+                $suspended_bookings = mysqli_query($conn, "SELECT * FROM bookings WHERE restaurant_uname = '$rest_uname' and date >= $now");
+                while ($row = mysqli_fetch_array($suspend_bookings, MYSQLI_ASSOC)) {
+                    $customer = $row['customer_uname'];
+                    $notification7SQL = "insert into notification(toName,text,link,isRead) values('$customer','One of your Bookings has been suspended due to Restaurant Shutdown. Suspended bookings will be unsuspended if restaurant reopens before the booking date. Click to see your bookings.' ,'viewMyBookings.php?varname=$customer' ,0)";
+                    $queryNoti7 = mysqli_query($conn, $notification7SQL);
+                }
                 array_push($feedbacks, "Your restaurant has been shutdown.");
                 array_push($feedbacks, "All of the bookings made to your restaurant has been suspended.");
                 array_push($feedbacks, "You will be redirected to the homepage when you click 'OK' button.");
@@ -200,6 +208,12 @@ if (isset($_POST['undoShutdown'])) {
             if (mysqli_num_rows($results2) == 1) {//IF ACCOUNT TYPE IS RESTAURANT OWNER
                 $shutdown = mysqli_query($conn, "UPDATE restaurant_owner SET shutdown = 0  WHERE (uname = '$rest_uname')");
                 $suspend_bookings = mysqli_query($conn, "UPDATE bookings SET is_suspended = 0 WHERE (restaurant_uname = '$rest_uname')");
+                $unsuspended_bookings = mysqli_query($conn, "SELECT * FROM bookings WHERE restaurant_uname = '$rest_uname' and date >= $now");
+                while ($row = mysqli_fetch_array($suspend_bookings, MYSQLI_ASSOC)) {
+                    $customer = $row['customer_uname'];
+                    $notification7SQL = "insert into notification(toName,text,link,isRead) values('$customer','One of your Bookings has been Unsuspended due to Restaurant Reopen. Click to see your bookings.' ,'viewMyBookings.php?varname=$customer' ,0)";
+                    $queryNoti7 = mysqli_query($conn, $notification7SQL);
+                }
                 array_push($feedbacks, "Your restaurant has been opened again.");
                 array_push($feedbacks, "All of the booking made to your restaurant are not suspended anymore.");
                 array_push($feedbacks, "You will be redirected to the homepage when you click 'OK' button.");
@@ -254,12 +268,14 @@ if (isset($_POST['acceptBooking'])) {
         $query1 = "DELETE FROM rest_signup WHERE uname='$restuname'"; // DELETING THE RESTAURANT APPLICATION FROM THE TABLE
         mysqli_query($conn, $query1);
         $subject = "Restaurant Sign Up";
-        $body = "Welcome to our Restaurant Booking System. Your registration is accepted. :)";
+        $body = "Welcome to Restaurant Booking System. Your registration is accepted. :)";
         $headers = "From: Restaurant Booking System";
 
         if (mail($rest_email, $subject, $body, $headers)) { // SENDING MAIL TO THE OWNER OF THE RESTAURANT THAT ACCEPTED TO THE SITE
             array_push($feedbacks, "Email successfully sent to " . $rest_email . ". About being accepted."); // INITIALIZING FEEDBACK THAT SAYS MAIL IS SENT
         }
+        $notification1SQL = "insert into notification(toName,text,link,isRead) values('$rest_name','Your Sign-Up has been accepted. Welcome to RBS, Click to start setting-up your profile.' ,'restaurantProfile.php?varname=$rest_name' ,0)";
+        $queryNoti1 = mysqli_query($conn, $notification1SQL);
     }
 }
 

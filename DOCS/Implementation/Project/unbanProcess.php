@@ -31,14 +31,14 @@ if ($isAdminViewing) { // CHECK IF THE VIEWER IS AN ADMIN OR NOT
 
     
         if ($isUser) {
-            $sqlU = "delete from ban_warn where user_uname='$uname' and type='Ban'";
+            $sqlU = "delete from ban_warn where user_uname='$uname' and type=0";
             $queryU = mysqli_query($conn, sqlU);
-            $sql58 = "UPDATE user SET isBanned = '0' WHERE (uname = '$uname')";
+            $sql58 = "UPDATE user SET isBanned = 0,warnCount=0 WHERE uname = '$uname'";
             $query58 = mysqli_query($conn, $sql58);
         } else if ($isRestaurant) {
-            $sqlU = "delete from ban_warn where rest_uname='$uname' and type='Ban'";
+            $sqlU = "delete from ban_warn where rest_uname='$uname' and type=0";
             $queryU = mysqli_query($conn, $sqlU);
-            $sql58 = "UPDATE restaurant_owner SET isBanned = '0' WHERE (uname = '$uname')";
+            $sql58 = "UPDATE restaurant_owner SET isBanned = 0,warnCount=0 WHERE uname = $uname";
             $query58 = mysqli_query($conn, $sql58);
             header('location:Admin.php');
         }else {

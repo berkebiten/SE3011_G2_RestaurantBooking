@@ -27,6 +27,11 @@ $restArray = mysqli_fetch_assoc($query);
 $start1 = $restArray['startTime'];
 $end1 = $restArray['endTime'];
 ?>
+<?php
+if (isset($_SESSION['username'])) {
+    include('notificationCounter.php');
+}
+?>
 
 <html>
     <body>
@@ -37,10 +42,60 @@ $end1 = $restArray['endTime'];
                 <a href="SignOut.php"><button  id="signout">Sign Out </button></a>
                 <a href='userProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
                 <a href ="support.php"><button id ="support"> Support</button> </a>
+
+
+
+                <div class="dropdown">
+                    <a href="notifications.php" class="notification">
+                        <i class="fa fa-bell" aria-hidden="true"></i>
+                        <?php if ($unreadCount > 0): ?>
+                            <span class = "badge"><?php echo $unreadCount;
+                            ?></span>
+                        <?php endif ?>
+                    </a>
+                    <div class="dropdown-content">
+                        <p style="font-weight:bold;font-size:20px;"> Notifications </p>
+                        <?php
+                        $whilecount = 1;
+                        while ($row = mysqli_fetch_array($queryUnread, MYSQLI_ASSOC)):
+                            $date_sent = $row['date_sent'];
+                            $date_sent = date("m/d/y H:m", strtotime($date_sent));
+                            $text = $row['text'];
+                            $link = $row['link'];
+                            ?>
+                            <a href="notificationRedirect.php?varname=<?php echo $row['id']; ?>">
+
+                                <div style="width:100%;" class="notificationCard">
+                                    <p style="color:black;font-size:12px;"><?php echo $date_sent ?></p><p><?php echo $text; ?><p><i class="fa fa-circle" aria-hidden="true"></i>
+                                </div>
+                            </a>
+
+                            <?php $whilecount++;
+                        endwhile
+                        ?>
+                        <?php
+                        while ($row = mysqli_fetch_array($queryRead, MYSQLI_ASSOC)):
+                            $text = $row['text'];
+                            $link = $row['link'];
+                            ?>
+                            <a href="notificationRedirect.php?varname=<?php echo $date_sent ?>">
+
+                                <div style="background-color:#388CF2;color:white;border-color:white;width:100%;" class="notificationCard">
+                                    <p style="color:white;font-size:12px;"><?php echo $row['date_sent'] ?></p><p><?php echo $text; ?><p><i class="fa fa-check-circle" aria-hidden="true"></i>
+                                </div>
+
+                            </a>
+
+                            <?php $whilecount++;
+                        endwhile
+                        ?>
+                        <a style="font-weight:bold;" href="notifications.php">See All</a>
+                    </div>
+                </div>
                 <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
 
-            <?php endif ?>
-            <?php if (!isset($_SESSION['success'])): //IF USER NOT LOGGED IN, SHOW GUEST HEADER ?>
+<?php endif ?>
+<?php if (!isset($_SESSION['success'])): //IF USER NOT LOGGED IN, SHOW GUEST HEADER   ?>
 
                 <a href="restSignUp.php"><button  id="rsignup">Restaurant Sign Up</button></a>
                 <a href="signUp.php"><button id="signup" >Sign Up</button></a>
@@ -53,10 +108,10 @@ $end1 = $restArray['endTime'];
         <div id="formArea">
             <?php echo "<form class='formX' method='post' action='bookingForm.php?varname=$uname'>" ?>
             <h1>Booking</h1>
-            <?php include('errors.php') ?>
+<?php include('errors.php') ?>
             <div class="input-group">
                 <label for="rName">Restaurant Name</label>
-                <input class="input" type="text" value="<?php echo $rest_name ?>" placeholder="<?php echo $rest_name //SEE THE RESTAURANT NAME BUT CAN ONLY READ ?>" name="rName" readonly></input>
+                <input class="input" type="text" value="<?php echo $rest_name ?>" placeholder="<?php echo $rest_name //SEE THE RESTAURANT NAME BUT CAN ONLY READ   ?>" name="rName" readonly></input>
             </div>
             <div class="input-group">
                 <label for="date">Date</label>
@@ -64,7 +119,7 @@ $end1 = $restArray['endTime'];
             </div>
 
             <div class="input-group">
-                
+
                 <label for="time">Start Time</label>
                 <select class="input" type="time" name="startTime" >
                     <?php
@@ -72,11 +127,10 @@ $end1 = $restArray['endTime'];
                     $start_time = $start1;
                     $end_time = $end1;
                     while (strtotime($start_time) < strtotime($end_time)) { // CHECKING IF START TIME IS LESS THAN END TIME OF IS LOOP UNTIL IT IS NOT
-
                         if (strtotime($start_time) === strtotime("23:59:00")) { // CHECKING THE START TIME IF IT IS 23:59:00 AND PRINT 24:00:00 INSTEAD
                             echo "<option value=" . $start_time . ">" . "24:00:00" . "</option>";
                         } else {
-                            echo "<option value=" . $start_time . ">" . $start_time . "</option>";// IF THE START TIME IS NOT 23:59:00 PRINTING THE START TIME WITH ITS ORIGINAL VALUE
+                            echo "<option value=" . $start_time . ">" . $start_time . "</option>"; // IF THE START TIME IS NOT 23:59:00 PRINTING THE START TIME WITH ITS ORIGINAL VALUE
                         }
 
                         if (strtotime($start_time) === strtotime("23:59:00")) { // IF START TIME IS 23:59:00 BREAK THE LOOP
@@ -97,13 +151,12 @@ $end1 = $restArray['endTime'];
                     $start_time2 = date("H:i:s", strtotime('+1 hour', strtotime($start1))); // ADDING ONE HOUR TO THE START TIME BECAUSE THE USER CANNOT CHOSE SAME HOURS TO START AND END TIME
                     $end_time2 = $end1;
                     while (strtotime($start_time2) <= strtotime($end_time2)) { // CHECKING IF START TIME IS LESS THAN END TIME OF IS LOOP UNTIL IT IS NOT
-
                         if (strtotime($start_time2) === strtotime("23:59:00")) { // CHECKING THE START TIME IF IT IS 23:59:00 AND PRINT 24:00:00 INSTEAD
                             echo "<option value=" . $start_time2 . ">" . "24:00:00" . "</option>";
                         } else {
                             echo "<option value=" . $start_time2 . ">" . $start_time2 . "</option>"; // IF THE START TIME IS NOT 23:59:00 PRINTING THE START TIME WITH ITS ORIGINAL VALUE
                         }
-                        
+
                         if (strtotime($start_time2) === strtotime("23:59:00")) { // IF START TIME IS 23:59:00 BREAK THE LOOP
                             break;
                         } else if (strtotime($start_time2) === strtotime("23:00:00")) { // CHECKING IF THE START TIME IS 23:00:00
@@ -130,17 +183,17 @@ $end1 = $restArray['endTime'];
             <div class="input-group">
                 <label>Email</label>
                 <input placeholder="Your Email Address" type="email" name="email" value="<?php echo $email ?>" pattern="[a-z0-9._%+-]+@gmail\.com$" title="Your email must be gmail type." />
-                          <div class="help_text">
+                <div class="help_text">
                     <style>
                         .fa-info-circle a{
-                          color:#E0AE43;
+                            color:#E0AE43;
                         }
                         .fa-info-circle a:hover{
                             color:darksalmon;
                         }
                     </style>
                     <i class="fa fa-info-circle" style="color:black;" aria-hidden="true">  Your e-mail must be gmail type. </i>
-                    
+
                 </div>
             </div>
             <div class="input-group">
@@ -156,13 +209,13 @@ $end1 = $restArray['endTime'];
             </form>
 
         </div>
-<!--        GIVING FEEDBACK TO THE USER-->
+        <!--        GIVING FEEDBACK TO THE USER-->
         <div id="feedback">
-            <?php include('feedbacks.php') ?>
+<?php include('feedbacks.php') ?>
             <?php if (count($feedbacks) > 0) : ?>
                 <script> openFeedback();</script>
                 <button onclick="window.location.href = 'viewMyBookings.php?varname=<?php echo $_SESSION['username'] ?>'">OK</button>
-            <?php endif ?>
+<?php endif ?>
         </div>
     </div>
 </div>

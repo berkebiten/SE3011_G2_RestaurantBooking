@@ -37,6 +37,11 @@ if($isBanned == 1){
     header('location:banned.php');
 }
 ?>
+<?php
+if (isset($_SESSION['username'])) {
+    include('notificationCounter.php');
+}
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -56,17 +61,53 @@ if($isBanned == 1){
         <?php if (!$isAdminViewing): ?>
             <a href ="support.php"><button id ="support"> Support</button> </a>
         <?php endif ?>
+            <div class="dropdown">
+                <a href="notifications.php" class="notification">
+                    <i class="fa fa-bell" aria-hidden="true"></i>
+                    <?php if ($unreadCount > 0): ?>
+                        <span class = "badge"><?php echo $unreadCount;
+                        ?></span>
+                    <?php endif ?>
+                </a>
+                <div class="dropdown-content">
+                    <p style="font-weight:bold;font-size:20px;"> Notifications </p>
+                    <?php
+                    $whilecount = 1;
+                    while ($row = mysqli_fetch_array($queryUnread, MYSQLI_ASSOC)):
+                        $date_sent = $row['date_sent'];
+                        $date_sent = date("m/d/y H:m", strtotime($date_sent));
+                        $text = $row['text'];
+                        $link = $row['link'];
+                        ?>
+                        <a href="notificationRedirect.php?varname=<?php echo $row['id']; ?>">
+
+                            <div style="width:100%;" class="notificationCard">
+                                <p style="color:black;font-size:12px;"><?php echo $date_sent ?></p><p><?php echo $text; ?><p><i class="fa fa-circle" aria-hidden="true"></i>
+                            </div>
+                        </a>
+
+                        <?php $whilecount++; endwhile?>
+                    <?php
+                    while ($row = mysqli_fetch_array($queryRead, MYSQLI_ASSOC)):
+                        $text = $row['text'];
+                        $link = $row['link'];
+                        ?>
+                        <a href="notificationRedirect.php?varname=<?php echo $date_sent ?>">
+
+                            <div style="background-color:#388CF2;color:white;border-color:white;width:100%;" class="notificationCard">
+                                <p style="color:white;font-size:12px;"><?php echo $row['date_sent'] ?></p><p><?php echo $text; ?><p><i class="fa fa-check-circle" aria-hidden="true"></i>
+                            </div>
+
+                        </a>
+
+                        <?php $whilecount++; endwhile ?>
+                    <a style="font-weight:bold;" href="notifications.php">See All</a>
+                </div>
+            </div>
         <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>   
     </div>
 
     <div id="fullProfile">
-        <div id="personalInfos">
-            <!--        PRINT THE USER'S INFORMATIONS-->
-            <p><?php echo $vname ?></p>
-            <p>First Name: <?php echo $firstname ?> </p>
-            <p>Last Name: <?php echo $lastname ?></p>
-            <p>Email: <?php echo $email ?></p>
-        </div>
         <div id='profileButtons'>
             <?php if ($isAdminViewing): //IF THE ADMIN VIEWS THE PAGE SHOW THE BAN AND WARN BUTTONS?>
                 <?php echo "<a href='banWarnForm.php?varname=$vname'><button>Ban/Warn User</button></a>" ?>
@@ -74,6 +115,14 @@ if($isBanned == 1){
                 <a href="accountSettings.php"<button>Account Settings</button></a>
             <?php endif ?>
         </div>
+        <div id="personalInfos">
+            <!--        PRINT THE USER'S INFORMATIONS-->
+            <p><?php echo $vname ?></p>
+            <p>First Name: <?php echo $firstname ?> </p>
+            <p>Last Name: <?php echo $lastname ?></p>
+            <p>Email: <?php echo $email ?></p>
+        </div>
+        
         <div class='stats' id="favRest">
             <h4>Favorite Restaurants</h4>
             <table id="userProfileTable">

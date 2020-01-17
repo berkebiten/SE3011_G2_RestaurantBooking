@@ -34,52 +34,72 @@ if ($isAdminViewing) { // CHECK IF THE VIEWER IS AN ADMIN OR NOT
         $bwId = null;
         $reason = filter_input(INPUT_POST, 'reason');
         $type = filter_input(INPUT_POST, 'type');
+        if ($type == 'ban') {
+            $type = 0;
+        } else {
+            $type = 1;
+        }
 
 
         if ($isUser) {
-            $sql6 = "select * from ban_warn where ((user_uname='$uname') && (type='ban'))";
+            $sql6 = "select * from user where uname='$uname'";
             $query6 = mysqli_query($conn, $sql6);
-            if (mysqli_num_rows($query6) > 0) {
-                array_push($errors, "The user has already banned");
+            $array6 = mysqli_fetch_array($query6,MYSQLI_ASSOC);
+            if ($array6['isBanned'] == 1) {
+                array_push($errors, "The user is already banned");
             }
             if (count($errors) == 0) {
-                $sql5 = "insert into ban_warn(bwId,type,admin_uname,user_uname,reason) values('$bwId','$type','$usercheck2','$uname','$reason')";
+                $sql5 = "insert into ban_warn(type,admin_uname,user_uname,reason) values('$type','$usercheck2','$uname','$reason')";
                 $query5 = mysqli_query($conn, $sql5);
-                if ($type == 'Ban') {
-                    $sql58 = "UPDATE user SET isBanned = '1' WHERE (uname = '$uname')";
+                if ($type == 0) {
+                    $sql58 = "UPDATE user SET isBanned = 1 WHERE uname = '$uname'";
                     $query58 = mysqli_query($conn, $sql58);
                     array_push($feedbacks, "The user has been banned.");
                 } else {
                     array_push($feedbacks, "The user has been warned.");
-                    $sqlW = "select count(*) as count from ban_warn where user_uname='$uname' && type='warn'";
+                    $sqlW = "select * from user where uname='$uname'";
                     $queryW = mysqli_query($conn, $sqlW);
                     $arrayW = mysqli_fetch_assoc($queryW);
-                    if ($arrayW['count'] == 10) {
-                        $sqlBAN = "insert into ban_warn(bwId,type,admin_uname,user_uname,reason) values('$bwId','Ban','$usercheck2','$uname','User has 10 warnings')";
+                    $notification2SQL = "insert into notification(toName,text,link,isRead) values('$uname','You have been warned. Reason: $reason' ,'#' ,0)";
+                    $queryNoti2 = mysqli_query($conn, $notification2SQL);
+                    $warnCount2 = $arrayW['warnCount'] + 1;
+                    $sql58 = "UPDATE user SET warnCount = $warnCount2 WHERE uname = '$uname'";
+                    $query58 = mysqli_query($conn, $sql58);
+                    if ($arrayW['warnCount'] >= 10) {
+                        $sqlBAN = "insert into ban_warn(bwId,type,admin_uname,user_uname,reason) values('$bwId',0,'$usercheck2','$uname','User has 10 warnings')";
                         $queryBAN = mysqli_query($conn, $sqlBAN);
+                        $sql58 = "UPDATE user SET isBanned = 1 WHERE uname = '$uname'";
+                        $query59 = mysqli_query($conn, $sql58);
+                        array_push($feedbacks, "The user has been banned. Because warn count reached the limit");
                     }
                 }
             }
         } else if ($isRestaurant) {
-            $sql6 = "select * from ban_warn where ((rest_uname='$uname') && (type='ban'))";
+            $sql6 = "select * from restaurant_owner where uname='$uname' and isBanned=0";
             $query6 = mysqli_query($conn, $sql6);
-            if (mysqli_num_rows($query6) > 0) {
-                array_push($errors, "The user has already banned");
+            $array6 = mysqli_fetch_array($query6,MYSQLI_ASSOC);
+            if ($array6['isBanned'] == 1) {
+                array_push($errors, "The restaurant is already banned");
             }
             if (count($errors) == 0) {
-                $sql5 = "insert into ban_warn(bwId,type,admin_uname,rest_uname,reason) values('$bwId','$type','$usercheck2','$uname','$reason')";
+                $sql5 = "insert into ban_warn(type,admin_uname,rest_uname,reason) values('$type','$usercheck2','$uname','$reason')";
                 $query5 = mysqli_query($conn, $sql5);
-                if ($type == 'Ban') {
-                    $sql58 = "UPDATE restaurant_owner SET isBanned = '1' WHERE (uname = '$uname')";
+                if ($type == 0) {
+                    $sql58 = "UPDATE restaurant_owner SET isBanned = 1 WHERE uname = '$uname'";
                     $query58 = mysqli_query($conn, $sql58);
-                    array_push($feedbacks, "The user has been banned.");
+                    array_push($feedbacks, "The restaurant has been banned.");
                 } else {
-                    array_push($feedbacks, "The user has been warned.");
-                    $sqlW = "select count(*) as count from ban_warn where rest_uname='$uname' && type='warn'";
+                    array_push($feedbacks, "The restaurant has been warned.");
+                    $sqlW = "select * from restaurant_owner where uname='$uname'";
                     $queryW = mysqli_query($conn, $sqlW);
                     $arrayW = mysqli_fetch_assoc($queryW);
-                    if ($arrayW['count'] == 10) {
-                        $sqlBAN = "insert into ban_warn(bwId,type,admin_uname,rest_uname,reason) values('$bwId','Ban','$usercheck2','$uname','User has 10 warnings')";
+                    $notification2SQL = "insert into notification(toName,text,link,isRead) values('$uname','You have been warned. Reason: $reason' ,'#' ,0)";
+                    $queryNoti2 = mysqli_query($conn, $notification2SQL);
+                    $warnCount2 = $arrayW['warnCount'] + 1;
+                    $sql58 = "UPDATE restaurant_owner SET warnCount = $warnCount2 WHERE uname = '$uname'";
+                    $query58 = mysqli_query($conn, $sql58);
+                    if ($arrayW['warnCount'] >= 10) {
+                        $sqlBAN = "insert into ban_warn(bwId,type,admin_uname,rest_uname,reason) values('$bwId',1,'$usercheck2','$uname','Restaurant has 10 warnings')";
                         $queryBAN = mysqli_query($conn, $sqlBAN);
                     }
                 }

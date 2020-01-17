@@ -112,6 +112,10 @@ if (isset($_POST['editBooking'])) {
     if ($currentCap >= $party && count($errors) == 0) {
         $queryDelete = mysqli_query($conn, "delete from bookings where bookingId = '$bookId'");
         $queryInsert = mysqli_query($conn, "insert into bookings VALUES('$bookId', '$c_username', '$r_username','$party','$startTime','$endTime','$fname','$lname','$email','$phone','$date')");
+        $notification1SQL = "insert into notification(toName,text,link,isRead) values('$r_username','A Booking for your restaurant has been editted. Click to go to Restaurant Panel' ,'RestaurantOwner.php' ,0)";
+        $notification2SQL = "insert into notification(toName,text,link,isRead) values('$c_username','You editted one of your bookings. Click to view Your Bookings' ,'viewMyBookings.php?varname=$c_username' ,0)";
+        $queryNoti1 = mysqli_query($conn, $notification1SQL);
+        $queryNoti2 = mysqli_query($conn, $notification2SQL);
         array_push($feedbacks, "Your booking has been editted.");
         array_push($feedbacks, "You will be redirected to Your Bookings when you click 'OK' button.");
     } else if (!($currentCap >= $party)) {

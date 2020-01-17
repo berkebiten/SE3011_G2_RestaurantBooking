@@ -372,7 +372,7 @@ if (isset($_POST['sub_request'])) { //STARTS WHEN CLICKING A BUTTON
     $result = mysqli_query($conn, $ticket_check_query);
     $count = mysqli_num_rows($result);
     if ($count >= 5) {
-        array_push($errors, "You must wait until one of your requests is responded.");
+        array_push($errors, "You have more than 4 open requests. You must wait until one of your requests is responded.");
     }
     //END OF SHOWING UNRESPONDED ERROR.
 //IF THERE ARE NO ERROR, FIRST CHECK IF IT IS USER OR RESTAURANT OWNER AND ADD IT INTO VARIABLE.
@@ -392,12 +392,23 @@ if (isset($_POST['sub_request'])) { //STARTS WHEN CLICKING A BUTTON
         if ($variable == "user_uname") {
             $query4 = "INSERT INTO ticket(user_uname,category, description, date, isResponded)  VALUES('$username','$category','$textArea','$date','0')";
             mysqli_query($conn, $query4);
+            $notification2SQL = "insert into notification(toName,text,link,isRead) values('$username','You submitted a request ticket. Click to view your request tickets.' ,'viewMyTickets.php' ,0)";
+            $queryNoti2 = mysqli_query($conn, $notification2SQL);
         } else if ($variable == "rest_uname") {
             $query5 = "INSERT INTO ticket(rest_uname,category, description, date, isResponded)  VALUES('$username','$category','$textArea','$date','0')";
             mysqli_query($conn, $query5);
+            $notification2SQL = "insert into notification(toName,text,link,isRead) values('$username','You submitted a request ticket. Click to view your request tickets.' ,'viewMyTickets.php' ,0)";
+            $queryNoti2 = mysqli_query($conn, $notification2SQL);
         }
         //END OF INSERTING
         //SHOWING FEEDBACK
+        $adminnamesSQL = "SELECT uname FROM admin";
+        $queryAdminNames = mysqli_query($conn, $adminnamesSQL);
+        while ($row = mysqli_fetch_array($queryAdminNames, MYSQLI_ASSOC)) {
+            $uname45 = $row['uname'];
+            $notification3SQL = "insert into notification(toName,text,link,isRead) values('$uname45','A Request Ticket has been submitted. Click to go to Admin Panel.' ,'Admin.php' ,0)";
+            $queryNoti3 = mysqli_query($conn, $notification3SQL);
+        }
         array_push($feedbacks, "Your ticket has been sent.");
         array_push($feedbacks, "You will be redirected to your Tickets screen when you click 'OK' button.");
         //END OF FEEDBACK

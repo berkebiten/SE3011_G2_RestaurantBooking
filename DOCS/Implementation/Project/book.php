@@ -46,10 +46,9 @@ $end = $restArray['endTime'];
 $cap = $restArray['cap'];
 $shutdown = $restArray['shutdown'];
 
-if($shutdown == '1'){
+if ($shutdown == '1') {
     header('location:errorPage.php');
 }
-
 
 if (isset($_POST['booking'])) {// START OF THE INSERTION AFTER CLICKING THE BUTTON NAMES BOOKING
     //TAKING THE VARIABLES FROM THE FORM AN SESSION
@@ -93,8 +92,6 @@ if (isset($_POST['booking'])) {// START OF THE INSERTION AFTER CLICKING THE BUTT
         array_push($errors, "Starting time of the booking cannot be later than ending time.");
     }
 
-
-
     $query1 = mysqli_query($conn, "SELECT * FROM bookings WHERE restaurant_uname = '$r_username' AND date = '$date'"); // CHECKING OF THERE IS A RESERVATION AT THE TIME AND DATE CHOOSEN
     //INITIALIZING THE VARIABLES AND STARTING TO INSERTION OF THE BOOKING
     $partySize = 0;
@@ -106,9 +103,12 @@ if (isset($_POST['booking'])) {// START OF THE INSERTION AFTER CLICKING THE BUTT
     }
     $currentCap = $cap - $partySize; // INITIALIZING THE CURRENT CAPACITY OF THE RESTAURANT THAT IN BETWEEN START TIME AND END TIME OF THE BOOKING
 
-
     if ($currentCap >= $party && count($errors) == 0) {// INITIALIZING THE FEEDBACK THAT WILL BE GIVEN TO THE USER
         $query = mysqli_query($conn, "insert into bookings(customer_uname, restaurant_uname, party, start_time, end_time, fname, lname, email, phoneNo, date) VALUES('$c_username', '$r_username','$party','$startTime','$endTime','$fname','$lname','$email','$phone','$date')");
+        $notification1SQL = "insert into notification(toName,text,link,isRead) values('$r_username','A booking has been made for your restaurant. Click to go to Restaurant Panel' ,'RestaurantOwner.php' ,0)";
+        $notification2SQL = "insert into notification(toName,text,link,isRead) values('$c_username','You made a booking. Click to view Your Bookings' ,'viewMyBookings.php?varname=$c_username' ,0)";
+        $queryNoti1 = mysqli_query($conn, $notification1SQL);
+        $queryNoti2 = mysqli_query($conn, $notification2SQL);
         array_push($feedbacks, "Your booking has been completed.");
         array_push($feedbacks, "You will be redirected to Your Bookings when you click 'OK' button.");
     } else if (!($currentCap >= $party)) {// INITIALIZING THE ERROR IF CURRENT CAPACITY OF THE RESTAURANT IS NOT GREATER OR EQUAL TO THE CHOSEN PARTY SIZE

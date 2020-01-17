@@ -4,11 +4,13 @@ html{
 }
 body{
     height:100%;
-    background-size:cover;
-    background-image:url("img/homeBG.jpg")
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    background-position:top;
+    background-image:url("img/homeBG.png")
 }
 .top{
-    background-color:#b6b6b6;
+    background-color:#262626;
 }
 .top img{
     size:landscape;
@@ -75,13 +77,11 @@ body{
 }
 
 .container{
-    min-height:900px;
+    min-height:1080px;
     width:100%;
     height:auto;
-    background:#D0D2D9;
-    border-left: 2px solid #828282;
-    border-right: 2px solid #828282;
-    border-bottom : 2px solid #828282;
+    background:#F6F0ED;
+    box-shadow:0px 2px 0px 2px white;
 }
 
 #fullC{
@@ -499,6 +499,8 @@ body{
     margin-left:5px;
     margin-top:55px;
 }
+
+
 .functions header{
 
     font-weight: normal;
@@ -524,14 +526,14 @@ body{
 }
 
 #adminsearchinput {
-    background-image: url('/css/searchicon.png');
     background-position: 10px 10px;
     background-repeat: no-repeat;
     max-width: 100%;
     font-size: 16px;
     padding: 12px 20px 12px 40px;
-    border: 1px solid #ddd;
+    border: 1px solid grey;
     margin-top:5px;
+    background:white;
 }
 
 #adminSearchTable {
@@ -841,7 +843,7 @@ table a{
 
 .reviews{
     margin:auto;
-    width:80%;
+    width:100%;
     height:60%;
     overflow-y:auto;
     background-color:#DBB4B4;
@@ -850,7 +852,7 @@ table a{
 
 .reviewHeader{
     margin:auto;
-    width:80%;
+    width:100%;
     background-color:#A38383;
     text-align:center;
 }
@@ -889,7 +891,7 @@ table a{
     height:110%;
 }
 .changePassword {
-    display:inline-block;
+    
 }
 #formArea{
     display:block;
@@ -901,9 +903,11 @@ table a{
 }
 
 .formX1, .content {
+    border:1px solid black;
+    margin-left:10%;
+    min-height:600px;
     float:left;
-    margin-left:5%;
-    width: 30%;
+    width:40%;
     margin: 0px;
     padding: 20px;
     background-color:#D1D1D1;
@@ -1055,7 +1059,6 @@ table a{
 #personalInfos p, label {
     margin-top : 5%;
     font-size: 17px;
-    letter-spacing: 2px;
     word-spacing: 2px;
     color: #000000;
     font-weight: normal;
@@ -1066,9 +1069,25 @@ table a{
 }
 
 #profileButtons{
-    float:left;
-    margin-left : 5%;
-    margin-top: 15%;
+    text-align:center;
+    margin:auto;
+}
+#profileButtons a{
+    margin-top:20px;
+    box-shadow:inset 0px 1px 0px 0px #E6E6FA;
+    background:linear-gradient(to bottom, #E6E6FA 5%, #E6E6FA 100%);
+    background-color:#E6E6FA;
+    border-radius:6px;
+    border:1px solid black;
+    display:inline-block;
+    cursor:pointer;
+    color:black;
+    font-size:15px;
+    font-weight:bold;
+    padding:6px 24px;
+}
+#profileButtons a:hover{
+    text-decoration:none;
 }
 
 .stats{
@@ -1118,6 +1137,11 @@ table a{
 #userProfileTable th, #userProfileTable td {
     text-align: left;
     padding: 12px;
+}
+.centerForms{
+    width:80%;
+    margin:auto;
+    height:100px;
 }
 
 #formArea p{

@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="style.css"/>
+
 <?php include('bootstrapinclude.php') ?>
 <script src="scripts.js"></script>
 <?php
@@ -61,7 +62,7 @@ if ($count == 0) {
 }
 
 $isBanned = $restArray['isBanned'];
-if($isBanned == 1){
+if ($isBanned == 1) {
     header('location:banned.php');
 }
 //SELECTING REVIEW AND IMAGES FROM DATABASE
@@ -71,7 +72,13 @@ $restImg = mysqli_query($conn, $sqlB);
 $count2 = mysqli_num_rows($restImg);
 ?>
 
+
 <?php include('replyProcess.php'); ?>
+<?php
+if (isset($_SESSION['username'])) {
+    include('notificationCounter.php');
+}
+?>
 <html>
     <head>
         <style>
@@ -86,7 +93,7 @@ $count2 = mysqli_num_rows($restImg);
     <title>RESTAURANT</title>
 </head>
 <body>
-<div class="container" id="fullC">
+<div class="container">
     <?php if (isset($_SESSION['success'])): ?>
         <div class="top">
             <a href = "SignOut.php"><button action = "SignOut.php" id="signout">Sign Out </button></a>
@@ -100,6 +107,49 @@ $count2 = mysqli_num_rows($restImg);
                 <a href='restaurantProfile.php?varname=<?php echo $_SESSION['username'] ?>'><button id="profile" ><?php echo $_SESSION['username'] ?></button></a>
             <?php endif ?>
             <a href ="support.php"><button id ="support"> Support</button> </a>
+            <div class="dropdown">
+                <a href="notifications.php" class="notification">
+                    <i class="fa fa-bell" aria-hidden="true"></i>
+                    <?php if ($unreadCount > 0): ?>
+                        <span class = "badge"><?php echo $unreadCount;
+                        ?></span>
+                    <?php endif ?>
+                </a>
+                <div class="dropdown-content">
+                    <p style="font-weight:bold;font-size:20px;"> Notifications </p>
+                    <?php
+                    $whilecount = 1;
+                    while ($row = mysqli_fetch_array($queryUnread, MYSQLI_ASSOC)):
+                        $date_sent = $row['date_sent'];
+                        $date_sent = date("m/d/y H:m", strtotime($date_sent));
+                        $text = $row['text'];
+                        $link = $row['link'];
+                        ?>
+                        <a href="notificationRedirect.php?varname=<?php echo $row['id']; ?>">
+
+                            <div style="width:100%;" class="notificationCard">
+                                <p style="color:black;font-size:12px;"><?php echo $date_sent ?></p><p><?php echo $text; ?><p><i class="fa fa-circle" aria-hidden="true"></i>
+                            </div>
+                        </a>
+
+                        <?php $whilecount++; endwhile?>
+                    <?php
+                    while ($row = mysqli_fetch_array($queryRead, MYSQLI_ASSOC)):
+                        $text = $row['text'];
+                        $link = $row['link'];
+                        ?>
+                        <a href="notificationRedirect.php?varname=<?php echo $date_sent ?>">
+
+                            <div style="background-color:#388CF2;color:white;border-color:white;width:100%;" class="notificationCard">
+                                <p style="color:white;font-size:12px;"><?php echo $row['date_sent'] ?></p><p><?php echo $text; ?><p><i class="fa fa-check-circle" aria-hidden="true"></i>
+                            </div>
+
+                        </a>
+
+                        <?php $whilecount++; endwhile ?>
+                    <a style="font-weight:bold;" href="notifications.php">See All</a>
+                </div>
+            </div>
             <a href="index.php"><img src="img/LOGO.png" alt="RBS" style="width:150px"></a>
         </div>
     <?php endif ?>
@@ -133,9 +183,9 @@ $count2 = mysqli_num_rows($restImg);
             //END OF ADDING
             ?>
         <?php endif ?>
-        <?php if ($isAdminViewing):  ?>
-        <?php echo "<a href='banWarnForm.php?varname=$uname'><button>Ban/Warn Restaurant</button></a>" ?>
-         <?php endif ?>
+        <?php if ($isAdminViewing): ?>
+            <?php echo "<a href='banWarnForm.php?varname=$uname'><button>Ban/Warn Restaurant</button></a>" ?>
+        <?php endif ?>
         <?php if (isset($_SESSION['success']) && $isMyProfile == true): //IF THE USER IS RESTAURANT OWNER THEN SHOW EDIT PROFILE BUTTON?>
             <?php echo "<a href='editMyProfile.php?varname=$uname'><button>EditProfile</button></a>" ?>
         <?php endif ?>
@@ -158,7 +208,7 @@ $count2 = mysqli_num_rows($restImg);
         <div id="secondPart">
             <div class="slideshow-container13">
                 <?php while ($imgArr = mysqli_fetch_array($restImg, MYSQLI_ASSOC)) : ?>
-                    <div class="mySlides fade">
+                    <div class="mySlides">
                         <img class="restPics" src="restaurantImages/<?php echo $_GET['varname'] ?>/<?php echo $imgArr['name'] ?>">
 
                     </div>
@@ -221,12 +271,12 @@ $count2 = mysqli_num_rows($restImg);
                     ?>
                 </div>
                 <div class="comment">
-                    <p> <?php echo $row['customer_uname'] . ": " . $row['text']; //SHOWS THE CUSTOMER UNAME AND WRITTEN TEXT ?> </p>
+                    <p> <?php echo $row['customer_uname'] . ": " . $row['text']; //SHOWS THE CUSTOMER UNAME AND WRITTEN TEXT  ?> </p>
                 </div>
 
                 <?php if (!empty($row['reply'])): ?>
                     <div class="replyRest">
-                        <p> <?php echo $row['rest_uname'] . ": " . $row['reply']; //IF THERE IS AN ANSWER FROM RESTAURANTOWNER, SHOW RESTAURANTOWNER NAME AND ITS WRITTEN REPLY ?> </p>
+                        <p> <?php echo $row['rest_uname'] . ": " . $row['reply']; //IF THERE IS AN ANSWER FROM RESTAURANTOWNER, SHOW RESTAURANTOWNER NAME AND ITS WRITTEN REPLY  ?> </p>
                     </div>
                 <?php else: ?>
                     <div class="replyRest">
