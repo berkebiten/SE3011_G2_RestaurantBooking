@@ -1,3 +1,4 @@
+create schema rbsdb;
 use rbsdb;
 
 CREATE TABLE `user` (
@@ -103,7 +104,7 @@ CREATE TABLE ticket (
 
 CREATE TABLE `ban_warn` (
   `bwId` bigint(20) NOT NULL AUTO_INCREMENT,
-  `type` tinyint(4) NOT NULL,
+  `type` varchar(10) NOT NULL,
   `admin_uname` varchar(45) NOT NULL,
   `user_uname` varchar(45) DEFAULT NULL,
   `rest_uname` varchar(45) DEFAULT NULL,
